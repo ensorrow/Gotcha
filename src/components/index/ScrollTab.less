@@ -1,0 +1,30 @@
+@bg-color: #ccc;
+@color: #333;
+:global{
+	.m-scrollTab{
+		width: 100%;
+		overflow: auto;
+		&::-webkit-scrollbar{
+			display: none;
+		}
+		background-color: @bg-color;
+		ul{
+			width: 360px;
+			&::after{
+				content: '';
+				display: block;
+				clear: both;
+			}
+		}
+		li{
+			float: left;
+			padding: 10px 0;
+			width: 60px;
+			background-color: @bg-color;
+			text-align: center;
+			a{
+				color: @color;
+			}
+		}
+	}
+}
