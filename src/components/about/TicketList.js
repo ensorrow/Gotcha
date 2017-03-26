@@ -6,7 +6,7 @@ const MiniTicket = ({ data }) => <div className="miniTicket">
 </div>
 
 const TicketList = ({ dataArr }) => <div className="ticketList">
-	<div style={{width: dataArr.length*150+'px',overflow: 'auto'}}>{dataArr.map((item) => <MiniTicket data={item} />)}</div>
+	<div style={{width: dataArr.length*150+'px',overflow: 'auto'}}>{dataArr.map((item, index) => <MiniTicket key={index} data={item} />)}</div>
 </div>
 
 export default TicketList;

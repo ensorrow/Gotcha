@@ -6,7 +6,7 @@ import ScrollTab from '../components/index/ScrollTab';
 import IndexCard from '../components/index/Card';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
-function IndexPage() {
+function IndexPage({ dispatch }) {
 	
   return (
     <div>
@@ -16,19 +16,19 @@ function IndexPage() {
 				<Tabs>
           <Tab label="最受欢迎">
             <div>
-              <IndexCard />
-              <IndexCard />
+              <IndexCard  dispatch={dispatch}/>
+              <IndexCard dispatch={dispatch} />
             </div>
           </Tab>
           <Tab label="距离最近">
             <div>
-              <IndexCard />
+              <IndexCard dispatch={dispatch} />
             </div>
           </Tab>
           <Tab label="只看周末">
             <div>
-              <IndexCard />
-              <IndexCard />
+              <IndexCard dispatch={dispatch} />
+              <IndexCard dispatch={dispatch} />
             </div>
           </Tab>
         </Tabs>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { IndexRoute, Router, Route } from 'dva/router';
 import IndexPage from './routes/IndexPage';
+import IndexDetail from './routes/home/Detail';
 
 import Liked from "./routes/Liked.js";
 
@@ -13,6 +14,7 @@ function RouterConfig({ history }) {
     <Router history={history}>
     	<Route path="/" component={App} >
 	      <IndexRoute component={IndexPage} />
+	      <Route path="/detail" component={IndexDetail} />
 	      <Route path="/liked" component={Liked} />
 	      <Route path="/about" component={About} />
       </Route>

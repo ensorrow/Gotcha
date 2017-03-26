@@ -1,7 +1,15 @@
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import styles from './Card.less';
+import { routerRedux } from 'dva/router';
 
-const IndexCard = ({ props  } ) => <div className="m-IndexCard">
+function toDetail(dispatch, params) {
+  dispatch(routerRedux.push({
+    pathname: '/detail',
+    params
+  }));
+}
+
+const IndexCard = ({ dispatch  } ) => <div className="m-IndexCard" onClick={toDetail.bind(null, dispatch, {uid: 'testttttt'})} >
 	<Card>
 		<CardHeader 
 			title="URL Avatar"

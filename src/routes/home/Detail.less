@@ -1,0 +1,87 @@
+@navHeight: 64px;
+:global{
+	.m-detail{
+		background-color: #f2f2f2;
+		>div{
+			background-color: #fff;
+		}
+		img{
+			max-width: 100%;
+		}
+		.baseInfo{
+			padding: 20px 10px;
+			border-bottom: 1px solid #eee;
+			h1{
+				font-size: 24px;
+				color: #333;
+			}
+			h2{
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				margin: 10px 0;
+			}
+			span{
+				color: #ccc;
+				display: inline-block;
+				padding-right: 24px;
+				margin-right: 24px;
+				border-right: 1px solid #999;
+			}
+			h3{
+				font-size: 14px;
+				font-weight: normal;
+				margin: 10px 0;
+			}
+		}
+		.progress{
+			padding: 10px;
+			border-bottom: 1px solid #eee;
+			color: #999;
+			span:last-child{
+				float: right;
+				color: #ccc;
+			}
+		}
+		.activityInfo{
+			overflow: auto;
+			&::-webkit-scrollbar{
+				display: none;
+			}
+		}
+		.activityDetail{
+			padding: 10px;
+			margin: 10px 0;
+			img{
+				margin: 20px 0;
+			}
+			p{
+				font-size: 16px;
+				line-height: 1.6;
+			}
+			a{
+				display: block;
+				margin: 10px auto;
+				height: 28px;
+				line-height: 28px;
+				width: 100px;
+				border-radius: 14px;
+				border: 2px solid red;
+				color: red;
+				text-align: center;
+			}
+		}
+		.activityRecommend{
+			padding: 10px;
+			margin: 10px 0;
+		}
+	}
+}
+.topBg{
+	margin-top: -@navHeight;
+}
+.title{
+	color: #666;
+	font-size: 18px;
+	font-weight: normal;
+}
