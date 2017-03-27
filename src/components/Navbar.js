@@ -7,15 +7,6 @@ import Favorite from 'material-ui/svg-icons/action/favorite-border';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import {  } from '../components/Icons';
 
-// function filterTitle(pathname) {
-// 	let titleObj = {
-// 		'/': '主页',
-// 		'/liked': '关注',
-// 		'/about': '我的'
-// 	};
-// 	return titleObj[pathname] || '未知路径';
-// }
-
 function leftBtn(pathname, dispatch) {
 	let rootPages = ['/', '/liked', '/about'];
 	if(rootPages.toString().indexOf(pathname) > -1)

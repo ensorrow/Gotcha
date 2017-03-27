@@ -6,6 +6,13 @@ import ScrollTab from '../components/index/ScrollTab';
 import IndexCard from '../components/index/Card';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
+function renderContent(dataArr, dispatch) {
+  if(!dataArr) return null;
+  else return <div>
+    {dataArr.map((data) => <IndexCard data={data} dispatch={dispatch} />)}
+  </div>;
+}
+
 function IndexPage({ dispatch }) {
 	
   return (
@@ -14,7 +21,7 @@ function IndexPage({ dispatch }) {
 				<Slider />
 				<ScrollTab />
 				<Tabs>
-          <Tab label="最受欢迎">
+          <Tab label="最受欢迎" onActive={() => dispatch({type: 'home/getList', payload: {page:1,size: 10}})}>
             <div>
               <IndexCard  dispatch={dispatch}/>
               <IndexCard dispatch={dispatch} />

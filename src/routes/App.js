@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './App.less';
-
+import PullView from '../components/common/PullView';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Tabbar from '../components/Tabbar';
 import Navbar from '../components/Navbar';
@@ -18,6 +19,11 @@ function App({ location, children, dispatch }) {
 				<div className={styles.header}>
 					<Navbar location={location} dispatch={dispatch} />
 				</div>
+				<PullView 
+					onScrollToBottom={() => alert('pulling')}
+				>
+					
+				</PullView>
 		    <div className={styles.content}>
 					{children}
 		    </div>

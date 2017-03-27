@@ -9,7 +9,7 @@ function toDetail(dispatch, params) {
   }));
 }
 
-const IndexCard = ({ dispatch  } ) => <div className="m-IndexCard" onClick={toDetail.bind(null, dispatch, {uid: 'testttttt'})} >
+const IndexCard = ({ data, dispatch  } ) => <div className="m-IndexCard" onClick={toDetail.bind(null, dispatch, {uid: 'testttttt'})} >
 	<Card>
 		<CardHeader 
 			title="URL Avatar"

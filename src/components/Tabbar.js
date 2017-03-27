@@ -20,7 +20,9 @@ function select(dispatch, path) {
 }
 
 const Tabbar = ({ location, dispatch }) => {
-  return (
+  let rootPages = ['/', '/liked', '/about'];
+  if(rootPages.toString().indexOf(location.pathname) === -1) return null;
+  else return (
     <BottomNavigation selectedIndex={filterLocation(location.pathname)}>
       <BottomNavigationItem
         label="推荐"

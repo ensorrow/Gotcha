@@ -6,6 +6,7 @@ import AuthorCard from '../../components/index/AuthorCard';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
+import FlatButton from 'material-ui/FlatButton';
 
 const ActivityCard = () => <div style={{margin: '10px 0'}} className="m-miniCard">
 	<div className="imgWrapper">
@@ -54,6 +55,14 @@ function IndexDetail() {
 			<ActivityCard />
 			<ActivityCard />
 			<ActivityCard />
+		</div>
+		<div className="fixedBar">
+			<span>报名中</span>
+			<FlatButton 
+				label="报名（￥25）"
+				backgroundColor="red"
+				style={{float: 'right',right: '20px'}}
+			/>
 		</div>
 	</div>
 }
