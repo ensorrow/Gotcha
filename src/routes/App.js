@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './App.less';
-import PullView from '../components/common/PullView';
+import PullViewWrap from '../components/common/PullViewWrap';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Tabbar from '../components/Tabbar';
@@ -19,14 +19,14 @@ function App({ location, children, dispatch }) {
 				<div className={styles.header}>
 					<Navbar location={location} dispatch={dispatch} />
 				</div>
-				<PullView 
-					onScrollToBottom={() => alert('pulling')}
+				<PullViewWrap
+					statusDivStyleClass="pullWrap"
+					onPullEnd={() => dispatch({type: 'home/getList'})}
 				>
-					
-				</PullView>
-		    <div className={styles.content}>
-					{children}
-		    </div>
+			    <div className={styles.content}>
+						{children}
+			    </div>
+		    </PullViewWrap>
 		    <div className={styles.footer}>
 					<Tabbar location={location} dispatch={dispatch} />
 		    </div>
@@ -36,7 +36,9 @@ function App({ location, children, dispatch }) {
 }
 
 function mapStateToProps() {
-  return {};
+  return {
+  	
+  };
 }
 
 export default connect(mapStateToProps)(App);

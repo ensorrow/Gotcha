@@ -1,7 +1,4 @@
-// https://github.com/JoV5/react-cnode/blob/master/src/components/PullView.js
 import React, {PureComponent, PropTypes} from 'react';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
-import styles from './PullView.less';
 
 export default class PullView extends PureComponent {
 
@@ -230,22 +227,9 @@ export default class PullView extends PureComponent {
     return (
       <div
         style={{
-          transform: `translateY(${pulledY}${unit})`,
-          position: 'relative',
-          zIndex: 999
+          transform: `translateY(${pulledY}${unit})`
         }}
       >
-        <RefreshIndicator
-          percentage={pulledY*1.2%100}
-          size={50}
-          left={175}
-          top={64}
-          color="red" // Overridden by percentage={100}
-          status={pulledY>0?"ready":"hide"}
-          style={{
-            display: 'inline-block'
-          }}
-        />
         {children}
       </div>
     )
