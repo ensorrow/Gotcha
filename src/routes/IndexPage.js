@@ -9,11 +9,11 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 function renderContent(dataArr, dispatch) {
   if(!dataArr) return null;
   else return <div>
-    {dataArr.map((data) => <IndexCard data={data} dispatch={dispatch} />)}
+    {dataArr.map((data) => <IndexCard data={data} />)}
   </div>;
 }
 
-function IndexPage({ dispatch, home }) {
+function IndexPage({ home, getFavi }) {
 	
   return (
     <div>
@@ -21,22 +21,22 @@ function IndexPage({ dispatch, home }) {
 				<Slider />
 				<ScrollTab />
 				<Tabs>
-          <Tab label="最受欢迎" onActive={() => dispatch({type: 'home/getList', payload: {page:1,size: 10}})}>
+          <Tab label="最受欢迎" onActive={getFavi}>
             <div>
-              <IndexCard dispatch={dispatch} />
-              <IndexCard dispatch={dispatch} />
-              <IndexCard dispatch={dispatch} />
+              <IndexCard />
+              <IndexCard />
+              <IndexCard />
             </div>
           </Tab>
           <Tab label="距离最近">
             <div>
-              {home.dataList.nearest.map((item) => <IndexCard data={item} dispatch={dispatch} />)}
+              {home.dataList.nearest.map((item) => <IndexCard data={item} />)}
             </div>
           </Tab>
           <Tab label="只看周末">
             <div>
-              <IndexCard dispatch={dispatch} />
-              <IndexCard dispatch={dispatch} />
+              <IndexCard />
+              <IndexCard />
             </div>
           </Tab>
         </Tabs>
@@ -50,5 +50,10 @@ function mapStateToProps(state) {
     home: state.home
   };
 }
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    getFavi: () => dispatch({type: 'home/getList', payload: {page:1,size: 10}})
+  }
+}
 
-export default connect(mapStateToProps)(IndexPage);
+export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);

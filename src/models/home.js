@@ -18,14 +18,14 @@ export default {
     },
     refreshAll(state) {
       return {
-
+        ...state
       }
     }
   },
   effects: {
   	*getList({payload: params}, {call, put}) {
       const result = yield call(homeService.getEvents, params);
-      yield put(refreshAll, result);
+      yield put({type: 'refreshAll', payload: result});
     }
   }
 };

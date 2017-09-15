@@ -14,6 +14,7 @@ function checkStatus(response) {
   throw error;
 }
 
+const prefix = 'http://112.74.169.211:9090/api';
 /**
  * Requests a URL, returning a promise.
  *

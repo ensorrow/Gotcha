@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './App.less';
-import PullViewWrap from '../components/common/PullViewWrap';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Tabbar from '../components/Tabbar';
@@ -19,14 +18,9 @@ function App({ location, children, dispatch }) {
 				<div className={styles.header}>
 					<Navbar location={location} dispatch={dispatch} />
 				</div>
-				<PullViewWrap
-					statusDivStyleClass="pullWrap"
-					onPullEnd={() => dispatch({type: 'home/getList'})}
-				>
-			    <div className={styles.content}>
-						{children}
-			    </div>
-		    </PullViewWrap>
+				<div className={styles.content}>
+					{children}
+				</div>
 		    <div className={styles.footer}>
 					<Tabbar location={location} dispatch={dispatch} />
 		    </div>
