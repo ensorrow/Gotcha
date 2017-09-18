@@ -8,7 +8,7 @@ import SearchIcon from 'material-ui/svg-icons/action/search';
 import {  } from '../components/Icons';
 
 function leftBtn(pathname, dispatch) {
-	let rootPages = ['/', '/liked', '/about'];
+	const rootPages = ['/', '/liked', '/about'];
 	if(rootPages.toString().indexOf(pathname) > -1)
 		return null;
 	else
@@ -21,13 +21,14 @@ function rightBtn(pathname, dispatch) {
 }
 
 const Navbar = ({ location, dispatch }) => {
+  const transPages = ['/detail', '/author', '/user'];
   return (
     <AppBar
       iconElementLeft={leftBtn(location.pathname, dispatch)}
       iconElementRight={rightBtn(location.pathname, dispatch)}
       iconStyleLeft={{alignSelf: 'center',marginTop: 0}}
       iconStyleRight={{alignSelf: 'center',marginTop: 0}}
-      style={location.pathname === '/detail' ? {backgroundColor: 'rgba(0,0,0,0)',boxShadow: 0} : null}
+      style={transPages.indexOf(location.pathname) !== -1 ? {backgroundColor: 'rgba(0,0,0,0)',boxShadow: 'none'} : null}
     />
   );
 };

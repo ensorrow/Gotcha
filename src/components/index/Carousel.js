@@ -4,15 +4,21 @@ import styles from './Carousel.less';
 const settings = {
 	dots: true,
 	slidesToShow: 1,
-	arrows: false,
 	dotsClass: 'dots',
 	autoplay: true
 };
 
-const Carousel = ({ props = settings } ) => <Slider {...props}>
-	  <div><img src='http://placekitten.com/g/400/200' /></div>
-    <div><img src='http://placekitten.com/g/400/200' /></div>
-    <div><img src='http://placekitten.com/g/400/200' /></div>
+const defaultImgs = [
+	'http://placekitten.com/g/400/200',
+	'http://placekitten.com/g/400/200',
+	'http://placekitten.com/g/400/200'
+];
+
+const Carousel = ({ imgs } ) => {
+	imgs = imgs.length>0 ? imgs : defaultImgs;
+	return <Slider {...settings} className="carousel">
+		{imgs.map((src, index) => <div key={index}><img src={src} /></div>)}
 	</Slider>;
+}
 
 export default Carousel;

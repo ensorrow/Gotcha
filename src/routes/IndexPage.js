@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.less';
 import Slider from '../components/index/Carousel';
@@ -6,19 +6,12 @@ import ScrollTab from '../components/index/ScrollTab';
 import IndexCard from '../components/index/Card';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
-function renderContent(dataArr, dispatch) {
-  if(!dataArr) return null;
-  else return <div>
-    {dataArr.map((data) => <IndexCard data={data} />)}
-  </div>;
-}
-
-function IndexPage({ home, getFavi }) {
+function IndexPage({ home, getFavi, getNear, getWeek }) {
 	
   return (
     <div>
       <div className={styles.top}>
-				<Slider />
+				<Slider imgs={home.carousel} />
 				<ScrollTab />
 				<Tabs>
           <Tab label="最受欢迎" onActive={getFavi}>
@@ -28,12 +21,12 @@ function IndexPage({ home, getFavi }) {
               <IndexCard />
             </div>
           </Tab>
-          <Tab label="距离最近">
+          <Tab label="距离最近" onActive={getNear}>
             <div>
-              {home.dataList.nearest.map((item) => <IndexCard data={item} />)}
+              {home.nearest.dataList.map((item) => <IndexCard data={item} />)}
             </div>
           </Tab>
-          <Tab label="只看周末">
+          <Tab label="只看周末" onActive={getWeek}>
             <div>
               <IndexCard />
               <IndexCard />
@@ -50,9 +43,11 @@ function mapStateToProps(state) {
     home: state.home
   };
 }
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   return {
-    getFavi: () => dispatch({type: 'home/getList', payload: {page:1,size: 10}})
+    getFavi: () => dispatch({type: 'home/getFavi'}),
+    getNear: () => dispatch({type: 'home/getNear'}),
+    getWeek: () => dispatch({type: 'home/getWeek'}),
   }
 }
 

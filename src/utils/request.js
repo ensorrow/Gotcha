@@ -14,7 +14,7 @@ function checkStatus(response) {
   throw error;
 }
 
-const prefix = 'http://112.74.169.211:9090/api';
+const prefix = 'http://112.74.190.30:8800/api';
 /**
  * Requests a URL, returning a promise.
  *
@@ -23,9 +23,9 @@ const prefix = 'http://112.74.169.211:9090/api';
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  return fetch(url, options)
+  return fetch(prefix+url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
+    .then(data => data)
     .catch(err => ({ err }));
 }

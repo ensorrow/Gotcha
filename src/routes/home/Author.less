@@ -1,0 +1,51 @@
+@import "../Variable";
+:global{
+  .u-more{
+    display: block;
+    margin: 10px auto;
+    height: 28px;
+    line-height: 28px;
+    width: 100px;
+    border-radius: 14px;
+    border: 2px solid red;
+    color: red;
+    text-align: center;
+  }
+  .m-author{
+    >div{
+			background-color: #fff;
+    }
+    dl{
+      background-color: #fff;
+      display: flex;
+      >div{
+        flex: 1;
+        text-align: center;
+      }
+    }
+    .profile{
+      background: url('../../assets/test.png') no-repeat;
+      background-size: 100%;
+      padding: 40px 0;
+      text-align: center;
+      margin-top: -@navHeight;
+      h1{
+        font-size: @fontBase;
+      }
+      h2{
+        font-size: @fontSmall;
+      }
+    }
+    .intro{
+			padding: 10px;
+			margin: 10px 0;
+			img{
+				margin: 20px 0;
+			}
+			p{
+				font-size: 16px;
+				line-height: 1.6;
+			}
+		}
+  }
+}

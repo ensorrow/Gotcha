@@ -46,7 +46,7 @@ const Content = ({ isAuthor }) => {
 	}
 }
 
-const LikedCard = ({ isAuthor=false  } ) => <div className="m-likedCard">
+const LikedCard = ({ isAuthor=false, onClick  } ) => <div className="m-likedCard" onClick={onClick || null} >
 	<Card>
 		<CardHeader 
 			title={

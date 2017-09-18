@@ -1,12 +1,23 @@
-@navHeight: 64px;
+@import "../Variable";
 :global{
+	.u-title{
+		color: #666;
+		font-size: 18px;
+		font-weight: normal;
+	}
+	.u-card{
+		padding: 10px;
+		margin: 10px 0;
+	}
+	.topBg{
+		margin-top: -@navHeight;
+	}
+	img{
+		max-width: 100%;
+	}
 	.m-detail{
-		background-color: #f2f2f2;
 		>div{
 			background-color: #fff;
-		}
-		img{
-			max-width: 100%;
 		}
 		.baseInfo{
 			padding: 20px 10px;
@@ -87,12 +98,4 @@
 			}
 		}
 	}
-}
-.topBg{
-	margin-top: -@navHeight;
-}
-.title{
-	color: #666;
-	font-size: 18px;
-	font-weight: normal;
 }
