@@ -4,12 +4,12 @@ import Avatar from 'material-ui/Avatar';
 import styles from './Card.less';
 
 const Title = ({ isAuthor }) => <h1>
-	<a href="#">李莉莉</a>  {isAuthor ? '发布了活动' : '参与了活动'}
+	<a>李莉莉</a>  {isAuthor ? '发布了活动' : '参与了活动'}
 </h1>
 
-const Content = ({ isAuthor }) => {
+const Content = ({ isAuthor, onContentClick }) => {
 	if(isAuthor) {
-		return <Paper style={{margin: '10px'}}>
+		return <Paper style={{margin: '10px'}} onClick={onContentClick} >
 			<CardMedia>
 				<img src={require('../../assets/test.png')} />
 			</CardMedia>
@@ -29,7 +29,7 @@ const Content = ({ isAuthor }) => {
 			</CardText>
 		</Paper>;
 	} else {
-		return <Paper style={{margin: '10px'}} className="m-miniCard">
+		return <Paper style={{margin: '10px'}} onClick={onContentClick} className="m-miniCard">
 			<div className="imgWrapper">
 				<img src={require('../../assets/test.png')} />
 			</div>
@@ -46,7 +46,7 @@ const Content = ({ isAuthor }) => {
 	}
 }
 
-const LikedCard = ({ isAuthor=false, onClick  } ) => <div className="m-likedCard" onClick={onClick || null} >
+const LikedCard = ({ isAuthor=false, onHeaderClick, onContentClick  } ) => <div className="m-likedCard" >
 	<Card>
 		<CardHeader 
 			title={
@@ -56,9 +56,10 @@ const LikedCard = ({ isAuthor=false, onClick  } ) => <div className="m-likedCard
       avatar={
       	<Avatar src="http://lvzheyang.top/images/avatar.jpg" />
       }
+			onClick={onHeaderClick || null}
 		>
 		</CardHeader>
-		<Content isAuthor={isAuthor} />
+		<Content isAuthor={isAuthor} onContentClick={onContentClick} />
 	</Card>
 </div>
 
