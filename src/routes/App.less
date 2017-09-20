@@ -11,6 +11,9 @@
 		line-height: 64px;
 		text-align: center;
 	}
+	a{
+		color: @text-c;
+	}
 }
 .header{
 	position: fixed;
@@ -21,7 +24,9 @@
 .content{
 	padding-top: 64px;
 	padding-bottom: 56px;
-	background-color: @bgcolor;	
+	background-color: @bgcolor;
+	min-height: 100%;
+	box-sizing: border-box;
 }
 .footer{
 	position: fixed;

@@ -6,6 +6,7 @@ import {List, ListItem} from 'material-ui/List';
 import { AboutIcon } from '../components/Icons';
 import TicketList from '../components/about/TicketList';
 import Divider from 'material-ui/Divider';
+import {Link} from 'dva/router';
 
 const tmpData = [
 	{title: '哈哈的撒',date: '2016-4-5'},
@@ -18,7 +19,7 @@ function About({ dispatch, about }) {
     <div>
       <NameCard isDetail={about.isDetail} dispatch={dispatch} />
 			<List>
-	      <ListItem primaryText="我的入场券" leftIcon={<AboutIcon />} />
+	      <ListItem primaryText="我的入场券" leftIcon={<AboutIcon />} rightIconButton={<Link className="list-right" to="/about/tickets">查看全部</Link>} />
 	      <Divider inset={true} />
 	      <TicketList dataArr={tmpData} />
 	      <ListItem primaryText="我的收藏" leftIcon={<AboutIcon />} />

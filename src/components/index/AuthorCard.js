@@ -1,8 +1,7 @@
 import styles from './AuthorCard.less';
 import Avatar from 'material-ui/Avatar';
-import FlatButton from 'material-ui/FlatButton';
-import ArrowRight from 'material-ui/svg-icons/navigation/arrow-forward';
 import { Card } from 'material-ui/Card';
+import LikeButton from '../common/LikeButton';
 
 const AuthorCard = ({   } ) => <div className="authorCard">
 	<div className="title">活动主</div>
@@ -17,7 +16,7 @@ const AuthorCard = ({   } ) => <div className="authorCard">
 				<div><dd>1990</dd><dt>活动数</dt></div>
 				<div><dd>19900</dd><dt>关注数</dt></div>
 			</dl>
-			<FlatButton label="关注" icon={<ArrowRight />} />
+			<LikeButton />
 		</div>
 	</div>
 </div>

@@ -5,7 +5,8 @@ import IconButton from 'material-ui/IconButton';
 import NavigationLeft from 'material-ui/svg-icons/navigation/arrow-back';
 import Favorite from 'material-ui/svg-icons/action/favorite-border';
 import SearchIcon from 'material-ui/svg-icons/action/search';
-import {  } from '../components/Icons';
+import IconAdd from 'material-ui/svg-icons/content/add-circle-outline';
+import './Navbar.less';
 import {Link} from 'dva/router';
 
 function leftBtn(pathname, dispatch) {
@@ -16,21 +17,23 @@ function leftBtn(pathname, dispatch) {
 		return <IconButton onTouchTap={() => dispatch(routerRedux.go(-1))}><NavigationLeft /></IconButton>;
 }
 
-const titleOrg = <span><span>推荐主办方</span><span className="txt-b" style={{marginLeft: '32px'}}><Link to="/recommend/user">推荐用户</Link></span></span>
-const titleUser = <span><span className="txt-b"><Link to="/recommend/org">推荐主办方</Link></span><span style={{marginLeft: '32px'}}>推荐用户</span></span>
+const titleOrg = <span className="titleWra"><span>推荐主办方</span><span style={{marginLeft: '32px'}}><Link to="/recommend/user">推荐用户</Link></span></span>
+const titleUser = <span className="titleWra"><span><Link to="/recommend/org">推荐主办方</Link></span><span style={{marginLeft: '32px'}}>推荐用户</span></span>
 function titleNode(pathname, title) {
   if(title) return <h1>{title}</h1>
   var titles = {
     '/': null,
     '/search': null,
     '/recommend/user': titleUser,
-    '/recommend/org': titleOrg
+    '/recommend/org': titleOrg,
+    '/about/tickets': '我的入场券'
   }
   return titles[pathname];
 }
 function rightBtn(pathname, dispatch) {
 	if(pathname === '/detail') return <IconButton><Favorite /></IconButton>;
-	if(pathname === '/' || pathname === '/liked') return <IconButton><SearchIcon /></IconButton>;
+  if(pathname === '/' || pathname === '/liked') return <IconButton><SearchIcon /></IconButton>;
+  if(pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white"/></Link>
 }
 
 const Navbar = ({ location, dispatch }) => {
@@ -42,7 +45,9 @@ const Navbar = ({ location, dispatch }) => {
       iconStyleLeft={{alignSelf: 'center',marginTop: 0}}
       iconStyleRight={{alignSelf: 'center',marginTop: 0}}
       title={titleNode(location.pathname)}
+      titleStyle={{fontSize: '16px'}}
       style={transPages.indexOf(location.pathname) !== -1 ? {backgroundColor: 'rgba(0,0,0,0)',boxShadow: 'none'} : null}
+      className="m-navbar"
     />
   );
 };
