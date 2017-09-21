@@ -1,5 +1,6 @@
 import Ticket from '../../components/about/Ticket';
 import './Tickets.less';
+import { connect } from 'dva';
 
 const tmptics = [
   {
@@ -27,8 +28,13 @@ const tmptics = [
     }
   },
 ];
-const Tickets = () => <div className="m-tickets">
-  {tmptics.map((ticket, index) => <Ticket key={index} vm={ticket} />)}
+const Tickets = ({ dispatch }) => <div className="m-tickets">
+  {tmptics.map((ticket, index) => <Ticket key={index} vm={ticket} dispatch={dispatch}/>)}
 </div>
 
-export default Tickets;
+function mapStateToProps(state) {
+  return {
+
+  }
+}
+export default connect(mapStateToProps)(Tickets);

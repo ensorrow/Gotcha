@@ -5,6 +5,8 @@ import IndexDetail from './routes/home/Detail';
 import Author from './routes/home/Author';
 import User from './routes/about/User';
 import Tickets from './routes/about/Tickets';
+import AddTicket from './routes/about/AddTicket';
+import TicketDetail from './routes/about/TicketDetail';
 import FullList from './routes/home/FullList';
 import RecommendList from './routes/liked/RecommendList';
 
@@ -25,6 +27,8 @@ function RouterConfig({ history }) {
 	      <Route path="/liked" component={Liked} />
 	      <Route path="/about" component={About} />
 	      <Route path="/about/tickets" component={Tickets} />
+	      <Route path="/about/addticket" component={AddTicket} />
+	      <Route path="/about/ticketdetail" component={TicketDetail} />
 	      <Route path="/user" component={User}/>
 				<Route path="/recommend/:type" component={RecommendList}/>
       </Route>
