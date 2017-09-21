@@ -8,6 +8,7 @@ import SearchIcon from 'material-ui/svg-icons/action/search';
 import IconAdd from 'material-ui/svg-icons/content/add-circle-outline';
 import './Navbar.less';
 import {Link} from 'dva/router';
+import TextField from 'material-ui/TextField';
 
 function leftBtn(pathname, dispatch) {
 	const rootPages = ['/', '/liked', '/about'];
@@ -19,20 +20,23 @@ function leftBtn(pathname, dispatch) {
 
 const titleOrg = <span className="titleWra"><span>推荐主办方</span><span style={{marginLeft: '32px'}}><Link to="/recommend/user">推荐用户</Link></span></span>
 const titleUser = <span className="titleWra"><span><Link to="/recommend/org">推荐主办方</Link></span><span style={{marginLeft: '32px'}}>推荐用户</span></span>
+const titleInput = <TextField hintText="输入搜索内容" />
+
 function titleNode(pathname, title) {
   if(title) return <h1>{title}</h1>
   var titles = {
     '/': null,
-    '/search': null,
+    '/search': titleInput,
     '/recommend/user': titleUser,
     '/recommend/org': titleOrg,
-    '/about/tickets': '我的入场券'
+    '/about/tickets': '我的入场券',
   }
   return titles[pathname];
 }
 function rightBtn(pathname, dispatch) {
 	if(pathname === '/detail') return <IconButton><Favorite /></IconButton>;
-  if(pathname === '/' || pathname === '/liked') return <IconButton><SearchIcon /></IconButton>;
+  if(pathname === '/' || pathname === '/liked') return <IconButton onClick={() => dispatch(routerRedux.push({pathname: '/search'}))} ><SearchIcon /></IconButton>;
+  if(pathname === '/search') return <IconButton ><SearchIcon /></IconButton>;
   if(pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white"/></Link>
 }
 

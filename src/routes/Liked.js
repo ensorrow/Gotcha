@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './Liked.less';
-import LikeCard from '../components/liked/Card';
+import { LikedCard } from '../components/liked/Card';
 import Recommend from '../components/liked/Recommend';
 import { routerRedux } from 'dva/router';
 
@@ -16,8 +16,8 @@ function Liked({ toUser, toAuthor, toDetail }) {
     <div className={styles.normal}>
       <EmptyFav />
       <Recommend title="推荐主办方" vm={tmpAuthors} type="org"/>
-      <LikeCard onHeaderClick={toUser} onContentClick={toDetail} />
-      <LikeCard onHeaderClick={toAuthor} onContentClick={toDetail} isAuthor />
+      <LikedCard onHeaderClick={toUser} onContentClick={toDetail} />
+      <LikedCard onHeaderClick={toAuthor} onContentClick={toDetail} isAuthor />
     </div>
   );
 }

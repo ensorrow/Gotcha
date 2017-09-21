@@ -7,7 +7,7 @@ const Title = ({ isAuthor }) => <h1>
 	<a>李莉莉</a>  {isAuthor ? '发布了活动' : '参与了活动'}
 </h1>
 
-const Content = ({ isAuthor, onContentClick }) => {
+const ContentCard = ({ isAuthor, onContentClick }) => {
 	if(isAuthor) {
 		return <Paper style={{margin: '10px'}} onClick={onContentClick} >
 			<CardMedia>
@@ -59,8 +59,11 @@ const LikedCard = ({ isAuthor=false, onHeaderClick, onContentClick  } ) => <div 
 			onClick={onHeaderClick || null}
 		>
 		</CardHeader>
-		<Content isAuthor={isAuthor} onContentClick={onContentClick} />
+		<ContentCard isAuthor={isAuthor} onContentClick={onContentClick} />
 	</Card>
 </div>
 
-export default LikedCard;
+export default {
+	LikedCard,
+	ContentCard
+};
