@@ -23,7 +23,7 @@ const prefix = 'http://112.74.190.30:8800/api';
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  return fetch(prefix+url, options)
+  return fetch(prefix + url, options)
     .then(checkStatus)
     .then(parseJSON)
     .then(data => data)

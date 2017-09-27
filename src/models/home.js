@@ -10,112 +10,115 @@ export default {
     favorite: {
       page: 1,
       totalPage: 1,
-      dataList: []
+      dataList: [],
     },
     nearest: {
-      dataList: []
+      dataList: [],
     },
     weekend: {
       page: 1,
       totalPage: 1,
-      dataList: []
-    }
+      dataList: [],
+    },
   },
   reducers: {
-    updateFavi(state, {payload: {meta, data}}) {
-      return {...state, favorite: {
-        page: state.favorite.page+1,
-        totalPage: meta.pagination.total_pages,
-        dataList: data,
-        activeTab: 0
-      }};
+    updateFavi(state, { payload: { meta, data } }) {
+      return { ...state,
+        favorite: {
+          page: state.favorite.page + 1,
+          totalPage: meta.pagination.total_pages,
+          dataList: data,
+          activeTab: 0,
+        } };
     },
-    updateNear(state, {payload: {data}}) {
-      return {...state, nearest: {
-        dataList: data,
-        activeTab: 1
-      }};
+    updateNear(state, { payload: { data } }) {
+      return { ...state,
+        nearest: {
+          dataList: data,
+          activeTab: 1,
+        } };
     },
-    updateWeek(state, {payload: {meta, data}}) {
-      return {...state, weekend: {
-        page: state.weekend.page+1,
-        totalPage: meta.pagination.total_pages,
-        dataList: data,
-        activeTab: 2
-      }};
+    updateWeek(state, { payload: { meta, data } }) {
+      return { ...state,
+        weekend: {
+          page: state.weekend.page + 1,
+          totalPage: meta.pagination.total_pages,
+          dataList: data,
+          activeTab: 2,
+        } };
     },
-    updateCarousel(state, {payload: {data}}) {
-      return {...state, carousel: data};
+    updateCarousel(state, { payload: { data } }) {
+      return { ...state, carousel: data };
     },
-    updateTags(state, {payload: {tags}}) {
-      return {...state, tags };
+    updateTags(state, { payload: { tags } }) {
+      return { ...state, tags };
     },
-    updateActiveTag(state, {payload: {tag}}){
-      return {...state, activeTag: tag};
+    updateActiveTag(state, { payload: { tag } }) {
+      return { ...state, activeTag: tag };
     },
-    updateActiveTab(state, {payload: {tab}}){
-      return {...state, activeTab: tab};
+    updateActiveTab(state, { payload: { tab } }) {
+      return { ...state, activeTab: tab };
     },
-    
+
   },
   effects: {
-    *getTags({}, {call, put}) {
+    *getTags({}, { call, put }) {
       const result = yield call(homeService.getTags);
-      yield put({type: 'updateTags', payload: result});
+      yield put({ type: 'updateTags', payload: result });
     },
-    *getCarousels({}, {call, put}) {
+    *getCarousels({}, { call, put }) {
       const result = yield call(homeService.getCarousels);
-      yield put({type: 'updateCarousel', payload: result});
+      yield put({ type: 'updateCarousel', payload: result });
     },
-  	*getFavi({payload = {}}, {call, put, select}) {
+  	*getFavi({ payload = {} }, { call, put, select }) {
+    const activeTag = yield select(state => state.home.activeTag);
+    if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
+    yield put({ type: 'updateActiveTab', payload: { tab: 0 } });
+    const result = yield call(homeService.getEvents, payload);
+    yield put({ type: 'updateFavi', payload: result });
+  },
+    *getNear({ payload = {} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
-      if(activeTag!=='全部') Object.assign(payload, {tag_name: activeTag});  
-      yield put({type: 'updateActiveTab', payload: {tab: 0}});
-      const result = yield call(homeService.getEvents, payload);
-      yield put({type: 'updateFavi', payload: result});
-    },
-    *getNear({payload = {}}, {call, put, select}) {
-      const activeTag = yield select(state => state.home.activeTag);
-      if(activeTag!=='全部') Object.assign(payload, {tag_name: activeTag});  
-      yield put({type: 'updateActiveTab', payload: {tab: 1}});
+      if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
+      yield put({ type: 'updateActiveTab', payload: { tab: 1 } });
       const result = yield call(homeService.getNearbyEvents, payload);
-      yield put({type: 'updateNear', payload: result});
+      yield put({ type: 'updateNear', payload: result });
     },
-    *getWeek({payload = {}}, {call, put, select}) {
+    *getWeek({ payload = {} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
-      if(activeTag!=='全部') Object.assign(payload, {tag_name: activeTag});  
-      yield put({type: 'updateActiveTab', payload: {tab: 2}});
+      if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
+      yield put({ type: 'updateActiveTab', payload: { tab: 2 } });
       const result = yield call(homeService.getWeekendEvents, payload);
-      yield put({type: 'updateWeek', payload: result});
+      yield put({ type: 'updateWeek', payload: result });
     },
-    *getByTag({payload: {tag}}, {call, put, select}) {
+    *getByTag({ payload: { tag } }, { call, put, select }) {
       const activeTab = yield select(state => state.home.activeTab);
-      yield put({type: 'updateActiveTag', payload: {tag}});
-      switch(activeTab){
+      yield put({ type: 'updateActiveTag', payload: { tag } });
+      switch (activeTab) {
         case 0:
-          yield put({type: 'getFavi'});
+          yield put({ type: 'getFavi' });
           break;
         case 1:
-          yield put({type: 'getNear'});
+          yield put({ type: 'getNear' });
           break;
         case 2:
-          yield put({type: 'getWeek'});
+          yield put({ type: 'getWeek' });
           break;
         default:
-          yield put({type: 'getFavi'});
+          yield put({ type: 'getFavi' });
       }
     },
-    
+
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      history.listen(({pathname, query}) => {
-        if(pathname === '/') {
+      history.listen(({ pathname, query }) => {
+        if (pathname === '/') {
           dispatch({ type: 'getTags' });
           // dispatch({ type: 'getCarousels' });
           dispatch({ type: 'getFavi' });
         }
       });
-    }
-  }
+    },
+  },
 };

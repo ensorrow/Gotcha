@@ -6,11 +6,11 @@ const tmpdetail = {
   event: {
     title: '大唐芙蓉园',
     start_date: 1498104000000,
-    end_date: 1498106000000
-  }
-}
+    end_date: 1498106000000,
+  },
+};
 const TicketDetail = () => <div className="m-ticketDetail">
-  <Ticket lg vm={tmpdetail}/>
-</div>
+  <Ticket lg vm={tmpdetail} />
+</div>;
 
 export default TicketDetail;

@@ -11,28 +11,28 @@ import FullList from './routes/home/FullList';
 import Search from './routes/home/Search';
 import RecommendList from './routes/liked/RecommendList';
 
-import Liked from "./routes/Liked.js";
+import Liked from './routes/Liked.js';
 
-import About from "./routes/About.js";
+import About from './routes/About.js';
 
-import App from "./routes/App.js";
+import App from './routes/App.js';
 
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
-    	<Route path="/" component={App} >
-	      <IndexRoute component={IndexPage} />
-	      <Route path="/detail" component={IndexDetail} />
-	      <Route path="/search" component={Search} />
-	      <Route path="/author" component={Author}/>
-				<Route path="/author/activities" component={FullList}/>
-	      <Route path="/liked" component={Liked} />
-	      <Route path="/about" component={About} />
-	      <Route path="/about/tickets" component={Tickets} />
-	      <Route path="/about/addticket" component={AddTicket} />
-	      <Route path="/about/ticketdetail" component={TicketDetail} />
-	      <Route path="/user" component={User}/>
-				<Route path="/recommend/:type" component={RecommendList}/>
+      <Route path="/" component={App} >
+        <IndexRoute component={IndexPage} />
+        <Route path="/detail" component={IndexDetail} />
+        <Route path="/search" component={Search} />
+        <Route path="/author" component={Author} />
+        <Route path="/author/activities" component={FullList} />
+        <Route path="/liked" component={Liked} />
+        <Route path="/about" component={About} />
+        <Route path="/about/tickets" component={Tickets} />
+        <Route path="/about/addticket" component={AddTicket} />
+        <Route path="/about/ticketdetail" component={TicketDetail} />
+        <Route path="/user" component={User} />
+        <Route path="/recommend/:type" component={RecommendList} />
       </Route>
     </Router>
   );

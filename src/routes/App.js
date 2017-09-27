@@ -14,24 +14,24 @@ injectTapEventPlugin();
 function App({ location, children, dispatch, title }) {
   return (
     <MuiThemeProvider>
-    	<div>
-				<div className={styles.header}>
-					<Navbar location={location} dispatch={dispatch} title={title} />
-				</div>
-				<div className={styles.content}>
-					{children}
-				</div>
-		    <div className={styles.footer}>
-					<Tabbar location={location} dispatch={dispatch} />
-		    </div>
-	    </div>
-	  </MuiThemeProvider>
+      <div>
+        <div className={styles.header}>
+          <Navbar location={location} dispatch={dispatch} title={title} />
+        </div>
+        <div className={styles.content}>
+          {children}
+        </div>
+        <div className={styles.footer}>
+          <Tabbar location={location} dispatch={dispatch} />
+        </div>
+      </div>
+    </MuiThemeProvider>
   );
 }
 
 function mapStateToProps(state) {
   return {
-  	title: state.app.title
+  	title: state.app.title,
   };
 }
 

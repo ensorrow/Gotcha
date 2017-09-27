@@ -3,17 +3,17 @@
 export default {
   namespace: 'about',
   state: {
-  	isDetail: false
+  	isDetail: false,
   },
   reducers: {
     toggleAll(state) {
       return {
         ...state,
-        isDetail: !state.isDetail
-      }
+        isDetail: !state.isDetail,
+      };
     },
   },
   effects: {
-  	
-  }
+
+  },
 };
