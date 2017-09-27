@@ -1,57 +1,36 @@
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import styles from './Card.less';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
+import Avatar from 'material-ui/Avatar';
+import { routerRedux, Link } from 'dva/router';
 
-const IndexCard = ({ data, dispatch, toDetail, toAuthor  } ) => <div className="m-IndexCard" >
+const IndexCard = ({ vm }) => <div className="m-IndexCard" >
 	<Card>
 		<CardHeader 
-			title="URL Avatar"
-      subtitle="Subtitle"
-      avatar="http://lvzheyang.top/images/avatar.jpg"
-			onClick={toAuthor}
-		>
-			<h2>
-				<span>浏览：230</span>
-				<span>收藏：10</span>
-			</h2>
+			title={vm.organizer.name}
+      		avatar={<Link to={`/detail?id=${vm.id}`}> <Avatar src={vm.organizer.avatar}/> </Link>} >
+				<h2>
+					<span>浏览：{vm.view_count}</span>
+					<span>收藏：{vm.collectors_count}</span>
+				</h2>
 		</CardHeader>
-		<div onClick={toDetail} >
+		<Link to={`/detail?id=${vm.id}`} >
 			<CardTitle 
-				title="杨静文个人画展"
+				title={vm.title}
 			/>
 			<CardMedia>
-				<img src={require('../../assets/test.png')} />
+				<img src={vm.image_path} />
 			</CardMedia>
 			<CardText>
 				<h3>
-					<span>2015/12/15</span>
-					<span>周五</span>
-					<span>3:20am</span>
+					{vm.start_date}
 				</h3>
 				<h4>
-					13.25
+					{vm.price}
 				</h4>
 			</CardText>
-		</div>
+		</Link>
 	</Card>
 </div>
 
-export default connect((state)=>{
-	return {}
-},function(dispatch) {
-	return {
-		toDetail: (params) => {
-			dispatch(routerRedux.push({
-				pathname: '/detail',
-				params
-			}));
-		},
-		toAuthor: (params) => {
-			dispatch(routerRedux.push({
-				pathname: '/author',
-				params
-			}));
-		}
-	}
-})(IndexCard);
+export default IndexCard;

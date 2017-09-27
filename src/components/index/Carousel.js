@@ -15,9 +15,9 @@ const defaultImgs = [
 ];
 
 const Carousel = ({ imgs } ) => {
-	imgs = imgs.length>0 ? imgs : defaultImgs;
+	imgs = imgs.length>0 ? imgs : defaultImgs.map((item, index) => {return {image_url: item}});
 	return <Slider {...settings} className="carousel">
-		{imgs.map((src, index) => <div key={index}><img src={src} /></div>)}
+		{imgs.map((item, index) => <div key={index}><img src={item.image_url} /></div>)}
 	</Slider>;
 }
 

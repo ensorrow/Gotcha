@@ -11,12 +11,12 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-function App({ location, children, dispatch }) {
+function App({ location, children, dispatch, title }) {
   return (
     <MuiThemeProvider>
     	<div>
 				<div className={styles.header}>
-					<Navbar location={location} dispatch={dispatch} />
+					<Navbar location={location} dispatch={dispatch} title={title} />
 				</div>
 				<div className={styles.content}>
 					{children}
@@ -29,9 +29,9 @@ function App({ location, children, dispatch }) {
   );
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
-  	
+  	title: state.app.title
   };
 }
 

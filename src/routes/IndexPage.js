@@ -6,30 +6,27 @@ import ScrollTab from '../components/index/ScrollTab';
 import IndexCard from '../components/index/Card';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
-function IndexPage({ home, getFavi, getNear, getWeek }) {
+function IndexPage({ home, getFavi, getNear, getWeek, getByTag }) {
 	
   return (
     <div>
       <div className={styles.top}>
 				<Slider imgs={home.carousel} />
-				<ScrollTab />
+				<ScrollTab tabs={home.tags} onTab={getByTag} active={home.activeTag} />
 				<Tabs>
           <Tab label="最受欢迎" onActive={getFavi}>
             <div>
-              <IndexCard />
-              <IndexCard />
-              <IndexCard />
+              { home.favorite.dataList.length ? home.favorite.dataList.map((item) => <IndexCard vm={item} key={item.id} />) : ''}
             </div>
           </Tab>
           <Tab label="距离最近" onActive={getNear}>
             <div>
-              {home.nearest.dataList.map((item) => <IndexCard data={item} />)}
+              {home.nearest.dataList && home.nearest.dataList.map((item) => <IndexCard vm={item} key={item.id} />)}
             </div>
           </Tab>
           <Tab label="只看周末" onActive={getWeek}>
             <div>
-              <IndexCard />
-              <IndexCard />
+              
             </div>
           </Tab>
         </Tabs>
@@ -43,11 +40,12 @@ function mapStateToProps(state) {
     home: state.home
   };
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     getFavi: () => dispatch({type: 'home/getFavi'}),
     getNear: () => dispatch({type: 'home/getNear'}),
     getWeek: () => dispatch({type: 'home/getWeek'}),
+    getByTag: (tag) => dispatch({type: 'home/getByTag', payload: {tag}})
   }
 }
 

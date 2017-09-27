@@ -43,7 +43,4 @@ const Tabbar = ({ location, dispatch }) => {
   );
 };
 
-Tabbar.propTypes = {
-};
-
 export default Tabbar;

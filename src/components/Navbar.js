@@ -23,7 +23,7 @@ const titleUser = <span className="titleWra"><span><Link to="/recommend/org">推
 const titleInput = <TextField hintText="输入搜索内容" />
 
 function titleNode(pathname, title) {
-  if(title) return <h1>{title}</h1>
+  if(title && pathname==='/detail') return title;
   var titles = {
     '/': null,
     '/search': titleInput,
@@ -40,7 +40,7 @@ function rightBtn(pathname, dispatch) {
   if(pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white"/></Link>
 }
 
-const Navbar = ({ location, dispatch }) => {
+const Navbar = ({ location, dispatch, title }) => {
   const transPages = ['/detail', '/author', '/user'];
   return (
     <AppBar
@@ -48,15 +48,12 @@ const Navbar = ({ location, dispatch }) => {
       iconElementRight={rightBtn(location.pathname, dispatch)}
       iconStyleLeft={{alignSelf: 'center',marginTop: 0}}
       iconStyleRight={{alignSelf: 'center',marginTop: 0}}
-      title={titleNode(location.pathname)}
+      title={titleNode(location.pathname, title)}
       titleStyle={{fontSize: '16px'}}
       style={transPages.indexOf(location.pathname) !== -1 ? {backgroundColor: 'rgba(0,0,0,0)',boxShadow: 'none'} : null}
       className="m-navbar"
     />
   );
-};
-
-Navbar.propTypes = {
 };
 
 export default Navbar;

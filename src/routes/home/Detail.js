@@ -9,6 +9,7 @@ import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import CommentBox from '../../components/index/CommentBox';
 import ActivityCard from '../../components/index/ActivityCard';
+import { Link } from 'dva/router';
 
 const tmpcomments = [
 	'我一直是用linux的习惯使用mac，所以这件事的步骤是',
@@ -19,39 +20,36 @@ const tmpcomments = [
 ]
 
 
-function IndexDetail(detail) {
+function IndexDetail({ vm }) {
 	return <div className="m-detail">
-		<img src={require('../../assets/test.png')} className="topBg"/>
+		<img src={require('../../assets/images/banner1.png')} className="topBg"/>
 		<div className="baseInfo">
-			<h1>杨静文的个人画展</h1>
-			<h2><span>12.5</span>浏览：325 · 收藏：25</h2>
-			<h3>2月17日，15：20-2月18日，17：00</h3>
-			<h3>陕西省西安市碑林区咸宁犀利西安交通大学啦啦啦</h3>
+			<h1>{vm.title}</h1>
+			<h2><span>{vm.price}</span>浏览：{vm.view_count} · 收藏：{vm.collectors_count}</h2>
+			<h3>{vm.start_date}-{vm.end_date}</h3>
+			<h3>{vm.place_name+vm.place_city+vm.place_district}</h3>
 		</div>
 		<div className="progress">
-			<span>报名中(200/400)</span>
+			<span>报名中({vm.users_count+'/'+vm.volume})</span>
 			<span>
 				剩余时间：125小时 20分 3秒
 			</span>
 		</div>
 		<div className="activityInfo">
 			<div style={{width: '580px'}}>
-				<AuthorCard />
-				<AuthorCard />
+				<AuthorCard author={vm.organizer} />
 			</div>
 		</div>
-		<CommentBox  comments={tmpcomments} />
+		{vm.has_comment ? <CommentBox  comments={tmpcomments} /> : null}
 		<div className="activityDetail">
 			<h1 className="u-title">活动详情</h1>
-			<img src={require('../../assets/test.png')} />
-			<p>我一直是用linux的习惯使用mac，所以这件事的步骤是，terminal->定位到指定位置->"touch xxx.txt"，所以有没有这个功能对我无所谓。那么Mac OS X 的Finder到底是为什么没有这个功能呢？我认为楼下几位的回答都太胡扯了。承认Mac在这个问题上不如Windows有那么难吗？都找了一些什么奇怪的理由啊！</p>
-			<a>查看更多</a>
+			<img src={vm.image_path} />
+			<p>{vm.description}</p>
+			<Link>查看更多</Link>
 		</div>
 		<div className="activityRecommend">
 			<h1 className="u-title">更多活动</h1>
-			<ActivityCard />
-			<ActivityCard />
-			<ActivityCard />
+			{vm.other_events ? vm.other_events.map((event) => <ActivityCard />) : '主办方暂无其他活动'}
 		</div>
 		<div className="fixedBar">
 			<span>报名中</span>
@@ -66,7 +64,7 @@ function IndexDetail(detail) {
 
 function mapStateToProps(state) {
 	return {
-		detail: state.home.detail
+		vm: state.app.event
 	}
 }
 
