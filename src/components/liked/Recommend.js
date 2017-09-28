@@ -18,7 +18,7 @@ const Recommend = ({ title, vm, type }) => <div className="m-recommend">
         <div className="txt">{type == 'user' ? '' : item.summary}</div>
       </div>)}
       <div className="tj-item tj-item-more">
-        <div className="more-red"><Link to={`/recommend/${type}`}>查看全部</Link></div>
+        <div className="more-red"><Link to={`/liked/recommend/${type}`}>查看全部</Link></div>
       </div>
     </div>
   </div>

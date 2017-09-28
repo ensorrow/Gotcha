@@ -24,8 +24,8 @@ function titleNode(pathname, title) {
   const titles = {
     '/': null,
     '/search': titleInput,
-    '/recommend/user': titleUser,
-    '/recommend/org': titleOrg,
+    '/liked/recommend/user': titleUser,
+    '/liked/recommend/org': titleOrg,
     '/about/tickets': '我的入场券',
   };
   return titles[pathname];

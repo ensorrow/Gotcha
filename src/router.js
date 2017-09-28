@@ -15,6 +15,8 @@ import Liked from './routes/Liked.js';
 
 import About from './routes/About.js';
 
+import Login from './routes/Login.js';
+
 import App from './routes/App.js';
 
 function RouterConfig({ history }) {
@@ -32,7 +34,8 @@ function RouterConfig({ history }) {
         <Route path="/about/addticket" component={AddTicket} />
         <Route path="/about/ticketdetail" component={TicketDetail} />
         <Route path="/user" component={User} />
-        <Route path="/recommend/:type" component={RecommendList} />
+        <Route path="/login" component={Login} />
+        <Route path="/liked/recommend/:type" component={RecommendList} />
       </Route>
     </Router>
   );
