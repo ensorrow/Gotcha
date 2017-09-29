@@ -18,7 +18,7 @@ class Login extends Component{
             verify_code: ''
         }
     }
-    onEnter(params){
+    enter(params){
         console.log(params);
         this.setState({
             prePath: params.pre
@@ -28,11 +28,11 @@ class Login extends Component{
         appService.login({
             mobile: this.state.mobile,
             password: this.state.password
-        }).then((res) => {
+        }).then(({ res }) => {
             var tokenStr = cookie.serialize('token', res.token, {maxAge: 3600*72});
             document.cookie = tokenStr;
-            routerRedux.replace(this.state.prePath);
-        }).catch((err) => {
+            this.dispatch(routerRedux.replace(this.state.prePath));            
+        }).catch(({ err }) => {
             console.log(err);
         });
     }
@@ -40,12 +40,11 @@ class Login extends Component{
         appService.fastLogin({
             mobile: this.state.mobile,
             verify_code: this.state.verify_code
-        }).then((res) => {
+        }).then(({ res }) => {
             var tokenStr = cookie.serialize('token', res.token, {maxAge: 3600*72});
             document.cookie = tokenStr;
-            console.log(tokenStr)
-            routerRedux.replace(this.state.prePath);
-        }).catch((err) => {
+            this.dispatch(routerRedux.replace(this.state.prePath));
+        }).catch(({ err }) => {
             console.log(err);
         });
     }
@@ -53,7 +52,7 @@ class Login extends Component{
         if(!this.state.mobile) return console.log('检查手机号')
         appService.getVerify({
             mobile: this.state.mobile
-        }).then((res) => {
+        }).then(({ res }) => {
             console.log('验证码已发送')
         });
     }
@@ -104,4 +103,8 @@ class Login extends Component{
     }
 }
 
-export default Login;
+export default connect(function(state){
+    return{
+        
+    }
+})(Login);

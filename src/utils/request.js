@@ -1,5 +1,6 @@
 import fetch from 'dva/fetch';
 import cookie from 'cookie';
+import auth from './auth';
 import { routerRedux } from 'dva/router';
 
 function parseJSON(response) {
@@ -32,18 +33,13 @@ export default function request(url, options = {}) {
   };
   if (options.needAuth) {
     delete options.needAuth;
-    const token = cookie.parse(document.cookie).token;
-    if (!token) {
-      const pre = window.location.hash.split('/#')[1].split('?')[0];
-      return window.location.hash = '#/login?pre=' + pre;
-    } else {
-      options.headers['Authorization'] = 'Bearer ' + token;
-    }
+    const token = auth.token;
+    options.headers['Authorization'] = 'Bearer ' + token;    
   }
   return fetch(prefix + url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(res => { res })
+    .then(res => ({ res }))
     .catch(err => {
       if (err.response.status === 401) {
         const pre = window.location.hash.split('#')[1].split('?')[0];

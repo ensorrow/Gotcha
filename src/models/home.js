@@ -63,33 +63,33 @@ export default {
   },
   effects: {
     *getTags({}, { call, put }) {
-      const result = yield call(homeService.getTags);
-      yield put({ type: 'updateTags', payload: result });
+      const { res, err } = yield call(homeService.getTags);
+      if(res) yield put({ type: 'updateTags', payload: res });
     },
     *getCarousels({}, { call, put }) {
-      const result = yield call(homeService.getCarousels);
-      yield put({ type: 'updateCarousel', payload: result });
+      const { res, err } = yield call(homeService.getCarousels);
+      if(res) yield put({ type: 'updateCarousel', payload: res });
     },
   	*getFavi({ payload = {} }, { call, put, select }) {
     const activeTag = yield select(state => state.home.activeTag);
     if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
     yield put({ type: 'updateActiveTab', payload: { tab: 0 } });
-    const result = yield call(homeService.getEvents, payload);
-    yield put({ type: 'updateFavi', payload: result });
+    const { res, err } = yield call(homeService.getEvents, payload);
+    if(res) yield put({ type: 'updateFavi', payload: res });
   },
     *getNear({ payload = {} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
       if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
       yield put({ type: 'updateActiveTab', payload: { tab: 1 } });
-      const result = yield call(homeService.getNearbyEvents, payload);
-      yield put({ type: 'updateNear', payload: result });
+      const { res, err } = yield call(homeService.getNearbyEvents, payload);
+      if(res) yield put({ type: 'updateNear', payload: res });
     },
     *getWeek({ payload = {} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
       if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
       yield put({ type: 'updateActiveTab', payload: { tab: 2 } });
-      const result = yield call(homeService.getWeekendEvents, payload);
-      yield put({ type: 'updateWeek', payload: result });
+      const { res, err } = yield call(homeService.getWeekendEvents, payload);
+      if(res) yield put({ type: 'updateWeek', payload: res });
     },
     *getByTag({ payload: { tag } }, { call, put, select }) {
       const activeTab = yield select(state => state.home.activeTab);

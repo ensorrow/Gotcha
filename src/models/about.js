@@ -1,4 +1,5 @@
 import aboutService from '../services/about';
+import auth from '../utils/auth';
 
 export default {
   namespace: 'about',
@@ -13,7 +14,7 @@ export default {
         isDetail: !state.isDetail,
       };
     },
-    updateMyInfo({info}){
+    updateMyInfo(state, {payload: {info}}){
       return {
         ...state,
         myInfo: info
@@ -24,7 +25,7 @@ export default {
     *getMyInfo({}, {call, put}){
       const {res, err} = yield call(aboutService.getUserInfo);
       if(res) {
-        yield put({type: 'updateMyInfo', payload: {info: res}});    
+        yield put({type: 'updateMyInfo', payload: {info: res.data}});    
       }else{
         console.log(err)
       }
@@ -33,9 +34,11 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({pathname}) => {
-        if(pathname === '/about'){
-          dispatch({ type: 'getMyInfo' });
-        }
+        auth.login(dispatch, pathname, function() {
+          if(pathname === '/about'){
+            dispatch({ type: 'getMyInfo' });
+          }
+        })
       })
     }
   }

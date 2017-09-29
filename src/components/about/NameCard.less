@@ -1,8 +1,11 @@
+@import '../../routes/Variable';
 :global{
 	.m-nameCard{
-		background-color: rgb(36,42,71);
+		background: url(../../assets/images/banner2.png) @color-a no-repeat;
+		background-size: 100%;
 		text-align: center;
-		padding: 20px 0 10px;
+		padding: (20px+@navHeight) 0 10px;
+		margin-top: -@navHeight;
 		h1{
 			color: #fff;
 			font-size: 16px;

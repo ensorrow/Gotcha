@@ -17,7 +17,7 @@ const tmpData = [
 function About({ dispatch, about }) {
   return (
     <div>
-      <NameCard isDetail={about.isDetail} dispatch={dispatch} />
+      <NameCard isDetail={about.isDetail} dispatch={dispatch} vm={about.myInfo} />
       <List>
         <ListItem primaryText="我的入场券" leftIcon={<AboutIcon />} rightIconButton={<Link className="list-right" to="/about/tickets">查看全部</Link>} />
         <Divider inset />

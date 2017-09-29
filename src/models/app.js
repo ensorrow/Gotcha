@@ -1,4 +1,5 @@
 import { homeService } from '../services/home';
+import auth from '../utils/auth';
 
 export default {
   namespace: 'app',
@@ -14,18 +15,20 @@ export default {
   },
   effects: {
   	*getDetail({ payload: { event_id } }, { call, put }) {
-    const result = yield call(homeService.getDetail, event_id);
-    yield put({ type: 'updateDetail', payload: result });
+    const { res, err } = yield call(homeService.getDetail, event_id);
+    yield put({ type: 'updateDetail', payload: res });
   },
   },
   subscriptions: {
   	setup({ dispatch, history }) {
-    return history.listen(({ pathname, query }) => {
-      window.scrollTo(0, 0);
-      if (pathname === '/detail') {
-        dispatch({ type: 'getDetail', payload: { event_id: query.id } });
-      }
-    });
-  },
+      return history.listen(({ pathname, query }) => {
+        window.scrollTo(0, 0);
+        auth.login(dispatch, pathname, function() {
+          if (pathname === '/detail') {
+            dispatch({ type: 'getDetail', payload: { event_id: query.id } });
+          }
+        }); 
+      });
+    },
   },
 };

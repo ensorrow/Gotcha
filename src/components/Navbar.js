@@ -12,7 +12,8 @@ import TextField from 'material-ui/TextField';
 
 function leftBtn(pathname, dispatch) {
   const rootPages = ['/', '/liked', '/about'];
-  if (rootPages.toString().indexOf(pathname) > -1) { return null; } else		{ return <IconButton onTouchTap={() => dispatch(routerRedux.go(-1))}><NavigationLeft /></IconButton>; }
+  if (rootPages.toString().indexOf(pathname) > -1) { return null; }
+  else { return <IconButton onTouchTap={() => dispatch(routerRedux.go(-1))}><NavigationLeft /></IconButton>; }
 }
 
 const titleOrg = <span className="titleWra"><span>推荐主办方</span><span style={{ marginLeft: '32px' }}><Link to="/recommend/user">推荐用户</Link></span></span>;
@@ -27,6 +28,7 @@ function titleNode(pathname, title) {
     '/liked/recommend/user': titleUser,
     '/liked/recommend/org': titleOrg,
     '/about/tickets': '我的入场券',
+    '/about/profile': '个人资料'
   };
   return titles[pathname];
 }
@@ -34,14 +36,16 @@ function rightBtn(pathname, dispatch) {
   if (pathname === '/detail') return <IconButton><Favorite /></IconButton>;
   if (pathname === '/' || pathname === '/liked') return <IconButton onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
   if (pathname === '/search') return <IconButton ><SearchIcon /></IconButton>;
+  if (pathname === '/about') return <Link to="/about/profile"><i className="icon-edit"></i></Link>
   if (pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white" /></Link>;
 }
 
 const Navbar = ({ location, dispatch, title }) => {
-  const transPages = ['/detail', '/author', '/user'];
+  const transPages = ['/detail', '/author', '/user', '/about'];
   return (
     <AppBar
       iconElementLeft={leftBtn(location.pathname, dispatch)}
+      showMenuIconButton={location.pathname === '/about' ? false : true}
       iconElementRight={rightBtn(location.pathname, dispatch)}
       iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
       iconStyleRight={{ alignSelf: 'center', marginTop: 0 }}
