@@ -3,7 +3,7 @@ import { routerRedux } from 'dva/router';
 
 export default {
     token: '',
-    securePath: ['/about'],
+    securePath: ['/about', '/about/profile'],
     needAuth(pathname) {
         if (this.securePath.indexOf(pathname) !== -1) {
             return true;
