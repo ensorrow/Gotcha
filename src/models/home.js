@@ -71,12 +71,12 @@ export default {
       if(res) yield put({ type: 'updateCarousel', payload: res });
     },
   	*getFavi({ payload = {} }, { call, put, select }) {
-    const activeTag = yield select(state => state.home.activeTag);
-    if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
-    yield put({ type: 'updateActiveTab', payload: { tab: 0 } });
-    const { res, err } = yield call(homeService.getEvents, payload);
-    if(res) yield put({ type: 'updateFavi', payload: res });
-  },
+      const activeTag = yield select(state => state.home.activeTag);
+      if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
+      yield put({ type: 'updateActiveTab', payload: { tab: 0 } });
+      const { res, err } = yield call(homeService.getEvents, payload);
+      if(res) yield put({ type: 'updateFavi', payload: res });
+    },
     *getNear({ payload = {} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
       if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
@@ -108,7 +108,7 @@ export default {
           yield put({ type: 'getFavi' });
       }
     },
-
+    
   },
   subscriptions: {
     setup({ dispatch, history }) {

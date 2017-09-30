@@ -32,6 +32,11 @@ export default function request(url, options = {}) {
     'Content-Type': 'application/json',
     'Accept': 'application/vnd.Gotcha api.v1+json'
   };
+  if(options.ifAuth) {
+    delete options.ifAuth;
+    const token = auth.token;
+    if(token) options.headers['Authorization'] = 'Bearer ' + token;
+  }
   if (options.needAuth) {
     delete options.needAuth;
     const token = auth.token;

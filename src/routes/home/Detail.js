@@ -49,7 +49,7 @@ function IndexDetail({ vm }) {
     </div>
     <div className="activityRecommend">
       <h1 className="u-title">更多活动</h1>
-      {vm.other_events ? vm.other_events.map(event => <ActivityCard />) : '主办方暂无其他活动'}
+      {vm.other_events ? vm.other_events.map(event => <ActivityCard vm={event} key={event.id} />) : '主办方暂无其他活动'}
     </div>
     <div className="fixedBar">
       <span>报名中</span>

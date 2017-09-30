@@ -13,12 +13,12 @@ import auth from '../utils/auth';
 injectTapEventPlugin();
 auth.initToken();
 
-function App({ location, children, dispatch, title }) {
+function App({ location, children, dispatch, title, collected }) {
   return (
     <MuiThemeProvider>
       <div>
         <div className={styles.header}>
-          <Navbar location={location} dispatch={dispatch} title={title} />
+          <Navbar location={location} dispatch={dispatch} title={title} collected={collected} />
         </div>
         <div className={styles.content}>
           {children}
@@ -33,7 +33,8 @@ function App({ location, children, dispatch, title }) {
 
 function mapStateToProps(state) {
   return {
-  	title: state.app.title,
+    title: state.app.title,
+    collected: state.app.event.has_collect
   };
 }
 
