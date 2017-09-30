@@ -15,9 +15,9 @@ export default {
   },
   effects: {
   	*getDetail({ payload: { event_id } }, { call, put }) {
-    const { res, err } = yield call(homeService.getDetail, event_id);
-    yield put({ type: 'updateDetail', payload: res });
-  },
+      const { res, err } = yield call(homeService.getDetail, event_id);
+      yield put({ type: 'updateDetail', payload: res });
+    },
   },
   subscriptions: {
   	setup({ dispatch, history }) {

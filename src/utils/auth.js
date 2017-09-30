@@ -4,6 +4,9 @@ import { routerRedux } from 'dva/router';
 export default {
     token: '',
     securePath: ['/about', '/about/profile'],
+    initToken(){
+        this.token = cookie.parse(document.cookie).token;
+    },
     needAuth(pathname) {
         if (this.securePath.indexOf(pathname) !== -1) {
             return true;
@@ -18,7 +21,7 @@ export default {
             cb();
         }
         else {
-            const pre = window.location.hash.split('/#')[1].split('?')[0];
+            const pre = window.location.hash.split('/#')[1].split('&')[0];
             dispatch(routerRedux.replace({
                 path: '/login?pre=' + pre
             }));

@@ -1,6 +1,7 @@
 import fetch from 'dva/fetch';
 import cookie from 'cookie';
 import auth from './auth';
+import utils from './utils';
 import { routerRedux } from 'dva/router';
 
 function parseJSON(response) {
@@ -34,6 +35,11 @@ export default function request(url, options = {}) {
   if (options.needAuth) {
     delete options.needAuth;
     const token = auth.token;
+    if(!token) {
+      const pre = utils.getPathQuery();
+      window.location.hash = '#/login?pre=' + pre;
+      return new Promise((resolve) => resolve({err: '需要登录'}));
+    }
     options.headers['Authorization'] = 'Bearer ' + token;    
   }
   return fetch(prefix + url, options)
@@ -41,8 +47,8 @@ export default function request(url, options = {}) {
     .then(parseJSON)
     .then(res => ({ res }))
     .catch(err => {
-      if (err.response.status === 401) {
-        const pre = window.location.hash.split('#')[1].split('?')[0];
+      if (err.response && err.response.status === 401) {
+        const pre = utils.getPathQuery();
         window.location.hash = '#/login?pre=' + pre;
       }
       return { err };

@@ -15,5 +15,19 @@ export default {
       verify_code
     })
   }),
-  getVerify: ({ mobile }) => request(`/auth/verify_code?mobile=${mobile}`)
+  getVerify: ({ mobile }) => request(`/auth/verify_code?mobile=${mobile}`),
+  follow: (user_id) => request('/follow', {
+    method: 'POST',
+    body: JSON.stringify({
+      user_id: user_id
+    }),
+    needAuth: true
+  }),
+  follow_org: (organizer_id) => request('/follow_organizer', {
+    method: 'POST',
+    body: JSON.stringify({
+      organizer_id: organizer_id
+    }),
+    needAuth: true
+  }),
 }

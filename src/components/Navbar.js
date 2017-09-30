@@ -16,8 +16,8 @@ function leftBtn(pathname, dispatch) {
   else { return <IconButton onTouchTap={() => dispatch(routerRedux.go(-1))}><NavigationLeft /></IconButton>; }
 }
 
-const titleOrg = <span className="titleWra"><span>推荐主办方</span><span style={{ marginLeft: '32px' }}><Link to="/recommend/user">推荐用户</Link></span></span>;
-const titleUser = <span className="titleWra"><span><Link to="/recommend/org">推荐主办方</Link></span><span style={{ marginLeft: '32px' }}>推荐用户</span></span>;
+const titleOrg = <span className="titleWra"><span>推荐主办方</span><span style={{ marginLeft: '32px' }}><Link to="/liked/recommend/user">推荐用户</Link></span></span>;
+const titleUser = <span className="titleWra"><span><Link to="/liked/recommend/org">推荐主办方</Link></span><span style={{ marginLeft: '32px' }}>推荐用户</span></span>;
 const titleInput = <TextField hintText="输入搜索内容" />;
 
 function titleNode(pathname, title) {

@@ -18,10 +18,10 @@ class Login extends Component{
             verify_code: ''
         }
     }
-    enter(params){
-        console.log(params);
+    componentDidMount(){
+        const pre = window.location.hash.match(/pre=\/.+(?=&)/)[0].substring(4);
         this.setState({
-            prePath: params.pre
+            prePath: pre
         });
     }
     login(){
@@ -31,7 +31,7 @@ class Login extends Component{
         }).then(({ res }) => {
             var tokenStr = cookie.serialize('token', res.token, {maxAge: 3600*72});
             document.cookie = tokenStr;
-            this.dispatch(routerRedux.replace(this.state.prePath));            
+            this.props.dispatch(routerRedux.replace(this.state.prePath));            
         }).catch(({ err }) => {
             console.log(err);
         });
@@ -43,7 +43,7 @@ class Login extends Component{
         }).then(({ res }) => {
             var tokenStr = cookie.serialize('token', res.token, {maxAge: 3600*72});
             document.cookie = tokenStr;
-            this.dispatch(routerRedux.replace(this.state.prePath));
+            this.props.dispatch(routerRedux.replace(this.state.prePath));
         }).catch(({ err }) => {
             console.log(err);
         });
