@@ -10,6 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import CommentBox from '../../components/index/CommentBox';
 import ActivityCard from '../../components/index/ActivityCard';
 import { Link } from 'dva/router';
+import StatusBar from '../../components/index/StatusBar';
 
 const tmpcomments = [
   '我一直是用linux的习惯使用mac，所以这件事的步骤是',
@@ -20,7 +21,7 @@ const tmpcomments = [
 ];
 
 
-function IndexDetail({ vm }) {
+function IndexDetail({ vm, dispatch }) {
   return (<div className="m-detail">
     <img src={require('../../assets/images/banner1.png')} className="topBg" />
     <div className="baseInfo">
@@ -51,14 +52,7 @@ function IndexDetail({ vm }) {
       <h1 className="u-title">更多活动</h1>
       {vm.other_events ? vm.other_events.map(event => <ActivityCard vm={event} key={event.id} />) : '主办方暂无其他活动'}
     </div>
-    <div className="fixedBar">
-      <span>报名中</span>
-      <FlatButton
-        label="报名（￥25）"
-        backgroundColor="red"
-        style={{ float: 'right', right: '20px' }}
-      />
-    </div>
+    <StatusBar vm={vm} dispatch={dispatch} />
   </div>);
 }
 
@@ -68,10 +62,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispacth) {
-  return {
-
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(IndexDetail);
+export default connect(mapStateToProps)(IndexDetail);
