@@ -10,5 +10,16 @@ export const homeService = {
   collect: (event_id) => request(`/events/${event_id}/collect`, {
     method: 'POST',
     needAuth: true
+  }),
+  applyEvent: (event_id) => request(`/events/${event_id}/apply`, {
+    method: 'POST',
+    needAuth: true
+  }),
+  comment: ({event_id, content}) => request(`/events/${event_id}/comments`, {
+    method: 'POST',
+    needAuth: true,
+    body: JSON.stringify({
+      content
+    })
   })
 };

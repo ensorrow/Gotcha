@@ -31,7 +31,8 @@ function titleNode(pathname, title) {
     '/liked/recommend/user': titleUser,
     '/liked/recommend/org': titleOrg,
     '/about/tickets': '我的入场券',
-    '/about/profile': '个人资料'
+    '/about/profile': '个人资料',
+    '/detail/comment': '评价'
   };
   return titles[pathname];
 }

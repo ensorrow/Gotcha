@@ -107,8 +107,7 @@ export default {
         default:
           yield put({ type: 'getFavi' });
       }
-    },
-    
+    }
   },
   subscriptions: {
     setup({ dispatch, history }) {

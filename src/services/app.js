@@ -29,5 +29,5 @@ export default {
       organizer_id: organizer_id
     }),
     needAuth: true
-  }),
+  })
 }

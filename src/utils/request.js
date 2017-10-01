@@ -5,7 +5,7 @@ import utils from './utils';
 import { routerRedux } from 'dva/router';
 
 function parseJSON(response) {
-  return response.json();
+  return response && response.json();
 }
 
 function checkStatus(response) {

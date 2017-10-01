@@ -9,6 +9,7 @@ import AddTicket from './routes/about/AddTicket';
 import TicketDetail from './routes/about/TicketDetail';
 import FullList from './routes/home/FullList';
 import Search from './routes/home/Search';
+import Comment from './routes/home/Comment';
 import RecommendList from './routes/liked/RecommendList';
 
 import Liked from './routes/Liked.js';
@@ -26,6 +27,7 @@ function RouterConfig({ history }) {
       <Route path="/" component={App} >
         <IndexRoute component={IndexPage} />
         <Route path="/detail" component={IndexDetail} />
+        <Route path="/detail/comment" component={Comment} />
         <Route path="/search" component={Search} />
         <Route path="/author" component={Author} />
         <Route path="/author/activities" component={FullList} />

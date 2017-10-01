@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import auth from '../utils/auth';
 import moment from 'moment';
+import Dialog from 'material-ui/Dialog';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -15,7 +16,7 @@ injectTapEventPlugin();
 auth.initToken();
 moment.locale('zh-cn');
 
-function App({ location, children, dispatch, title, collected }) {
+function App({ location, children, dispatch, title, collected, showDialog, dialogContent }) {
   return (
     <MuiThemeProvider>
       <div>
@@ -28,6 +29,7 @@ function App({ location, children, dispatch, title, collected }) {
         <div className={styles.footer}>
           <Tabbar location={location} dispatch={dispatch} />
         </div>
+        <Dialog open={showDialog} title={dialogContent} />
       </div>
     </MuiThemeProvider>
   );
@@ -36,7 +38,9 @@ function App({ location, children, dispatch, title, collected }) {
 function mapStateToProps(state) {
   return {
     title: state.app.title,
-    collected: state.app.event.has_collect
+    collected: state.app.event.has_collect,
+    showDialog: state.app.showDialog,
+    dialogContent: state.app.dialogContent
   };
 }
 

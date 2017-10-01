@@ -5,6 +5,7 @@ import Favorite_b from 'material-ui/svg-icons/action/favorite-border';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import './StatusBar.less';
 import { Component } from 'react';
+import { routerRedux } from 'dva/router';
 
 class StatusBar extends Component{
     constructor(props) {
@@ -33,8 +34,8 @@ class StatusBar extends Component{
         }
     }
     render(){
-        let { id, start_date, end_date, apply_date,  status, has_collect, has_apply, has_comment, volume, over_can_enroll, users_count, price } = this.props.vm;
-
+        const { id, start_date, end_date, apply_date,  status, has_collect, has_apply, has_comment, volume, over_can_enroll, users_count, price } = this.props.vm;
+        const dispatch = this.props.dispatch;
         if(!start_date) return <footer></footer>;
     
         const timeStatus = utils.compareTime(start_date, end_date, apply_date);
@@ -69,6 +70,7 @@ class StatusBar extends Component{
                             label={"报名 ￥"+price}
                             primary={true}
                             style={{ float: 'right', right: '20px' }}
+                            onClick={() => dispatch({type: 'app/applyEvent', payload: {event_id: id}})}
                         />
                     </footer>
                 }
@@ -79,6 +81,11 @@ class StatusBar extends Component{
             }
         }
         if(timeStatus === 3) {
+            return <footer>
+                <span>活动进行中</span>
+            </footer>
+        }
+        if(timeStatus === 4) {
             if(!has_apply) {
                 return <footer>
                     <span>活动已经结束啦，下次早点来哦</span>
@@ -92,6 +99,7 @@ class StatusBar extends Component{
                             label="去评价"
                             primary={true}
                             style={{ float: 'right', right: '20px' }}
+                            onClick={() => dispatch(routerRedux.push({pathname: `/detail/comment?id=${id}`}))}
                         />
                     </footer>
                 }else {
@@ -101,6 +109,7 @@ class StatusBar extends Component{
                             label="修改评价"
                             primary={true}
                             style={{ float: 'right', right: '20px' }}
+                            onClick={() => dispatch(routerRedux.push({pathname: `/detail/comment?id=${id}`}))}                            
                         />
                     </footer>
                 }
