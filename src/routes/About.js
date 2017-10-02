@@ -8,12 +8,6 @@ import TicketList from '../components/about/TicketList';
 import Divider from 'material-ui/Divider';
 import { Link } from 'dva/router';
 
-const tmpData = [
-	{ title: '哈哈的撒', date: '2016-4-5' },
-	{ title: '哈哈的撒哈哈的撒哈哈的撒哈', date: '2016-4-5' },
-	{ title: '哈哈的撒', date: '2016-4-5' },
-];
-
 function About({ dispatch, about }) {
   return (
     <div>
@@ -21,7 +15,7 @@ function About({ dispatch, about }) {
       <List>
         <ListItem primaryText="我的入场券" leftIcon={<AboutIcon />} rightIconButton={<Link className="list-right" to="/about/tickets">查看全部</Link>} />
         <Divider inset />
-        <TicketList dataArr={tmpData} />
+        <TicketList dataArr={about.tickets} />
         <ListItem primaryText="我的收藏" leftIcon={<AboutIcon />} />
         <Divider inset />
         <ListItem primaryText="我的关注" leftIcon={<AboutIcon />} />
@@ -34,7 +28,7 @@ function About({ dispatch, about }) {
 
 function mapStateToProps(state) {
   return {
-  	about: state.about,
+    about: state.about,
   };
 }
 

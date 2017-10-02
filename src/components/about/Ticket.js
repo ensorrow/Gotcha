@@ -9,10 +9,9 @@ const fmtDate = (m) => {
 
 const Ticket = ({ vm, lg, dispatch }) => {
   if (vm) {
-    return (<div
-      className={vm.status != 2 ? 'active ticket' : 'ticket'} onClick={lg ? null : params => dispatch(routerRedux.push({
-        pathname: '/about/ticketdetail',
-        params,
+    return <div
+      className={vm.status != 2 ? 'active ticket' : 'ticket'} onClick={lg ? null : () => dispatch(routerRedux.push({
+        pathname: '/about/ticketdetail?id='+vm.id
       }))}
     >
       <div className="part1">
@@ -30,12 +29,12 @@ const Ticket = ({ vm, lg, dispatch }) => {
           <span>{fmtDate(vm.event.end_date)}</span>
         </div>
       </div>
-      {lg ? <div className="addr"><span className="icon" />陕西省陕西省陕西省，陕西省陕西省陕西省</div> : null}
+      {lg ? <div className="addr"><span className="icon" />{vm.event.place_name}</div> : null}
       {lg ? <div className="notes">
         <div className="label">注意事项</div>
-        <div className="info">活动时记得带雨伞</div>
+        <div className="info">{vm.event.notice}</div>
       </div> : null}
-    </div>);
+    </div>
   } else {
     return null;
   }

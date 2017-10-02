@@ -16,12 +16,12 @@ injectTapEventPlugin();
 auth.initToken();
 moment.locale('zh-cn');
 
-function App({ location, children, dispatch, title, collected, showDialog, dialogContent }) {
+function App({ location, children, dispatch, title, collected, showDialog, dialogContent, ticketId }) {
   return (
     <MuiThemeProvider>
       <div>
         <div className={styles.header}>
-          <Navbar location={location} dispatch={dispatch} title={title} collected={collected} />
+          <Navbar location={location} dispatch={dispatch} title={title} collected={collected} ticketId={ticketId} />
         </div>
         <div className={styles.content}>
           {children}
@@ -35,13 +35,10 @@ function App({ location, children, dispatch, title, collected, showDialog, dialo
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    title: state.app.title,
-    collected: state.app.event.has_collect,
-    showDialog: state.app.showDialog,
-    dialogContent: state.app.dialogContent
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default connect(({ app, about }) => ({
+  title: app.title,
+  collected: app.event.has_collect,
+  showDialog: app.showDialog,
+  dialogContent: app.dialogContent,
+  ticketId: about.activeTicket.id
+}))(App);

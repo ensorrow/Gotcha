@@ -6,5 +6,7 @@ export default {
         needAuth: true,
         body: JSON.stringify(info),
         method: 'PUT'
-    })
+    }),
+    getTicketsList: () => request('/tickets', {needAuth: true}),
+    getTicket: (id) => request(`/tickets/${id}`, {needAuth: true})
 }

@@ -31,27 +31,30 @@ function titleNode(pathname, title) {
     '/liked/recommend/user': titleUser,
     '/liked/recommend/org': titleOrg,
     '/about/tickets': '我的入场券',
+    '/about/ticketdetail': '入场券',
     '/about/profile': '个人资料',
     '/detail/comment': '评价'
   };
   return titles[pathname];
 }
 
-function rightBtn(pathname, dispatch, collected) {
+function rightBtn(pathname, dispatch, collected, ticketId) {
   if (pathname === '/detail') return <IconButton onClick={() => dispatch({type: 'app/collect'})} >{collected ? <Favorite /> : <Favorite_b />}</IconButton>;
   if (pathname === '/' || pathname === '/liked') return <IconButton onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
   if (pathname === '/search') return <IconButton ><SearchIcon /></IconButton>;
   if (pathname === '/about') return <Link to="/about/profile"><i className="icon-edit"></i></Link>
   if (pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white" /></Link>;
+  if (pathname === '/about/ticketdetail') return <Link to={"/detail?id="+ticketId}>查看活动</Link>;
 }
 
-const Navbar = ({ location, dispatch, title, collected }) => {
+const Navbar = (props) => {
+  const { location, dispatch, title, collected, ticketId } = props;
   const transPages = ['/detail', '/author', '/user', '/about'];
   return (
     <AppBar
       iconElementLeft={leftBtn(location.pathname, dispatch)}
       showMenuIconButton={location.pathname === '/about' ? false : true}
-      iconElementRight={rightBtn(location.pathname, dispatch, collected)}
+      iconElementRight={rightBtn(location.pathname, dispatch, collected, ticketId)}
       iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
       iconStyleRight={{ alignSelf: 'center', marginTop: 0 }}
       title={titleNode(location.pathname, title)}

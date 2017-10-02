@@ -45,13 +45,13 @@ class Profile extends Component {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/vnd.Gotcha api.v1+json',
-                'Authorization': 'Bearer '+auth.token
+                'Authorization': 'Bearer ' + auth.token
             },
             action: 'http://112.74.190.30:8800/api/images',
             name: 'image',
-            onSuccess(result){
+            onSuccess(result) {
                 console.log(result)
-                this.setState({myInfo2: {avatar: result}})
+                this.setState({ myInfo2: { avatar: result } })
             }
         }
         return <div className="m-profile">
@@ -63,12 +63,12 @@ class Profile extends Component {
 
                 </ListItem>
                 <ListItem primaryText="个人介绍" onClick={() => this.setState({ dlgSubscribe: true })}>
-                    <span className="listRight">{myInfo.content || '未填写'}</span>
+                    <span className="listRight">{myInfo.subscribe || '未填写'}</span>
                 </ListItem>
                 <ListItem primaryText="性别" onClick={() => this.setState({ dlgSex: true })}>
                     <span className="listRight">{gender(+myInfo.sex) || '未填写'}</span>
                 </ListItem>
-                <ListItem primaryText="生日" onClick={() => this.setState({ dlgBirth: true })}> 
+                <ListItem primaryText="生日" onClick={() => this.setState({ dlgBirth: true })}>
                     <span className="listRight">{myInfo.birthday || '未填写'}</span>
                 </ListItem>
                 <ListItem primaryText="所在地" onClick={() => this.setState({ dlgPlace: true })} >
@@ -81,30 +81,30 @@ class Profile extends Component {
             <Dlg title="用户名：" open={this.state.dlgName} close={() => this.setState({ dlgName: false })}
                 done={() => {
                     myInfo.nickname = this.state.myInfo2.nickname
-                    aboutService.putMyInfo({ nickname: myInfo.nickname }).then(({ res }) => this.setState({ myInfo: res.data, dlgName: false }))
+                    aboutService.putMyInfo({ data: { nickname: myInfo.nickname } }).then(({ res }) => this.setState({ myInfo: res.data, dlgName: false }))
                 }}>
                 <TextField id="nickname" defaultValue={myInfo.nickname} onChange={(e, v) => this.setState({ myInfo2: { nickname: v } })} />
             </Dlg>
             <Dlg title="头像：" open={this.state.dlgAvatar} close={() => this.setState({ dlgAvatar: false })}
                 done={() => {
                     myInfo.avatar = this.state.myInfo2.avatar
-                    aboutService.putMyInfo({ avatar: myInfo.avatar }).then(({ res }) => this.setState({ myInfo: res.data, dlgAvatar: false }))
+                    aboutService.putMyInfo({ data: { avatar: myInfo.avatar } }).then(({ res }) => this.setState({ myInfo: res.data, dlgAvatar: false }))
                 }}>
                 <Upload {...uploadProp} >点击上传</Upload>
             </Dlg>
             <Dlg title="个人介绍：" open={this.state.dlgSubscribe} close={() => this.setState({ dlgSubscribe: false })}
                 done={() => {
                     myInfo.subscribe = this.state.myInfo2.subscribe
-                    aboutService.putMyInfo({ subscribe: myInfo.subscribe }).then(({ res }) => this.setState({ myInfo: res.data, dlgSubscribe: false }))
+                    aboutService.putMyInfo({ data: { subscribe: myInfo.subscribe } }).then(({ res }) => this.setState({ myInfo: res.data, dlgSubscribe: false }))
                 }}>
                 <TextField id="subscribe" multiLine defaultValue={myInfo.subscribe} onChange={(e, v) => this.setState({ myInfo2: { subscribe: v } })} />
             </Dlg>
             <Dlg title="性别：" open={this.state.dlgSex} close={() => this.setState({ dlgSex: false })}
                 done={() => {
                     myInfo.sex = this.state.myInfo2.sex
-                    aboutService.putMyInfo({ sex: myInfo.sex }).then(({ res }) => this.setState({ myInfo: res.data, dlgSex: false }))
+                    aboutService.putMyInfo({ data: { sex: myInfo.sex } }).then(({ res }) => this.setState({ myInfo: res.data, dlgSex: false }))
                 }}>
-                <RadioButtonGroup name="sex" defaultSelected={myInfo.sex+''} onChange={(e,v) => this.setState({ myInfo2: { sex: +v } })} >
+                <RadioButtonGroup name="sex" defaultSelected={myInfo.sex + ''} onChange={(e, v) => this.setState({ myInfo2: { sex: +v } })} >
                     <RadioButton
                         value="0"
                         label="男"
@@ -118,21 +118,21 @@ class Profile extends Component {
             <Dlg title="生日：" open={this.state.dlgBirth} close={() => this.setState({ dlgBirth: false })}
                 done={() => {
                     myInfo.birthday = this.state.myInfo2.birthday
-                    aboutService.putMyInfo({ birthday: myInfo.birthday }).then(({ res }) => this.setState({ myInfo: res.data, dlgBirth: false }))
+                    aboutService.putMyInfo({ data: { birthday: myInfo.birthday } }).then(({ res }) => this.setState({ myInfo: res.data, dlgBirth: false }))
                 }}>
-                <DatePicker name="birthday" defaultDate={new Date(myInfo.birthday)} onChange={(e, v) => this.setState({myInfo2: {birthday: moment(v).format('YYYY-MM-DD')}})} />
+                <DatePicker name="birthday" defaultDate={new Date(myInfo.birthday)} onChange={(e, v) => this.setState({ myInfo2: { birthday: moment(v).format('YYYY-MM-DD') } })} />
             </Dlg>
             <Dlg title="学校：" open={this.state.dlgPlace} close={() => this.setState({ dlgPlace: false })}
                 done={() => {
                     myInfo.city = this.state.myInfo2.city
-                    aboutService.putMyInfo({ city: myInfo.city }).then(({ res }) => this.setState({ myInfo: res.data, dlgPlace: false }))
+                    aboutService.putMyInfo({ data: { city: myInfo.city } }).then(({ res }) => this.setState({ myInfo: res.data, dlgPlace: false }))
                 }}>
                 <TextField id="city" defaultValue={myInfo.city} onChange={(e, v) => this.setState({ myInfo2: { city: v } })} />
             </Dlg>
             <Dlg title="学校：" open={this.state.dlgUniversity} close={() => this.setState({ dlgUniversity: false })}
                 done={() => {
                     myInfo.university = this.state.myInfo2.university
-                    aboutService.putMyInfo({ university: myInfo.university }).then(({ res }) => this.setState({ myInfo: res.data, dlgUniversity: false }))
+                    aboutService.putMyInfo({ data: { university: myInfo.university } }).then(({ res }) => this.setState({ myInfo: res.data, dlgUniversity: false }))
                 }}>
                 <TextField id="university" defaultValue={myInfo.university} onChange={(e, v) => this.setState({ myInfo2: { university: v } })} />
             </Dlg>
