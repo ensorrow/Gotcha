@@ -7,6 +7,9 @@ export default {
     isDetail: false,
     myInfo: {},
     tickets: [],
+    collects: [],
+    fans: [],
+    follows: [],
     activeTicket: {
       event:{}
     }
@@ -26,6 +29,15 @@ export default {
     },
     updateTickets(state, { payload: { tickets } }) {
       return { ...state, tickets }
+    },
+    updateCollects(state, { payload: { collects } }) {
+      return { ...state, collects }
+    },
+    updateFollows(state, { payload: { follows } }) {
+      return { ...state, follows }
+    },
+    updateFans(state, { payload: { fans } }) {
+      return { ...state, fans }
     },
     updateActTicket(state, { payload: { activeTicket } }) {
       return { ...state, activeTicket }
@@ -47,7 +59,19 @@ export default {
     *getTicket({ payload: { id } }, { call, put }) {
       const { res, err } = yield call(aboutService.getTicket, id);
       if (res) yield put({ type: 'updateActTicket', payload: { activeTicket: res.data } });
-    }
+    },
+    *getCollects({ }, { call, put }) {
+      const { res, err } = yield call(aboutService.getCollects);
+      if (res) yield put({ type: "updateCollects", payload: { collects: res.data } });
+    },
+    *getFollows({ }, { call, put }) {
+      const { res, err } = yield call(aboutService.getFollows);
+      if (res) yield put({ type: "updateFollows", payload: { follows: res.data } });
+    },
+    *getFans({ }, { call, put }) {
+      const { res, err } = yield call(aboutService.getFans);
+      if (res) yield put({ type: "updateFans", payload: { fans: res.data } });
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -62,6 +86,15 @@ export default {
           }
           if (pathname === '/about/ticketdetail') {
             dispatch({ type: 'getTicket', payload: { id: query.id } });
+          }
+          if(pathname === '/about/collects') {
+            dispatch({ type: 'getCollects' });
+          }
+          if(pathname === '/about/follows') {
+            dispatch({ type: 'getFollows' });            
+          }
+          if(pathname === '/about/fans') {
+            dispatch({ type: 'getFans' });            
           }
         })
       })

@@ -2,7 +2,7 @@ import Avatar from 'material-ui/Avatar';
 import './ActivityCard.less';
 import { Link } from 'dva/router';
 
-const ActivityCard = ({ vm }) => <Link to={"/detail?id="+vm.id} >
+const ActivityCard = ({ vm, lg }) => <Link to={"/detail?id="+vm.id} >
   <div className="m-miniCard">
     <div className="imgWrapper">
       <img src={require('../../assets/test.png')} />
@@ -15,6 +15,7 @@ const ActivityCard = ({ vm }) => <Link to={"/detail?id="+vm.id} >
         <span>·</span>
         <span>{vm.users_count}人参与</span>
       </h3>
+      {lg ? <h4>{vm.start_date}</h4> : null}
     </div>
   </div>
 </Link>;

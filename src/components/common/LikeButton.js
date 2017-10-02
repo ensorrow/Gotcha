@@ -5,6 +5,7 @@ import ArrowRight from 'material-ui/svg-icons/navigation/arrow-forward';
 import classnames from 'classnames';
 import appService from '../../services/app';
 import utils from '../../utils/utils';
+import './LikeButton.less';
 
 class LikeButton extends Component{
     constructor(props){

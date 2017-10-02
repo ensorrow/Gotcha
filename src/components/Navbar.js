@@ -31,6 +31,10 @@ function titleNode(pathname, title) {
     '/liked/recommend/user': titleUser,
     '/liked/recommend/org': titleOrg,
     '/about/tickets': '我的入场券',
+    '/about/collects': '我的收藏',
+    '/about/follows': '我的关注',
+    '/about/fans': '我的粉丝',
+    '/about/addticket': '新增入场券',
     '/about/ticketdetail': '入场券',
     '/about/profile': '个人资料',
     '/detail/comment': '评价'

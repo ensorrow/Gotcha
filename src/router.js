@@ -16,6 +16,8 @@ import Liked from './routes/Liked.js';
 
 import About from './routes/About.js';
 import Profile from './routes/about/Profile.js';
+import MyCollect from './routes/about/MyCollect';
+import MyFans from './routes/about/MyFans';
 
 import Login from './routes/Login.js';
 
@@ -33,6 +35,8 @@ function RouterConfig({ history }) {
         <Route path="/author/activities" component={FullList} />
         <Route path="/liked" component={Liked} />
         <Route path="/about" component={About} />
+        <Route path="/about/collects" component={MyCollect} />
+        <Route path="/about/fans" component={MyFans} />
         <Route path="/about/tickets" component={Tickets} />
         <Route path="/about/addticket" component={AddTicket} />
         <Route path="/about/ticketdetail" component={TicketDetail} />
