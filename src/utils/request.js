@@ -5,7 +5,7 @@ import utils from './utils';
 import { routerRedux } from 'dva/router';
 
 function parseJSON(response) {
-  return response && response.json();
+  return response.json();
 }
 
 function checkStatus(response) {
@@ -56,6 +56,7 @@ export default function request(url, options = {}) {
         const pre = utils.getPathQuery();
         window.location.hash = '#/login?pre=' + pre;
       }
-      return { err };
+      if(err.message !== 'Unexpected end of JSON input') return { err };
+      else return { err: undefined };// 接一下body为空的错误
     });
 }

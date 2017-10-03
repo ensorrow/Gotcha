@@ -12,15 +12,6 @@ import ActivityCard from '../../components/index/ActivityCard';
 import { Link } from 'dva/router';
 import StatusBar from '../../components/index/StatusBar';
 
-const tmpcomments = [
-  '我一直是用linux的习惯使用mac，所以这件事的步骤是',
-  '我一直是用linux的习惯使用mac，所以这件事的步骤是',
-  '我一直是用linux的习惯使用mac，所以这件事的步骤是',
-  '我一直是用linux的习惯使用mac，所以这件事的步骤是',
-  '我一直是用linux的习惯使用mac，所以这件事的步骤是',
-];
-
-
 function IndexDetail({ vm, dispatch }) {
   return (<div className="m-detail">
     <img src={require('../../assets/images/banner1.png')} className="topBg" />

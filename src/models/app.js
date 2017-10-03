@@ -22,10 +22,10 @@ export default {
       return { ...state, event: data, title: data.title };
     },
     updateCollect(state) {
-      return { ...state, event: { has_collect: true, collectors_count: state.event.collectors_count + 1 } }
+      return { ...state, event: { ...state.event, has_collect: true, collectors_count: state.event.collectors_count + 1 } }
     },
     updateApply(state) {
-      return { ...state, event: { has_apply: true, users_count: state.event.users_count + 1 } }
+      return { ...state, event: { ...state.event, has_apply: true, users_count: state.event.users_count + 1 } }
     }
   },
   effects: {

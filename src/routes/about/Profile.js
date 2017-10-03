@@ -122,7 +122,7 @@ class Profile extends Component {
                 }}>
                 <DatePicker name="birthday" defaultDate={new Date(myInfo.birthday)} onChange={(e, v) => this.setState({ myInfo2: { birthday: moment(v).format('YYYY-MM-DD') } })} />
             </Dlg>
-            <Dlg title="学校：" open={this.state.dlgPlace} close={() => this.setState({ dlgPlace: false })}
+            <Dlg title="所在地：" open={this.state.dlgPlace} close={() => this.setState({ dlgPlace: false })}
                 done={() => {
                     myInfo.city = this.state.myInfo2.city
                     aboutService.putMyInfo({ data: { city: myInfo.city } }).then(({ res }) => this.setState({ myInfo: res.data, dlgPlace: false }))
