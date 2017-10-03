@@ -7,6 +7,8 @@ import './Login.less';
 import appService from '../services/app';
 import cookie from 'cookie';
 import { routerRedux } from 'dva/router';
+import utils from '../utils/utils';
+import auth from '../utils/auth';
 
 class Login extends Component{
     constructor(props){
@@ -19,10 +21,13 @@ class Login extends Component{
         }
     }
     componentDidMount(){
-        const pre = window.location.hash.match(/pre=\/.+(?=&)/)[0].substring(4);
+        const pre = utils.getQuery('pre');
+        const mob = utils.getQuery('mobile');
         this.setState({
-            prePath: pre
-        });
+            prePath: pre || '/',
+            mobile: mob || '',
+            type: mob ? 'fast' : 'normal'
+        }, () => mob && this.sendCode());
     }
     login(){
         appService.login({
@@ -31,7 +36,8 @@ class Login extends Component{
         }).then(({ res }) => {
             var tokenStr = cookie.serialize('token', res.token, {maxAge: 3600*72});
             document.cookie = tokenStr;
-            this.props.dispatch(routerRedux.replace(this.state.prePath));            
+            auth.initToken();
+            this.props.dispatch(routerRedux.replace(this.state.prePath || '/'));            
         }).catch(({ err }) => {
             console.log(err);
         });
@@ -43,7 +49,7 @@ class Login extends Component{
         }).then(({ res }) => {
             var tokenStr = cookie.serialize('token', res.token, {maxAge: 3600*72});
             document.cookie = tokenStr;
-            this.props.dispatch(routerRedux.replace(this.state.prePath));
+            this.props.dispatch(routerRedux.replace(this.state.prePath || '/'));
         }).catch(({ err }) => {
             console.log(err);
         });
@@ -52,8 +58,8 @@ class Login extends Component{
         if(!this.state.mobile) return console.log('检查手机号')
         appService.getVerify({
             mobile: this.state.mobile
-        }).then(({ res }) => {
-            console.log('验证码已发送')
+        }).then(({ res, err }) => {
+            if(!err) console.log('验证码已发送')
         });
     }
     handleChange(value){
@@ -70,14 +76,13 @@ class Login extends Component{
                             <div className="input">
                                 <div className="icon user_bu"/>
                                 <input value={this.state.mobile} onChange={(e) => this.setState({mobile: e.target.value})} placeholder="请输入账号"/>
-                                {this.state.type === 'fast' ? <div className="btn-code" onClick={this.sendCode}>发送验证码</div> : null}
                             </div>
                             <div className="input">
                                 <div className="icon key_bu"/>
                                 <input type="password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} placeholder="请输入密码" />
                             </div>
                             <div className="btn btn-ok" onClick={() => this.login()}>登录</div>
-                            <Link to="/find-pwd" className="btn btn2">忘记密码？</Link>
+                            <Link to="/reset" className="btn btn2">忘记密码？</Link>
                         </div>
                     </div>
                 </Tab>
@@ -91,7 +96,7 @@ class Login extends Component{
                             </div>
                             <div className="input">
                                 <div className="icon key_bu"/>
-                                <input type="password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} placeholder="请输入验证码" />
+                                <input value={this.state.verify_code} onChange={(e) => this.setState({verify_code: e.target.value})} placeholder="请输入验证码" />
                             </div>
                         </div>
                         <div className="btn btn-ok" onClick={() => this.fastLogin()}>登录</div>

@@ -29,5 +29,30 @@ export default {
       organizer_id: organizer_id
     }),
     needAuth: true
-  })
+  }),
+  getVerifyReg: ({ mobile }) => request(`/auth/register_verify_code?mobile=${mobile}`),
+  reg: ({ mobile, verify_code }) => request('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({
+      mobile,
+      verify_code
+    })
+  }),
+  setPassword: ({ password }) => request('/set_password', {
+    method: 'POST',
+    needAuth: true,
+    body: JSON.stringify({password})
+  }),
+  retrievePwd: ({ mobile, verify_code }) => request('/auth/retrieve_password', {
+    method: 'POST',
+    body: JSON.stringify({
+      mobile,
+      verify_code
+    })
+  }),
+  resetPwd: ({ password }) => request('/reset_password', {
+    method: 'POST',
+    needAuth: true,
+    body: JSON.stringify({password})
+  }),
 }

@@ -20,6 +20,8 @@ import MyCollect from './routes/about/MyCollect';
 import MyFans from './routes/about/MyFans';
 
 import Login from './routes/Login.js';
+import Reg from './routes/Reg.js';
+import ResetPwd from './routes/ResetPwd.js';
 
 import App from './routes/App.js';
 
@@ -43,6 +45,8 @@ function RouterConfig({ history }) {
         <Route path="/about/profile" component={Profile} />
         <Route path="/user" component={User} />
         <Route path="/login" component={Login} />
+        <Route path="/reg" component={Reg} />
+        <Route path="/reset" component={ResetPwd} />
         <Route path="/liked/recommend/:type" component={RecommendList} />
       </Route>
     </Router>

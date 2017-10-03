@@ -1,5 +1,6 @@
 import cookie from 'cookie';
 import { routerRedux } from 'dva/router';
+import utils from './utils';
 
 export default {
     token: '',
@@ -21,9 +22,9 @@ export default {
             cb();
         }
         else {
-            const pre = window.location.hash.split('/#')[1].split('&')[0];
+            const pre = utils.getPathQuery();
             dispatch(routerRedux.replace({
-                path: '/login?pre=' + pre
+                pathname: '/login?pre=' + pre
             }));
         }
     },

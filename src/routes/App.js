@@ -16,7 +16,8 @@ injectTapEventPlugin();
 auth.initToken();
 moment.locale('zh-cn');
 
-function App({ location, children, dispatch, title, collected, showDialog, dialogContent, ticketId }) {
+function App(props) {
+  const { location, children, dispatch, title, collected, showDialog, dialogContent, ticketId } = props;
   return (
     <MuiThemeProvider>
       <div>

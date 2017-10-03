@@ -29,6 +29,11 @@ export default {
     }
   },
   effects: {
+    *dialog({payload: {content}}, {put}){
+      yield put({ type: 'showDialog', payload: { content } });
+      yield delay(2000);
+      yield put({ type: 'hideDialog' });
+    },
     *getDetail({ payload: { event_id } }, { call, put }) {
       const { res, err } = yield call(homeService.getDetail, event_id);
       yield put({ type: 'updateDetail', payload: res });
@@ -48,9 +53,7 @@ export default {
       const event_id = yield select(state => state.app.event.id);
       const { res, err } = yield call(homeService.comment, { event_id, content });
       if (res) {
-        yield put({ type: 'showDialog', payload: { content: '评价成功' } });
-        yield delay(2000);
-        yield put({ type: 'hideDialog' });
+       yield put({type: 'dialog', payload: {content: '评价成功'}})
       }
     }
   },

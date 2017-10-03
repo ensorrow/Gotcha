@@ -1,9 +1,14 @@
 export default {
     getPathQuery(){
-        return window.location.hash.split('#')[1].split('&')[0];
+        return window.location.hash.split('#')[1].split('&')[0].split('_k')[0];
     },
     getPath(){
         return window.location.hash.split('#')[1].split('?')[0];
+    },
+    getQuery(name){
+        let matchRes = window.location.hash.match(new RegExp(`${name}=.+(?=&)`));
+        matchRes = matchRes && matchRes[0];
+        return matchRes ? matchRes.split('=')[1] : undefined;
     },
     compareTime(startDate, endDate, applyDate){
         const startTime = parseInt(new Date(startDate).getTime()/1000);

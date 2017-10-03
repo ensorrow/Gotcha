@@ -37,7 +37,9 @@ function titleNode(pathname, title) {
     '/about/addticket': '新增入场券',
     '/about/ticketdetail': '入场券',
     '/about/profile': '个人资料',
-    '/detail/comment': '评价'
+    '/detail/comment': '评价',
+    '/login': '登录',
+    '/reg': '注册'
   };
   return titles[pathname];
 }
@@ -46,6 +48,8 @@ function rightBtn(pathname, dispatch, collected, ticketId) {
   if (pathname === '/detail') return <IconButton onClick={() => dispatch({type: 'app/collect'})} >{collected ? <Favorite /> : <Favorite_b />}</IconButton>;
   if (pathname === '/' || pathname === '/liked') return <IconButton onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
   if (pathname === '/search') return <IconButton ><SearchIcon /></IconButton>;
+  if (pathname === '/login') return <Link to="/reg">注册</Link>;
+  if (pathname === '/reg') return <Link to="/login">登录</Link>;
   if (pathname === '/about') return <Link to="/about/profile"><i className="icon-edit"></i></Link>
   if (pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white" /></Link>;
   if (pathname === '/about/ticketdetail') return <Link to={"/detail?id="+ticketId}>查看活动</Link>;
