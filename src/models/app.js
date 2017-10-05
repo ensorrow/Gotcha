@@ -1,4 +1,5 @@
-import { homeService } from '../services/home';
+import homeService from '../services/home';
+import appService from '../services/app';
 import auth from '../utils/auth';
 import { delay } from 'dva/saga';
 
@@ -9,7 +10,11 @@ export default {
     title: '',
     event: {},
     showDialog: false,
-    dialogContent: '通知'
+    dialogContent: '通知',
+    search: {
+      events: [],
+      users: []
+    }
   },
   reducers: {
     showDialog(state, { payload: { content } }) {
@@ -26,6 +31,9 @@ export default {
     },
     updateApply(state) {
       return { ...state, event: { ...state.event, has_apply: true, users_count: state.event.users_count + 1 } }
+    },
+    updateSearch(state, {payload: data}) {
+      return { ...state, search: data }
     }
   },
   effects: {
@@ -55,6 +63,10 @@ export default {
       if (res) {
        yield put({type: 'dialog', payload: {content: '评价成功'}})
       }
+    },
+    *search({ payload: keyword }, { call, put }) {
+      const { res, err } = yield call(appService.search, keyword);
+      if(res) yield put({type: 'updateSearch', payload: res.data});
     }
   },
   subscriptions: {

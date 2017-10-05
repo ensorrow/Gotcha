@@ -1,4 +1,4 @@
-import { homeService } from '../services/home';
+import homeService from '../services/home';
 import auth from '../utils/auth';
 
 export default {

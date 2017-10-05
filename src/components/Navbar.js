@@ -11,6 +11,8 @@ import './Navbar.less';
 import { Link } from 'dva/router';
 import TextField from 'material-ui/TextField';
 
+let searchQuery = '';
+
 function leftBtn(pathname, dispatch) {
   const rootPages = ['/', '/liked', '/about'];
   if (rootPages.toString().indexOf(pathname) > -1) { return null; }
@@ -21,7 +23,7 @@ const titleOrg = <span className="titleWra"><span>推荐主办方</span><span st
 
 const titleUser = <span className="titleWra"><span><Link to="/liked/recommend/org">推荐主办方</Link></span><span style={{ marginLeft: '32px' }}>推荐用户</span></span>;
 
-const titleInput = <TextField hintText="输入搜索内容" />;
+const titleInput = <TextField onChange={(e,v) => {searchQuery = v;}} hintText="输入搜索内容" />;
 
 function titleNode(pathname, title) {
   if (title && pathname === '/detail') return title;
@@ -47,7 +49,7 @@ function titleNode(pathname, title) {
 function rightBtn(pathname, query, dispatch, collected, ticketId) {
   if (pathname === '/detail') return <IconButton onClick={() => dispatch({type: 'app/collect'})} >{collected ? <Favorite /> : <Favorite_b />}</IconButton>;
   if (pathname === '/' || pathname === '/liked') return <IconButton onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
-  if (pathname === '/search') return <IconButton ><SearchIcon /></IconButton>;
+  if (pathname === '/search') return <IconButton ><SearchIcon onClick={() => dispatch({type: 'app/search', payload: searchQuery})} /></IconButton>;
   if (pathname === '/login') return <Link to="/reg">注册</Link>;
   if (pathname === '/reg') return <Link to="/login">登录</Link>;
   if (pathname === '/about') return <Link to="/about/profile"><i className="icon-edit"></i></Link>

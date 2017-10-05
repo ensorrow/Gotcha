@@ -55,4 +55,8 @@ export default {
     needAuth: true,
     body: JSON.stringify({password})
   }),
+  search: (keyword) => request('/search', {
+    method: 'POST',
+    body: JSON.stringify({keyword})
+  })
 }

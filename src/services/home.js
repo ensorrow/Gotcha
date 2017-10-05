@@ -1,6 +1,6 @@
 import request from '../utils/request';
 
-export const homeService = {
+export default {
   getEvents: ({ page = 1, size = 10, tag_name }) => request(`/favorite_events?${tag_name ? `tag_name=${tag_name}&` : ''}page=${page}&size=${size}`),
   getDetail: event_id => request(`/events/${event_id}`, {ifAuth: true}),
   getWeekendEvents: ({ tag_name, page = 1, size = 10 }) => request(`/weekend_events?${tag_name ? `tag_name=${tag_name}&` : ''}page=${page}&size=${size}`),
