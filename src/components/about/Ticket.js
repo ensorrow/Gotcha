@@ -9,9 +9,9 @@ const fmtDate = (m) => {
 
 const Ticket = ({ vm, lg, dispatch }) => {
   if (vm) {
-    return <div
+    return (<div
       className={vm.status != 2 ? 'active ticket' : 'ticket'} onClick={lg ? null : () => dispatch(routerRedux.push({
-        pathname: '/about/ticketdetail?id='+vm.id
+        pathname: `/about/ticketdetail?id=${vm.id}`,
       }))}
     >
       <div className="part1">
@@ -34,7 +34,7 @@ const Ticket = ({ vm, lg, dispatch }) => {
         <div className="label">注意事项</div>
         <div className="info">{vm.event.notice}</div>
       </div> : null}
-    </div>
+    </div>);
   } else {
     return null;
   }

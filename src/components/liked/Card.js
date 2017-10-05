@@ -4,7 +4,7 @@ import Avatar from 'material-ui/Avatar';
 import styles from './Card.less';
 
 const Title = ({ isAuthor }) => <h1>
-  <a>李莉莉</a>            {isAuthor ? '发布了活动' : '参与了活动'}
+  <a>李莉莉</a>                      {isAuthor ? '发布了活动' : '参与了活动'}
 </h1>;
 
 const ContentCard = ({ isAuthor, onContentClick }) => {

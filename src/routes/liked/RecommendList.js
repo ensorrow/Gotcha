@@ -8,5 +8,5 @@ const FullList = ({ recOrg, recUser, params }) => <div>
 export default connect(({ liked }, ownProps) => ({
   recOrg: liked.recOrg,
   recUser: liked.recUser,
-  params: ownProps.params
+  params: ownProps.params,
 }))(FullList);

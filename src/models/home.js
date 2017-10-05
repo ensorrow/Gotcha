@@ -9,10 +9,10 @@ export default {
     activeTab: 0,
     carousel: [],
     author: {
-      events: []
+      events: [],
     },
     user: {
-      events: []
+      events: [],
     },
     favorite: {
       page: 1,
@@ -66,48 +66,48 @@ export default {
     updateActiveTab(state, { payload: { tab } }) {
       return { ...state, activeTab: tab };
     },
-    updateAuthor(state, {payload: {data}}){
-      return {...state, author: data}
+    updateAuthor(state, { payload: { data } }) {
+      return { ...state, author: data };
     },
-    updateUser(state, {payload: {data}}){
-      return {...state, user: data}
+    updateUser(state, { payload: { data } }) {
+      return { ...state, user: data };
     },
-    updateAuthorEvents(state, {payload: {data}}){
-      return { ...state, author: { ...state.author, events: data } }
+    updateAuthorEvents(state, { payload: { data } }) {
+      return { ...state, author: { ...state.author, events: data } };
     },
-    updateUserEvents(state, {payload: {data}}){
-      return { ...state, user: { ...state.user, events: data } }
+    updateUserEvents(state, { payload: { data } }) {
+      return { ...state, user: { ...state.user, events: data } };
     },
   },
   effects: {
     *getTags({}, { call, put }) {
       const { res, err } = yield call(homeService.getTags);
-      if(res) yield put({ type: 'updateTags', payload: res });
+      if (res) yield put({ type: 'updateTags', payload: res });
     },
     *getCarousels({}, { call, put }) {
       const { res, err } = yield call(homeService.getCarousels);
-      if(res) yield put({ type: 'updateCarousel', payload: res });
+      if (res) yield put({ type: 'updateCarousel', payload: res });
     },
   	*getFavi({ payload = {} }, { call, put, select }) {
-      const activeTag = yield select(state => state.home.activeTag);
-      if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
-      yield put({ type: 'updateActiveTab', payload: { tab: 0 } });
-      const { res, err } = yield call(homeService.getEvents, payload);
-      if(res) yield put({ type: 'updateFavi', payload: res });
-    },
+    const activeTag = yield select(state => state.home.activeTag);
+    if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
+    yield put({ type: 'updateActiveTab', payload: { tab: 0 } });
+    const { res, err } = yield call(homeService.getEvents, payload);
+    if (res) yield put({ type: 'updateFavi', payload: res });
+  },
     *getNear({ payload = {} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
       if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
       yield put({ type: 'updateActiveTab', payload: { tab: 1 } });
       const { res, err } = yield call(homeService.getNearbyEvents, payload);
-      if(res) yield put({ type: 'updateNear', payload: res });
+      if (res) yield put({ type: 'updateNear', payload: res });
     },
     *getWeek({ payload = {} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
       if (activeTag !== '全部') Object.assign(payload, { tag_name: activeTag });
       yield put({ type: 'updateActiveTab', payload: { tab: 2 } });
       const { res, err } = yield call(homeService.getWeekendEvents, payload);
-      if(res) yield put({ type: 'updateWeek', payload: res });
+      if (res) yield put({ type: 'updateWeek', payload: res });
     },
     *getByTag({ payload: { tag } }, { call, put, select }) {
       const activeTab = yield select(state => state.home.activeTab);
@@ -126,43 +126,43 @@ export default {
           yield put({ type: 'getFavi' });
       }
     },
-    *getAuthor({payload: id}, {call, put}){
+    *getAuthor({ payload: id }, { call, put }) {
       const { res, err } = yield call(homeService.getAuthor, id);
-      if(res) {
-        yield put({type: 'updateAuthor', payload: res});
-        yield put({ type: 'getAuthorEvents',payload: id })
+      if (res) {
+        yield put({ type: 'updateAuthor', payload: res });
+        yield put({ type: 'getAuthorEvents', payload: id });
       }
     },
-    *getUser({payload: id}, {call, put}){
+    *getUser({ payload: id }, { call, put }) {
       const { res, err } = yield call(homeService.getUser, id);
-      if(res) {
-        yield put({type: 'updateUser', payload: res});
-        yield put({ type: 'getUserEvents',payload: id })
+      if (res) {
+        yield put({ type: 'updateUser', payload: res });
+        yield put({ type: 'getUserEvents', payload: id });
       }
     },
-    *getAuthorEvents({payload: id}, {call, put}){
-      const { res, err } = yield call(homeService.getAuthorEvents, {id});
-      if(res) yield put({type: 'updateAuthorEvents', payload: res});
+    *getAuthorEvents({ payload: id }, { call, put }) {
+      const { res, err } = yield call(homeService.getAuthorEvents, { id });
+      if (res) yield put({ type: 'updateAuthorEvents', payload: res });
     },
-    *getUserEvents({payload: id}, {call, put}){
-      const { res, err } = yield call(homeService.getUserEvents, {id});
-      if(res) yield put({type: 'updateUserEvents', payload: res});
+    *getUserEvents({ payload: id }, { call, put }) {
+      const { res, err } = yield call(homeService.getUserEvents, { id });
+      if (res) yield put({ type: 'updateUserEvents', payload: res });
     },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname, query }) => {
-        auth.login(dispatch, pathname, function() {
+        auth.login(dispatch, pathname, () => {
           if (pathname === '/') {
             dispatch({ type: 'getTags' });
-            // dispatch({ type: 'getCarousels' });
+            dispatch({ type: 'getCarousels' });
             dispatch({ type: 'getFavi' });
           }
-          if(pathname === '/author') {
-            dispatch({type: 'getAuthor', payload: query.id});
+          if (pathname === '/author') {
+            dispatch({ type: 'getAuthor', payload: query.id });
           }
-          if(pathname === '/user') {
-            dispatch({type: 'getUser', payload: query.id});
+          if (pathname === '/user') {
+            dispatch({ type: 'getUser', payload: query.id });
           }
         });
       });

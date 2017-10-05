@@ -41,5 +41,5 @@ export default connect(({ app, about }) => ({
   collected: app.event.has_collect,
   showDialog: app.showDialog,
   dialogContent: app.dialogContent,
-  ticketId: about.activeTicket.id
+  ticketId: about.activeTicket.id,
 }))(App);

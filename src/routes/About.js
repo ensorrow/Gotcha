@@ -16,11 +16,11 @@ function About({ dispatch, about }) {
         <ListItem primaryText="我的入场券" leftIcon={<AboutIcon />} rightIconButton={<Link className="list-right" to="/about/tickets">查看全部</Link>} />
         <Divider inset />
         <TicketList dataArr={about.tickets} />
-        <ListItem primaryText="我的收藏" onClick={() => dispatch(routerRedux.push({pathname: '/about/collects'}))} leftIcon={<AboutIcon />} />
+        <ListItem primaryText="我的收藏" onClick={() => dispatch(routerRedux.push({ pathname: '/about/collects' }))} leftIcon={<AboutIcon />} />
         <Divider inset />
-        <ListItem primaryText="我的关注" onClick={() => dispatch(routerRedux.push({pathname: '/about/follows'}))} leftIcon={<AboutIcon />} />
+        <ListItem primaryText="我的关注" onClick={() => dispatch(routerRedux.push({ pathname: '/about/follows' }))} leftIcon={<AboutIcon />} />
         <Divider inset />
-        <ListItem primaryText="我的粉丝" onClick={() => dispatch(routerRedux.push({pathname: '/about/fans'}))} leftIcon={<AboutIcon />} />
+        <ListItem primaryText="我的粉丝" onClick={() => dispatch(routerRedux.push({ pathname: '/about/fans' }))} leftIcon={<AboutIcon />} />
       </List>
     </div>
   );

@@ -7,7 +7,7 @@ const Recommend = ({ title, vm, type }) => {
   let preview;
   if (vm.length > 5) preview = vm.slice(0, 5);
   else preview = vm;
-  return <div className="m-recommend">
+  return (<div className="m-recommend">
     <div>
       <span className="u-title">{title}</span>
     </div>
@@ -15,7 +15,7 @@ const Recommend = ({ title, vm, type }) => {
       <div style={{ width: `${preview.length * 238 + 188}px`, overflow: 'auto' }}>
         {preview.map((item, index) => <div className="tj-item" key={index}>
           <div className="line1">
-            <Link to={type === 'user' ? '/user?id=' + item.id : '/author?id=' + item.id}>
+            <Link to={type === 'user' ? `/user?id=${item.id}` : `/author?id=${item.id}`}>
               <Avatar src={item.avatar} size={32} />
             </Link>
             <span className="name">{type == 'user' ? item.nickname : item.name}</span>
@@ -29,7 +29,7 @@ const Recommend = ({ title, vm, type }) => {
         </div>
       </div>
     </div>
-  </div>
+  </div>);
 };
 
 export default Recommend;

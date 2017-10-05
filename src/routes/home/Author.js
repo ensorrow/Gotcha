@@ -14,7 +14,7 @@ function Author({ toActivities, author }) {
       <Avatar src={author.avatar} size={60} />
       <h1>{author.name}</h1>
       <h2>{author.summary}</h2>
-      <LikeButton id={author.id} liked={author.has_follow} type='org' />
+      <LikeButton id={author.id} liked={author.has_follow} type="org" />
     </div>
     <dl>
       <div>
@@ -38,7 +38,7 @@ function Author({ toActivities, author }) {
     </div>
     <div className="activityRecommend u-card">
       <h1 className="u-title">他的活动</h1>
-      {author.events.map((event) => <ActivityCard vm={event} />)}
+      {author.events.map(event => <ActivityCard vm={event} />)}
       <a className="u-more" onClick={toActivities.bind(null, { user: 'testuserid' })}>查看更多</a>
     </div>
     {/* <CommentBox comments={tmpcomments} /> */}
@@ -47,7 +47,7 @@ function Author({ toActivities, author }) {
 
 function mapStateToProps(state) {
   return {
-    author: state.home.author
+    author: state.home.author,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -55,7 +55,7 @@ function mapDispatchToProps(dispatch) {
     toActivities: (params) => {
       dispatch(routerRedux.push({
         pathname: '/author/activities',
-        query: params
+        query: params,
       }));
     },
   };

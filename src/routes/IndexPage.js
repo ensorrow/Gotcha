@@ -25,7 +25,7 @@ function IndexPage({ home, getFavi, getNear, getWeek, getByTag }) {
           </Tab>
           <Tab label="只看周末" onActive={getWeek}>
             <div>
-              {home.weekend.dataList && home.weekend.dataList.map(item => <IndexCard vm={item} key={item.id} />)}              
+              {home.weekend.dataList && home.weekend.dataList.map(item => <IndexCard vm={item} key={item.id} />)}
             </div>
           </Tab>
         </Tabs>

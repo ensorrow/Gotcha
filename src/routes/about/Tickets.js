@@ -8,7 +8,7 @@ const Tickets = ({ dispatch, tickets }) => <div className="m-tickets">
 
 function mapStateToProps(state) {
   return {
-    tickets: state.about.tickets
+    tickets: state.about.tickets,
   };
 }
 export default connect(mapStateToProps)(Tickets);

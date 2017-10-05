@@ -30,33 +30,33 @@ export default function request(url, options = {}) {
   if (!options.method) options.method = 'GET';
   options.headers = options.headers || {
     'Content-Type': 'application/json',
-    'Accept': 'application/vnd.Gotcha api.v1+json'
+    Accept: 'application/vnd.Gotcha api.v1+json',
   };
-  if(options.ifAuth) {
+  if (options.ifAuth) {
     delete options.ifAuth;
     const token = auth.token;
-    if(token) options.headers['Authorization'] = 'Bearer ' + token;
+    if (token) options.headers.Authorization = `Bearer ${token}`;
   }
   if (options.needAuth) {
     delete options.needAuth;
     const token = auth.token;
-    if(!token) {
+    if (!token) {
       const pre = utils.getPathQuery();
-      window.location.hash = '#/login?pre=' + pre;
-      return new Promise((resolve) => resolve({err: '需要登录'}));
+      window.location.hash = `#/login?pre=${pre}`;
+      return new Promise(resolve => resolve({ err: '需要登录' }));
     }
-    options.headers['Authorization'] = 'Bearer ' + token;    
+    options.headers.Authorization = `Bearer ${token}`;
   }
   return fetch(prefix + url, options)
     .then(checkStatus)
     .then(parseJSON)
     .then(res => ({ res }))
-    .catch(err => {
+    .catch((err) => {
       if (err.response && err.response.status === 401) {
         const pre = utils.getPathQuery();
-        window.location.hash = '#/login?pre=' + pre;
+        window.location.hash = `#/login?pre=${pre}`;
       }
-      if(err.message !== 'Unexpected end of JSON input') return { err };
+      if (err.message !== 'Unexpected end of JSON input') return { err };
       else return { err: undefined };// 接一下body为空的错误
     });
 }

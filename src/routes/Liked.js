@@ -30,19 +30,19 @@ function mapDispatchToProps(dispatch) {
     toUser: (params) => {
       dispatch(routerRedux.push({
         pathname: '/user',
-        query: {...params}
+        query: { ...params },
       }));
     },
     toAuthor: (params) => {
       dispatch(routerRedux.push({
         pathname: '/author',
-        query: {...params}
+        query: { ...params },
       }));
     },
     toDetail: (params) => {
       dispatch(routerRedux.push({
         pathname: '/detail',
-        query: {...params}
+        query: { ...params },
       }));
     },
   };

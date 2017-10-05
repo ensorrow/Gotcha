@@ -2,7 +2,7 @@ import styles from './TicketList.less';
 import { Link } from 'dva/router';
 
 const MiniTicket = ({ data, id }) => <div className="miniTicket">
-  <Link to={'/about/ticketdetail?id='+id}>
+  <Link to={`/about/ticketdetail?id=${id}`}>
     <h1>{data.title}</h1>
     <h2>{data.start_date}</h2>
   </Link>

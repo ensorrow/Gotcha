@@ -1,4 +1,4 @@
-export function gender(num){
-    if(num === 0) return '男';
-    return '女';
+export function gender(num) {
+  if (num === 0) return '男';
+  return '女';
 }

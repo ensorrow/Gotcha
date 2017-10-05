@@ -4,7 +4,7 @@ import './UserCard.less';
 import LikeButton from '../common/LikeButton';
 
 const UserCard = ({ vm, type }) => <div className="user-small">
-  <Link to={type !== 'user' ? '/author?id=' + vm.id : '/user?id=' + vm.id}>
+  <Link to={type !== 'user' ? `/author?id=${vm.id}` : `/user?id=${vm.id}`}>
     <Avatar src={vm.avatar} size={32} />
   </Link>
   <div className="content">

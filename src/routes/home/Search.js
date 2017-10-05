@@ -14,5 +14,5 @@ const Search = ({ search }) => <div className="m-search">
 </div>;
 
 export default connect(({ app }) => ({
-  search: app.search
+  search: app.search,
 }))(Search);

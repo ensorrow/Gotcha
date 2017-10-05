@@ -13,31 +13,31 @@ export default {
     dialogContent: '通知',
     search: {
       events: [],
-      users: []
-    }
+      users: [],
+    },
   },
   reducers: {
     showDialog(state, { payload: { content } }) {
-      return { ...state, showDialog: true, dialogContent: content }
+      return { ...state, showDialog: true, dialogContent: content };
     },
     hideDialog(state) {
-      return { ...state, showDialog: false }
+      return { ...state, showDialog: false };
     },
     updateDetail(state, { payload: { data } }) {
       return { ...state, event: data, title: data.title };
     },
     updateCollect(state) {
-      return { ...state, event: { ...state.event, has_collect: true, collectors_count: state.event.collectors_count + 1 } }
+      return { ...state, event: { ...state.event, has_collect: true, collectors_count: state.event.collectors_count + 1 } };
     },
     updateApply(state) {
-      return { ...state, event: { ...state.event, has_apply: true, users_count: state.event.users_count + 1 } }
+      return { ...state, event: { ...state.event, has_apply: true, users_count: state.event.users_count + 1 } };
     },
-    updateSearch(state, {payload: data}) {
-      return { ...state, search: data }
-    }
+    updateSearch(state, { payload: data }) {
+      return { ...state, search: data };
+    },
   },
   effects: {
-    *dialog({payload: {content}}, {put}){
+    *dialog({ payload: { content } }, { put }) {
       yield put({ type: 'showDialog', payload: { content } });
       yield delay(2000);
       yield put({ type: 'hideDialog' });
@@ -61,19 +61,19 @@ export default {
       const event_id = yield select(state => state.app.event.id);
       const { res, err } = yield call(homeService.comment, { event_id, content });
       if (res) {
-       yield put({type: 'dialog', payload: {content: '评价成功'}})
+        yield put({ type: 'dialog', payload: { content: '评价成功' } });
       }
     },
     *search({ payload: keyword }, { call, put }) {
       const { res, err } = yield call(appService.search, keyword);
-      if(res) yield put({type: 'updateSearch', payload: res.data});
-    }
+      if (res) yield put({ type: 'updateSearch', payload: res.data });
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         window.scrollTo(0, 0);
-        auth.login(dispatch, pathname, function () {
+        auth.login(dispatch, pathname, () => {
           if (pathname === '/detail' || pathname === '/detail/comment') {
             dispatch({ type: 'getDetail', payload: { event_id: query.id } });
           }

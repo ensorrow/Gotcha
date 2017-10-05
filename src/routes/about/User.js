@@ -15,7 +15,7 @@ function Author({ toActivities, user }) {
       <Avatar src={user.avatar} size={60} />
       <h1>{user.nickname}</h1>
       <div><h2>{user.birthday || '未填写年龄信息'} {user.city}</h2><h3>{user.university || '未填写大学信息'}</h3></div>
-      <LikeButton id={user.id} liked={user.has_follow} type='user' />
+      <LikeButton id={user.id} liked={user.has_follow} type="user" />
     </div>
     <dl>
       <div>
@@ -50,7 +50,7 @@ function Author({ toActivities, user }) {
 
 function mapStateToProps(state) {
   return {
-    user: state.home.user
+    user: state.home.user,
   };
 }
 

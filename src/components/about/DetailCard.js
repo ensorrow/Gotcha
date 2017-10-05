@@ -24,8 +24,8 @@ const DetailCard = ({ isDetail, dispatch, vm }) => <Card className="m-detailCard
   </CardHeader>
   <CardText style={{ overflow: 'auto' }}>
     <p>
-			{vm.subscribe || "未填写简介"}
-		</p>
+      {vm.subscribe || '未填写简介'}
+    </p>
     <a>查看全部</a>
   </CardText>
 </Card>;
