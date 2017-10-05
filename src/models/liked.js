@@ -1,4 +1,4 @@
-import { likedService } from '../services/liked';
+import likedService from '../services/liked';
 import auth from '../utils/auth';
 
 export default {
@@ -11,13 +11,13 @@ export default {
     updateRecOrg(state, {payload: {data}}){
         return {
             ...state,
-            recOrg: state.recOrg.concat(data)
+            recOrg: data
         }
     },
     updateRecUser(state, {payload: {data}}){
         return {
             ...state,
-            recUser: state.recUser.concat(data)
+            recUser: data
         }
     }
   },
@@ -35,7 +35,10 @@ export default {
   	setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         auth.login(dispatch, pathname, function() {
-          
+          if(pathname === '/liked'){
+              dispatch({type: 'getRecUser'});
+              dispatch({type: 'getRecOrg'});
+          }
         }); 
       });
     },

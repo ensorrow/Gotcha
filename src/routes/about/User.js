@@ -7,61 +7,51 @@ import styles from './User.less';
 import CommentBox from '../../components/index/CommentBox';
 import ActivityCard from '../../components/index/ActivityCard';
 import { routerRedux } from 'dva/router';
+import LikeButton from '../../components/common/LikeButton';
 
-function Author({ toActivities }) {
+function Author({ toActivities, user }) {
   return (<div className="m-author">
     <div className="profile">
-      <Avatar src="http://lvzheyang.top/images/avatar.jpg" size={60} />
-      <h1>Jack Spark</h1>
-      <h2>加勒比海盗男主角</h2>
-      <FlatButton label="关注" icon={<ArrowRight />} />
+      <Avatar src={user.avatar} size={60} />
+      <h1>{user.nickname}</h1>
+      <div><h2>{user.birthday || '未填写年龄信息'} {user.city}</h2><h3>{user.university || '未填写大学信息'}</h3></div>
+      <LikeButton id={user.id} liked={user.has_follow} type='user' />
     </div>
     <dl>
       <div>
-        <dd>5432</dd>
+        <dd>{user.events_count}</dd>
         <dt>参与的活动</dt>
       </div>
       <div>
-        <dd>1300</dd>
+        <dd>{user.collect_events_count}</dd>
         <dt>收藏的活动</dt>
       </div>
       <div>
-        <dd>1600</dd>
+        <dd>{user.follows_count}</dd>
         <dt>他的关注</dt>
       </div>
       <div>
-        <dd>16</dd>
+        <dd>{user.followers_count}</dd>
         <dt>他的粉丝</dt>
       </div>
     </dl>
     <div className="intro">
       <h1 className="u-title">个人简介</h1>
-      <p>我一直是用linux的习惯使用mac，所以这件事的步骤是，terminal->定位到指定位置->"touch xxx.txt"，所以有没有这个功能对我无所谓。那么Mac OS X 的Finder到底是为什么没有这个功能呢？我认为楼下几位的回答都太胡扯了。承认Mac在这个问题上不如Windows有那么难吗？都找了一些什么奇怪的理由啊！</p>
+      <p>{user.subscribe}</p>
       <a className="u-more">查看更多</a>
     </div>
     <div className="activityRecommend u-card">
       <h1 className="u-title">他参加的活动</h1>
-      <ActivityCard />
-      <ActivityCard />
-      <ActivityCard />
-      <a className="u-more" onClick={toActivities.bind(null, { user: 'testuserid' })}>查看更多</a>
+      {user.events.map(event => <ActivityCard vm={event} />)}
+      <a className="u-more" >查看更多</a>
     </div>
   </div>);
 }
 
 function mapStateToProps(state) {
   return {
+    user: state.home.user
+  };
+}
 
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    toActivities: (params) => {
-      dispatch(routerRedux.push({
-        pathname: '/author/activities',
-        params,
-      }));
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Author);
+export default connect(mapStateToProps)(Author);

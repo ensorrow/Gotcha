@@ -6,43 +6,43 @@ import Recommend from '../components/liked/Recommend';
 import { routerRedux } from 'dva/router';
 
 const EmptyFav = () => <div className="empty-fav">什么都还没有呢</div>;
-const tmpAuthors = [
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', name: 'Jack Sparrow', description: '阿发甲方环境但是', summary: 'hhhhhhh' },
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', name: 'Jack Sparrow', description: '阿发甲方环境但是', summary: 'hhhhhhh' },
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', name: 'Jack Sparrow', description: '阿发甲方环境但是', summary: 'hhhhhhh' },
-];
-function Liked({ toUser, toAuthor, toDetail }) {
+
+function Liked({ toUser, toAuthor, toDetail, recOrg, recUser }) {
   return (
     <div className={styles.normal}>
       <EmptyFav />
-      <Recommend title="推荐主办方" vm={tmpAuthors} type="org" />
+      <Recommend title="推荐主办方" vm={recOrg} type="org" />
+      <Recommend title="推荐用户" vm={recUser} type="user" />
       <LikedCard onHeaderClick={toUser} onContentClick={toDetail} />
       <LikedCard onHeaderClick={toAuthor} onContentClick={toDetail} isAuthor />
     </div>
   );
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    recOrg: state.liked.recOrg,
+    recUser: state.liked.recUser,
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
     toUser: (params) => {
       dispatch(routerRedux.push({
         pathname: '/user',
-        params,
+        query: {...params}
       }));
     },
     toAuthor: (params) => {
       dispatch(routerRedux.push({
         pathname: '/author',
-        params,
+        query: {...params}
       }));
     },
     toDetail: (params) => {
       dispatch(routerRedux.push({
         pathname: '/detail',
-        params,
+        query: {...params}
       }));
     },
   };

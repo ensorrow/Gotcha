@@ -1,4 +1,5 @@
 import { homeService } from '../services/home';
+import auth from '../utils/auth';
 
 export default {
   namespace: 'home',
@@ -7,6 +8,12 @@ export default {
     activeTag: '全部',
     activeTab: 0,
     carousel: [],
+    author: {
+      events: []
+    },
+    user: {
+      events: []
+    },
     favorite: {
       page: 1,
       totalPage: 1,
@@ -59,7 +66,18 @@ export default {
     updateActiveTab(state, { payload: { tab } }) {
       return { ...state, activeTab: tab };
     },
-
+    updateAuthor(state, {payload: {data}}){
+      return {...state, author: data}
+    },
+    updateUser(state, {payload: {data}}){
+      return {...state, user: data}
+    },
+    updateAuthorEvents(state, {payload: {data}}){
+      return { ...state, author: { ...state.author, events: data } }
+    },
+    updateUserEvents(state, {payload: {data}}){
+      return { ...state, user: { ...state.user, events: data } }
+    },
   },
   effects: {
     *getTags({}, { call, put }) {
@@ -107,16 +125,46 @@ export default {
         default:
           yield put({ type: 'getFavi' });
       }
-    }
+    },
+    *getAuthor({payload: id}, {call, put}){
+      const { res, err } = yield call(homeService.getAuthor, id);
+      if(res) {
+        yield put({type: 'updateAuthor', payload: res});
+        yield put({ type: 'getAuthorEvents',payload: id })
+      }
+    },
+    *getUser({payload: id}, {call, put}){
+      const { res, err } = yield call(homeService.getUser, id);
+      if(res) {
+        yield put({type: 'updateUser', payload: res});
+        yield put({ type: 'getUserEvents',payload: id })
+      }
+    },
+    *getAuthorEvents({payload: id}, {call, put}){
+      const { res, err } = yield call(homeService.getAuthorEvents, {id});
+      if(res) yield put({type: 'updateAuthorEvents', payload: res});
+    },
+    *getUserEvents({payload: id}, {call, put}){
+      const { res, err } = yield call(homeService.getUserEvents, {id});
+      if(res) yield put({type: 'updateUserEvents', payload: res});
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname, query }) => {
-        if (pathname === '/') {
-          dispatch({ type: 'getTags' });
-          // dispatch({ type: 'getCarousels' });
-          dispatch({ type: 'getFavi' });
-        }
+        auth.login(dispatch, pathname, function() {
+          if (pathname === '/') {
+            dispatch({ type: 'getTags' });
+            // dispatch({ type: 'getCarousels' });
+            dispatch({ type: 'getFavi' });
+          }
+          if(pathname === '/author') {
+            dispatch({type: 'getAuthor', payload: query.id});
+          }
+          if(pathname === '/user') {
+            dispatch({type: 'getUser', payload: query.id});
+          }
+        });
       });
     },
   },

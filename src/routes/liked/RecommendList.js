@@ -1,27 +1,12 @@
 import UserCard from '../../components/liked/UserCard';
 import { connect } from 'dva';
 
-const tmpAuthors = [
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', name: 'Jack Sparrow', summary: 'hhhhhhh' },
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', name: 'Jack Sparrow', summary: 'hhhhhhh' },
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', name: 'Jack Sparrow', summary: 'hhhhhhh' },
-];
-const tmpUsers = [
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', nickname: 'Jack Sparrow', subscribe: 'hhhhhhh' },
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', nickname: 'Jack Sparrow', subscribe: 'hhhhhhh' },
-  { avatar: 'http://lvzheyang.top/images/avatar.jpg', nickname: 'Jack Sparrow', subscribe: 'hhhhhhh' },
-];
-const FullList = ({ isAuthor = true }) => <div>
-  {tmpAuthors.map((item, index) => <UserCard key={index} vm={item} org={isAuthor} />)}
+const FullList = ({ recOrg, recUser, params }) => <div>
+  {params.type === 'org' ? recOrg.map((item, index) => <UserCard key={index} vm={item} type={params.type} />) : recUser.map((item, index) => <UserCard key={index} vm={item} type={params.type} />)}
 </div>;
 
-function mapStateToProps() {
-  return {};
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    getUsers: () => {},
-    getAuthors: () => {},
-  };
-}
-export default FullList;
+export default connect(({ liked }, ownProps) => ({
+  recOrg: liked.recOrg,
+  recUser: liked.recUser,
+  params: ownProps.params
+}))(FullList);

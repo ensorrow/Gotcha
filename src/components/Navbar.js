@@ -44,7 +44,7 @@ function titleNode(pathname, title) {
   return titles[pathname];
 }
 
-function rightBtn(pathname, dispatch, collected, ticketId) {
+function rightBtn(pathname, query, dispatch, collected, ticketId) {
   if (pathname === '/detail') return <IconButton onClick={() => dispatch({type: 'app/collect'})} >{collected ? <Favorite /> : <Favorite_b />}</IconButton>;
   if (pathname === '/' || pathname === '/liked') return <IconButton onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
   if (pathname === '/search') return <IconButton ><SearchIcon /></IconButton>;
@@ -53,6 +53,7 @@ function rightBtn(pathname, dispatch, collected, ticketId) {
   if (pathname === '/about') return <Link to="/about/profile"><i className="icon-edit"></i></Link>
   if (pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white" /></Link>;
   if (pathname === '/about/ticketdetail') return <Link to={"/detail?id="+ticketId}>查看活动</Link>;
+  if (pathname === '/about/profile' && query.new == 1) return <Link to="/about">跳过</Link>;
 }
 
 const Navbar = (props) => {
@@ -62,7 +63,7 @@ const Navbar = (props) => {
     <AppBar
       iconElementLeft={leftBtn(location.pathname, dispatch)}
       showMenuIconButton={location.pathname === '/about' ? false : true}
-      iconElementRight={rightBtn(location.pathname, dispatch, collected, ticketId)}
+      iconElementRight={rightBtn(location.pathname, location.query, dispatch, collected, ticketId)}
       iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
       iconStyleRight={{ alignSelf: 'center', marginTop: 0 }}
       title={titleNode(location.pathname, title)}

@@ -4,7 +4,7 @@ import utils from './utils';
 
 export default {
     token: '',
-    securePath: ['/about', '/about/profile'],
+    securePath: ['/about', '/about/profile', '/author', '/user', '/liked'],
     initToken(){
         this.token = cookie.parse(document.cookie).token;
     },

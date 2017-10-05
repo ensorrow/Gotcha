@@ -21,5 +21,17 @@ export const homeService = {
     body: JSON.stringify({
       content
     })
+  }),
+  getAuthor: (id) => request(`/organizers/${id}`, {
+    needAuth: true
+  }),
+  getUser: (id) => request(`/users/${id}`, {
+    needAuth: true
+  }),
+  getAuthorEvents: ({ id, page=1, size=10 }) => request(`/organizers/${id}/events?page=${page}&size=${size}`, {
+    needAuth: true
+  }),
+  getUserEvents: ({ id }) => request(`/users/${id}/events`, {
+    needAuth: true
   })
 };

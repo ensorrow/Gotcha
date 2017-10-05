@@ -8,7 +8,7 @@ const IndexCard = ({ vm }) => <div className="m-IndexCard" >
   <Card>
     <CardHeader
       title={vm.organizer.name}
-      avatar={<Link to={`/detail?id=${vm.id}`}> <Avatar src={vm.organizer.avatar} /> </Link>}
+      avatar={<Link to={`/author?id=${vm.organizer.id}`}> <Avatar src={vm.organizer.avatar} /> </Link>}
     >
       <h2>
         <span>浏览：{vm.view_count}</span>

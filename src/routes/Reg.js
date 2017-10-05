@@ -53,7 +53,7 @@ class Reg extends Component{
             .then(({ res, err }) => {
                 if(!err) {
                     console.log('密码设置成功');
-                    this.props.dispatch(routerRedux.replace(this.state.prePath || '/'));
+                    this.props.dispatch(routerRedux.replace('/about/profile?new=1'));
                 }
             })
     }
