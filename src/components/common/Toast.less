@@ -1,0 +1,53 @@
+:global{
+    .u-toast{
+        display: none;
+        padding: 0px 30px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 16px;
+        background: #ccc;
+        position: fixed;
+        left: 50%;
+        bottom: 40px;
+        transform: translateX(-50%);
+        height: auto;
+        z-index: 999;
+        font-size: 12px;
+    }
+    .u-toast.active{
+        display: block;
+    }
+    .load{
+        background-color: rgba(0,0,0,.5);
+        height: 100px;
+        width: 100px;
+        padding: 0;
+        text-align: center;
+        bottom: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        color: #fff;
+    }
+    .icon{
+        width: 40px;
+        height: 40px;
+        display: block;
+        margin: 20px 30px 10px 30px;
+    }
+    .icon-load{
+        background: url(../../assets/images/load.png) no-repeat;
+        background-size: 100%;
+    }
+    .rotate{
+        :local{
+            animation: myrotate 2s infinite ease-out;
+        }
+    }
+}
+@keyframes myrotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

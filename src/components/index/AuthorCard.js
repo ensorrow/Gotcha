@@ -15,7 +15,7 @@ const AuthorCard = ({ author = {} }) => <div className="authorCard">
         <div><dd>{author.events_count}</dd><dt>活动数</dt></div>
         <div><dd>{author.followers_count}</dd><dt>关注数</dt></div>
       </dl>
-      <LikeButton liked={author.has_follow} id={author.id} type="organizer" />
+      <LikeButton liked={author.has_follow} id={author.id} type="org" />
     </div>
   </div>
 </div>;

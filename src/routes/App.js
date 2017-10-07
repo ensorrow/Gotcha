@@ -5,6 +5,7 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Tabbar from '../components/Tabbar';
 import Navbar from '../components/Navbar';
+import Toast from '../components/common/Toast';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import auth from '../utils/auth';
 import moment from 'moment';
@@ -17,7 +18,7 @@ auth.initToken();
 moment.locale('zh-cn');
 
 function App(props) {
-  const { location, children, dispatch, title, collected, showDialog, dialogContent, ticketId } = props;
+  const { location, children, dispatch, title, collected, ticketId } = props;
   return (
     <MuiThemeProvider>
       <div>
@@ -30,7 +31,6 @@ function App(props) {
         <div className={styles.footer}>
           <Tabbar location={location} dispatch={dispatch} />
         </div>
-        <Dialog open={showDialog} title={dialogContent} />
       </div>
     </MuiThemeProvider>
   );
@@ -39,7 +39,5 @@ function App(props) {
 export default connect(({ app, about }) => ({
   title: app.title,
   collected: app.event.has_collect,
-  showDialog: app.showDialog,
-  dialogContent: app.dialogContent,
   ticketId: about.activeTicket.id,
 }))(App);

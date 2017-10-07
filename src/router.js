@@ -18,6 +18,7 @@ import About from './routes/About.js';
 import Profile from './routes/about/Profile.js';
 import MyCollect from './routes/about/MyCollect';
 import MyFans from './routes/about/MyFans';
+import MyFollows from './routes/about/MyFollows';
 
 import Login from './routes/Login.js';
 import Reg from './routes/Reg.js';
@@ -39,6 +40,7 @@ function RouterConfig({ history }) {
         <Route path="/about" component={About} />
         <Route path="/about/collects" component={MyCollect} />
         <Route path="/about/fans" component={MyFans} />
+        <Route path="/about/follows" component={MyFollows} />
         <Route path="/about/tickets" component={Tickets} />
         <Route path="/about/addticket" component={AddTicket} />
         <Route path="/about/ticketdetail" component={TicketDetail} />

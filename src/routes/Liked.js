@@ -13,8 +13,7 @@ function Liked({ toUser, toAuthor, toDetail, recOrg, recUser }) {
       <EmptyFav />
       <Recommend title="推荐主办方" vm={recOrg} type="org" />
       <Recommend title="推荐用户" vm={recUser} type="user" />
-      <LikedCard onHeaderClick={toUser} onContentClick={toDetail} />
-      <LikedCard onHeaderClick={toAuthor} onContentClick={toDetail} isAuthor />
+      {/* <LikedCard type="user" vm={}/> */}
     </div>
   );
 }

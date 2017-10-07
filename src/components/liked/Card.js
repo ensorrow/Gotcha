@@ -2,63 +2,69 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import styles from './Card.less';
+import { Link } from 'dva/router';
 
 const Title = ({ isAuthor }) => <h1>
-  <a>李莉莉</a>                      {isAuthor ? '发布了活动' : '参与了活动'}
+  <a>李莉莉</a>{isAuthor ? '发布了活动' : '参与了活动'}
 </h1>;
 
-const ContentCard = ({ isAuthor, onContentClick }) => {
+const ContentCard = ({ isAuthor, vm }) => {
   if (isAuthor) {
-    return (<Paper style={{ margin: '10px' }} onClick={onContentClick} >
-      <CardMedia>
-        <img src={require('../../assets/test.png')} />
-      </CardMedia>
-      <CardTitle
-        title="杨静文个人画展"
-      />
-      <CardText>
-        <p>
-					这是活动的详细介绍这是活动的详细介绍这是活动的详细介绍按理说四行多一点就要省略
-				</p>
-        <h3>
-          <span>2015/12/15</span>
-          <span>·</span>
-          <span>1256人参与</span>
-        </h3>
-        <a href="#">了解全部</a>
-      </CardText>
+    return (<Paper style={{ margin: '10px' }} >
+      <Link to={"/detail?id="+vm.id}>
+        <CardMedia>
+          <img src={vm.image_path || require('../../assets/test.png')} />
+        </CardMedia>
+        <CardTitle
+          title={vm.title}
+        />
+        <CardText>
+          <p>
+            {vm.description}
+          </p>
+          <h3>
+            <span>{vm.start_date}</span>
+            <span>·</span>
+            <span>{vm.users_count || 0}人参与</span>
+          </h3>
+          <a href="#">了解全部</a>
+        </CardText>
+      </Link>
     </Paper>);
   } else {
-    return (<Paper style={{ margin: '10px' }} onClick={onContentClick} className="m-miniCard">
-      <div className="imgWrapper">
-        <img src={require('../../assets/test.png')} />
-      </div>
-      <div className="textWrapper">
-        <h2>专业摄影师教你如何拍好柱子</h2>
-        <h3>
-          <Avatar src="http://lvzheyang.top/images/avatar.jpg" size={20} />
-          <span>摄影师TOM</span>
-          <span>·</span>
-          <span>1256人参与</span>
-        </h3>
-      </div>
+    return (<Paper style={{ margin: '10px' }} className="m-miniCard">
+      <Link to={"/detail?id="+vm.id}>      
+        <div className="imgWrapper">
+          <img src={vm.image_path || require('../../assets/test.png')} />
+        </div>
+        <div className="textWrapper">
+          <h2>{vm.title}</h2>
+          <h3>
+            <Avatar src={vm.organizer.avatar || 'http://lvzheyang.top/images/avatar.jpg'} size={20} />
+            <span>{vm.organizer.name}</span>
+            <span>·</span>
+            <span>{vm.users_count || 0}人参与</span>
+          </h3>
+        </div>
+      </Link>
     </Paper>);
   }
 };
 
-const LikedCard = ({ isAuthor = false, onHeaderClick, onContentClick }) => <div className="m-likedCard" >
+const LikedCard = ({ type, vm }) => <div className="m-likedCard" >
   <Card>
     <CardHeader
       title={
-        <Title isAuthor={isAuthor} />
+        <h1>
+          李莉莉{type==='org' ? '发布了活动' : '参与了活动'}
+        </h1>
 			}
-      subtitle="2月12日"
+      subtitle={vm.start_date}
       avatar={
-        <Avatar src="http://lvzheyang.top/images/avatar.jpg" />
+        <Link to={type==='org'?'/author?id='+vm.organizer.id:'/user?id='+vm.organizer.id}><Avatar src={vm.organizer.avatar || 'http://lvzheyang.top/images/avatar.jpg'} /></Link>
       }
-      onClick={onHeaderClick || null}
     />
-    <ContentCard isAuthor={isAuthor} onContentClick={onContentClick} />
+    <ContentCard vm={vm} isAuthor={type==='org'} />
   </Card>
 </div>;
 

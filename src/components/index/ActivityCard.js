@@ -13,7 +13,7 @@ const ActivityCard = ({ vm, lg }) => <Link to={`/detail?id=${vm.id}`} >
         <Avatar src={vm.organizer.avatar || 'http://lvzheyang.top/images/avatar.jpg'} size={20} />
         <span>{vm.organizer.name || '未命名'}</span>
         <span>·</span>
-        <span>{vm.users_count}人参与</span>
+        <span>{vm.users_count || 0}人参与</span>
       </h3>
       {lg ? <h4>{vm.start_date}</h4> : null}
     </div>

@@ -1,3 +1,6 @@
+import Toast from '../components/common/Toast';
+const toast = Toast.init({});
+
 export default {
   getPathQuery() {
     return window.location.hash.split('#')[1].split('&')[0].split('_k')[0];
@@ -21,5 +24,14 @@ export default {
     if (nowTime > startTime && nowTime < endTime) return 3;// 活动进行中
     if (nowTime >= endTime) return 4;// 活动结束
     return 0;
+  },
+  show(content){
+    toast.show(content)
+  },
+  showLoading(){
+    toast.showLoading()
+  },
+  hideLoading(){
+    toast.hideLoading()
   },
 };

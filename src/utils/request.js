@@ -47,16 +47,24 @@ export default function request(url, options = {}) {
     }
     options.headers.Authorization = `Bearer ${token}`;
   }
+  utils.showLoading();
   return fetch(prefix + url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(res => ({ res }))
+    .then(res => {
+      utils.hideLoading();
+      return { res };
+    })
     .catch((err) => {
+      utils.hideLoading();
       if (err.response && err.response.status === 401) {
         const pre = utils.getPathQuery();
         window.location.hash = `#/login?pre=${pre}`;
       }
-      if (err.message !== 'Unexpected end of JSON input') return { err };
+      if (err.message !== 'Unexpected end of JSON input') {
+        utils.show('意外错误');
+        return { err };
+      }
       else return { err: undefined };// 接一下body为空的错误
     });
 }
