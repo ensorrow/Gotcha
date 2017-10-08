@@ -6,13 +6,26 @@
 		list-style: none;
 		text-decoration: none;
 	}
-	.pullWrap{
-		height: 64px;
-		line-height: 64px;
-		text-align: center;
-	}
 	a{
 		color: @text-c;
+	}
+	.icon{
+		width: 14px;
+		height: 14px;
+		display: inline-block;
+		background-size: 100%;
+		margin-right: 6px;
+		background-repeat: no-repeat;
+		vertical-align: middle;
+	}
+	.icon-load{
+		background-image: url(../assets/images/load.png);
+	}
+	.icon-money{
+		background-image: url(../assets/images/icon_pay.png);
+	}
+	.icon-free{
+		background-image: url(../assets/images/icon_free.png);
 	}
 }
 .header{
@@ -22,7 +35,7 @@
 	z-index: 999;
 }
 .content{
-	padding-top: 64px;
+	padding-top: @navHeight;
 	padding-bottom: 56px;
 	background-color: @bgcolor;
 	min-height: 100%;

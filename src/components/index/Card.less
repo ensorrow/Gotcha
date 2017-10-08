@@ -1,12 +1,28 @@
+@import '../../routes/Variable';
 :global{
 	.m-IndexCard{
 		h2{
 			font-size: 12px;
-			color: #999;
-			display: inline-block;
+			color: @text-b;
+			float: right;
+			line-height: 24px;
 			span{
-				margin-right: 5px;
+				margin: 0 6px;
 			}
+		}
+		h3{
+			float: left;
+			font-size: 12px;
+			color: @text-b;			
+		}
+		h4{
+			float: right;
+			font-size: 12px;
+			color: @text-y;
+			height: 12px;
+		}
+		.free{
+			color: #34a98d;
 		}
 	}
 }

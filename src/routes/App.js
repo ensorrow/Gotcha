@@ -10,6 +10,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import auth from '../utils/auth';
 import moment from 'moment';
 import Dialog from 'material-ui/Dialog';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -17,10 +18,29 @@ injectTapEventPlugin();
 auth.initToken();
 moment.locale('zh-cn');
 
+const muiTheme = getMuiTheme({
+  card: {
+    fontWeight: 'bold'
+  },
+  tabs: {
+    backgroundColor: '#fff',
+    textColor: '#7e848c',
+    selectedTextColor: '#e1274c'
+  },
+  bottomNavigation: {
+    backgroundColor: '#eceeef',
+    unselectedColor: '#7e848c',
+    selectedColor: '#e1274c',
+    height: 56,
+    unselectedFontSize: 12,
+    selectedFontSize: 12,
+  },
+});
+
 function App(props) {
   const { location, children, dispatch, title, collected, ticketId } = props;
   return (
-    <MuiThemeProvider>
+    <MuiThemeProvider muiTheme={muiTheme} >
       <div>
         <div className={styles.header}>
           <Navbar location={location} dispatch={dispatch} title={title} collected={collected} ticketId={ticketId} />

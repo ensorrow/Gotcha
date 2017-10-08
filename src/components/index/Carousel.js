@@ -9,9 +9,7 @@ const settings = {
 };
 
 const defaultImgs = [
-  'http://placekitten.com/g/400/200',
-  'http://placekitten.com/g/400/200',
-  'http://placekitten.com/g/400/200',
+  require('../../assets/test.png')
 ];
 
 const Carousel = ({ imgs }) => {

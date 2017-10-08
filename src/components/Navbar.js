@@ -15,7 +15,7 @@ let searchQuery = '';
 
 function leftBtn(pathname, dispatch) {
   const rootPages = ['/', '/liked', '/about'];
-  if (rootPages.toString().indexOf(pathname) > -1) { return null; } else { return <IconButton onTouchTap={() => dispatch(routerRedux.go(-1))}><NavigationLeft /></IconButton>; }
+  if (rootPages.toString().indexOf(pathname) > -1) { return <img src={require('../assets/images/logo.png')} className="logo" />; } else { return <IconButton onTouchTap={() => dispatch(routerRedux.go(-1))}><NavigationLeft /></IconButton>; }
 }
 
 const titleOrg = <span className="titleWra"><span>推荐主办方</span><span style={{ marginLeft: '32px' }}><Link to="/liked/recommend/user">推荐用户</Link></span></span>;
@@ -68,8 +68,8 @@ const Navbar = (props) => {
       iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
       iconStyleRight={{ alignSelf: 'center', marginTop: 0 }}
       title={titleNode(location.pathname, title)}
-      titleStyle={{ fontSize: '16px' }}
-      style={transPages.indexOf(location.pathname) !== -1 ? { backgroundColor: 'rgba(0,0,0,0)', boxShadow: 'none' } : null}
+      titleStyle={{ fontSize: '16px', height: '16.66667vw', lineHeight: '16.66667vw' }}
+      style={transPages.indexOf(location.pathname) !== -1 ? { backgroundColor: 'rgba(0,0,0,0)', boxShadow: 'none' } : {backgroundColor: '#2e445c'}}
       className="m-navbar"
     />
   );

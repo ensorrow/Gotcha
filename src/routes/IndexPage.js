@@ -5,6 +5,7 @@ import Slider from '../components/index/Carousel';
 import ScrollTab from '../components/index/ScrollTab';
 import IndexCard from '../components/index/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import utils from '../utils/utils';
 
 function IndexPage({ home, getFavi, getNear, getWeek, getByTag }) {
   return (
@@ -12,7 +13,7 @@ function IndexPage({ home, getFavi, getNear, getWeek, getByTag }) {
       <div className={styles.top}>
         <Slider imgs={home.carousel} />
         <ScrollTab tabs={home.tags} onTab={getByTag} active={home.activeTag} />
-        <Tabs>
+        <Tabs className="m-tabs">
           <Tab label="最受欢迎" onActive={getFavi}>
             <div>
               { home.favorite.dataList.length ? home.favorite.dataList.map(item => <IndexCard vm={item} key={item.id} />) : ''}
@@ -42,7 +43,18 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     getFavi: () => dispatch({ type: 'home/getFavi' }),
-    getNear: () => dispatch({ type: 'home/getNear' }),
+    getNear: () => {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(pos){
+          dispatch({ type: 'home/getNear', payload: { position: pos.coords } });
+        }, function(err) {
+          console.log(err);
+          utils.show("地理位置暂不可用");
+        });
+      } else {
+        utils.show("地理位置暂不可用");
+      }
+    },
     getWeek: () => dispatch({ type: 'home/getWeek' }),
     getByTag: tag => dispatch({ type: 'home/getByTag', payload: { tag } }),
   };

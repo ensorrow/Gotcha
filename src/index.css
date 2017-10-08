@@ -2,4 +2,3 @@
 html, body, :global(#root), [data-reactroot] {
   height: 100%;
 }
-
