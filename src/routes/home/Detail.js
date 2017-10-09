@@ -11,15 +11,18 @@ import CommentBox from '../../components/index/CommentBox';
 import ActivityCard from '../../components/index/ActivityCard';
 import { Link } from 'dva/router';
 import StatusBar from '../../components/index/StatusBar';
+import moment from 'moment';
 
 function IndexDetail({ vm, dispatch }) {
   return (<div className="m-detail">
-    <img src={require('../../assets/images/banner1.png')} className="topBg" />
+    <div className="topBg">
+      <img src={vm.image_path || require('../../assets/images/banner1.png')} />
+    </div>
     <div className="baseInfo">
       <h1>{vm.title}</h1>
-      <h2><span>{vm.price}</span>浏览：{vm.view_count} · 收藏：{vm.collectors_count}</h2>
-      <h3>{vm.start_date}-{vm.end_date}</h3>
-      <h3>{vm.place_name + vm.place_city + vm.place_district}</h3>
+      <h2><span><i className="icon icon-money"></i>{vm.price}</span>浏览：{vm.view_count} · 收藏：{vm.collectors_count}</h2>
+      <h3><i className="icon icon-cal"></i>{moment(vm.start_date).format('M月D日,HH:mm')}-{moment(vm.end_date).format('M月D日,HH:mm')}</h3>
+      <h3><i className="icon icon-add"></i> <p>{vm.place_name + vm.place_city + vm.place_district}</p></h3>
     </div>
     <div className="progress">
       <span>报名中({`${vm.users_count}/${vm.volume}`})</span>
