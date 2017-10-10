@@ -11,13 +11,13 @@ class LikeButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      liked: false,
+      liked: props.liked,
     };
   }
   componentWillReceiveProps(props) {
-    this.setState({
-      liked: props.liked
-    });
+    // this.setState({
+    //   liked: props.liked
+    // });
   }
   like(id) {
     if(this.state.liked) return;
@@ -45,7 +45,7 @@ class LikeButton extends Component {
     });
     const { id } = this.props;
     return <button className={btnClass} onClick={() => this.like(id)} >
-      {this.state.liked ? null: <i className="icon icon-right"></i>}
+      {this.state.liked ? null: <i className={"icon "+(this.props.iconClass || 'icon-right')}></i>}
       {this.state.liked ? '已关注' : '关注'}
     </button>;
   }

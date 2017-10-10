@@ -1,16 +1,5 @@
 @import "../Variable";
 :global{
-  .u-more{
-    display: block;
-    margin: 10px auto;
-    height: 28px;
-    line-height: 28px;
-    width: 100px;
-    border-radius: 14px;
-    border: 2px solid red;
-    color: red;
-    text-align: center;
-  }
   .m-author{
     >div{
 			background-color: #fff;
@@ -18,34 +7,79 @@
     dl{
       background-color: #fff;
       display: flex;
+      justify-content: center;
       >div{
-        flex: 1;
+        width: 106px;
         text-align: center;
+        margin: 16px 0;
+        border-right: 1px solid @bg-a;
+        &:last-child{
+          border-right: none;
+        }
+        dd{
+          padding-bottom: 12px;
+          font-size: @fontBase;
+          font-weight: bold;
+        }
+        dt{
+          color: gray;
+        }
       }
     }
     .profile{
-      background: url('../../assets/test.png') no-repeat;
-      background-size: 100%;
-      padding: 40px 0;
+      background: url('../../assets/images/banner1.png') no-repeat;
+      background-size: auto 100%;
+      padding: 48px 0 20px;
       text-align: center;
       margin-top: -@navHeight;
       h1{
-        font-size: @fontBase;
+        font-size: @fontSmall;
+        margin: 12px 0;
+        font-weight: bold;
+        color: #fff;
       }
       h2{
-        font-size: @fontSmall;
+        font-size: @fontTip;
+        color: #ccc;
+        font-weight: normal;
+      }
+      button{
+        margin: 0;
+        margin-top: 16px;
+        color: #fff;
+        width: 85px;
+        background: transparent;
+        border-radius: 12px;
+        height: 24px;
+        line-height: 24px;
+        border: 1px solid #fff;
+        padding: 0;
+        .icon{
+          position: relative;
+        }
+      }
+    }
+    .slogan{
+      background-color: @bgcolor;
+      text-align: center;
+      line-height: 1.6;
+      font-size: @fontBase;
+      p{
+        max-width: 50%;
+        margin: 24px auto 16px auto;
+        color: #333;
+      }
+      img{
+        width: 20px;
       }
     }
     .intro{
-			padding: 10px;
-			margin: 10px 0;
-			img{
-				margin: 20px 0;
-			}
 			p{
-				font-size: 16px;
-				line-height: 1.6;
-			}
-		}
+        margin-top: 16px;
+      }
+    }
+    .m-miniCard{
+      margin: 12px 0;
+    }
   }
 }

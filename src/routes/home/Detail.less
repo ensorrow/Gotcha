@@ -4,7 +4,8 @@
 		color: grey;
 		font-size: 14px;
 		font-weight: normal;
-		
+		display: flex;
+		align-items: center;
 	}
 	.u-card{
 		padding: 10px;
@@ -19,7 +20,7 @@
 			min-width: 100%;
 		}
 	}
-	.showMore{
+	.u-more{
 		display: block;
 		margin: 12px auto;
 		height: 24px;
@@ -30,6 +31,28 @@
 		color: @color-b;
 		text-align: center;
 		font-size: 12px;
+	}
+	.u-detail{
+		padding: 16px;
+		margin: 12px 0;
+		.imgWra{
+			margin: 10px 0;
+			max-height: 120px;
+			overflow: hidden;
+			img{
+				min-width: 100%;
+				max-width: 100%;
+			}
+		}
+		p{
+			font-size: 14px;
+			line-height: 20px;
+			max-height: 100px;
+			overflow: hidden;
+		}
+		p.all{
+			max-height: none;
+		}
 	}
 	.m-detail{
 		>div{
@@ -90,28 +113,6 @@
 			overflow: auto;
 			&::-webkit-scrollbar{
 				display: none;
-			}
-		}
-		.activityDetail{
-			padding: 16px;
-			margin: 12px 0;
-			.imgWra{
-				margin: 10px 0;
-				max-height: 120px;
-				overflow: hidden;
-				img{
-					min-width: 100%;
-					max-width: 100%;
-				}
-			}
-			p{
-				font-size: 14px;
-				line-height: 20px;
-				max-height: 100px;
-				overflow: hidden;
-			}
-			p.all{
-				max-height: none;
 			}
 		}
 		.activityRecommend{

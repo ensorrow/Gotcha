@@ -18,6 +18,7 @@ class StatusBar extends Component {
     };
   }
   countDown() {
+    if(timer) clearInterval(timer);
     timer = setInterval(() => {
       if (this.state.diffTime !== 0) {
         this.setState({

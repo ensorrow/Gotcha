@@ -5,7 +5,7 @@ import { Link } from 'dva/router';
 const ActivityCard = ({ vm, lg }) => <Link to={`/detail?id=${vm.id}`} >
   <div className="m-miniCard">
     <div className="imgWrapper">
-      <img src={require('../../assets/test.png')} />
+      <img src={vm.image_path || require('../../assets/test.png')} />
     </div>
     <div className="textWrapper">
       <h2>{vm.title}</h2>

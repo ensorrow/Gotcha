@@ -26,6 +26,7 @@ class IndexDetail extends Component{
     }
   }
   countDown() {
+    if(timer) clearInterval(timer);
     timer = setInterval(() => {
       if (this.state.diffTime !== 0) {
         this.setState({
@@ -82,13 +83,13 @@ class IndexDetail extends Component{
       </div>
     </div>
     {vm.has_comment ? <CommentBox comments={tmpcomments} /> : null}
-    <div className="activityDetail">
+    <div className="u-detail">
       <h1 className="u-title"><i className="icon icon-activity"></i>活动详情</h1>
       <div className="imgWra">
         <img src={vm.image_path} />
       </div>
       <p className={classnames({'all': this.state.detailAll})}>{vm.description}</p>
-      <a className="showMore" onClick={ () => this.toggle('detailAll') }>{this.state.detailAll?'收起':'查看更多'}</a>
+      <a className="u-more" onClick={ () => this.toggle('detailAll') }>{this.state.detailAll?'收起':'查看更多'}</a>
     </div>
     <div className="activityRecommend">
       <h1 className="u-title"><i className="icon icon-more"></i>更多活动</h1>
