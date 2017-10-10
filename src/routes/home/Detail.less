@@ -1,9 +1,10 @@
 @import "../Variable";
 :global{
 	.u-title{
-		color: #666;
-		font-size: 18px;
+		color: grey;
+		font-size: 14px;
 		font-weight: normal;
+		
 	}
 	.u-card{
 		padding: 10px;
@@ -17,6 +18,18 @@
 			max-width: 100%;
 			min-width: 100%;
 		}
+	}
+	.showMore{
+		display: block;
+		margin: 12px auto;
+		height: 24px;
+		line-height: 24px;
+		width: 112px;
+		border-radius: 12px;
+		border: 1px solid @color-b;
+		color: @color-b;
+		text-align: center;
+		font-size: 12px;
 	}
 	.m-detail{
 		>div{
@@ -40,6 +53,9 @@
 				color: @text-y;
 				display: inline-block;
 				margin-right: 24px;
+				&.free{
+					color: @color-f;
+				}
 			}
 			h3{
 				font-size: 14px;
@@ -66,6 +82,8 @@
 			span:last-child{
 				float: right;
 				color: @text-b;
+				width: 200px;
+				text-align: center;
 			}
 		}
 		.activityInfo{
@@ -75,30 +93,44 @@
 			}
 		}
 		.activityDetail{
-			padding: 10px;
-			margin: 10px 0;
-			img{
-				margin: 20px 0;
+			padding: 16px;
+			margin: 12px 0;
+			.imgWra{
+				margin: 10px 0;
+				max-height: 120px;
+				overflow: hidden;
+				img{
+					min-width: 100%;
+					max-width: 100%;
+				}
 			}
 			p{
-				font-size: 16px;
-				line-height: 1.6;
+				font-size: 14px;
+				line-height: 20px;
+				max-height: 100px;
+				overflow: hidden;
 			}
-			a{
-				display: block;
-				margin: 10px auto;
-				height: 28px;
-				line-height: 28px;
-				width: 100px;
-				border-radius: 14px;
-				border: 2px solid red;
-				color: red;
-				text-align: center;
+			p.all{
+				max-height: none;
 			}
 		}
 		.activityRecommend{
-			padding: 10px;
-			margin: 10px 0;
+			padding: 20px 16px;
+			margin-top: 12px;
+			.m-miniCard{
+				margin: 12px 0;
+				&:first-child{
+					margin-top: 16px;
+				}
+			}
+		}
+		.btBanner{
+			background-color: @bgcolor;
+			height: 125px;
+			overflow: hidden;
+			img{
+				width: 60%;
+			}
 		}
 	}
 }

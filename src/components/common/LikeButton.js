@@ -39,12 +39,15 @@ class LikeButton extends Component {
     }
   }
   render() {
-    const btnClass = classnames({
-      likeBtn: true,
-      liked: this.state.liked,
+    const btnClass = classnames(this.props.className, {
+      _likeBtn: true,
+      _liked: this.state.liked,
     });
     const { id } = this.props;
-    return <FlatButton className={btnClass} onClick={() => this.like(id)} label={this.state.liked ? '已关注' : '关注'} icon={<ArrowRight />} />;
+    return <button className={btnClass} onClick={() => this.like(id)} >
+      {this.state.liked ? null: <i className="icon icon-right"></i>}
+      {this.state.liked ? '已关注' : '关注'}
+    </button>;
   }
 }
 

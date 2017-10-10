@@ -10,7 +10,7 @@ const ActivityCard = ({ vm, lg }) => <Link to={`/detail?id=${vm.id}`} >
     <div className="textWrapper">
       <h2>{vm.title}</h2>
       <h3>
-        <Avatar src={vm.organizer.avatar || 'http://lvzheyang.top/images/avatar.jpg'} size={20} />
+        <Avatar size={16} src={vm.organizer.avatar || 'http://lvzheyang.top/images/avatar.jpg'} size={20} style={{marginRight: '4px'}} />
         <span>{vm.organizer.name || '未命名'}</span>
         <span>·</span>
         <span>{vm.users_count || 0}人参与</span>

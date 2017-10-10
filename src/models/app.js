@@ -59,7 +59,7 @@ export default {
       return history.listen(({ pathname, query }) => {
         window.scrollTo(0, 0);
         auth.login(dispatch, pathname, () => {
-          if (pathname === '/detail' || pathname === '/detail/comment') {
+          if (pathname === '/detail' || pathname === '/detail/comment' || pathname === '/detail/confirm') {
             dispatch({ type: 'getDetail', payload: { event_id: query.id } });
           }
         });

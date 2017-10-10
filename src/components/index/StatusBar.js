@@ -6,6 +6,9 @@ import Favorite from 'material-ui/svg-icons/action/favorite';
 import './StatusBar.less';
 import { Component } from 'react';
 import { routerRedux } from 'dva/router';
+import classnames from 'classnames';
+
+let timer;
 
 class StatusBar extends Component {
   constructor(props) {
@@ -15,13 +18,16 @@ class StatusBar extends Component {
     };
   }
   countDown() {
-    setInterval(() => {
+    timer = setInterval(() => {
       if (this.state.diffTime !== 0) {
         this.setState({
           diffTime: this.state.diffTime - 1,
         });
       }
     }, 1000);
+  }
+  componentWillUnmount() {
+    if(timer) clearInterval(timer);
   }
   componentWillReceiveProps(props) {
     const { start_date, end_date, apply_date } = props.vm;
@@ -34,7 +40,7 @@ class StatusBar extends Component {
     }
   }
   render() {
-    const { id, start_date, end_date, apply_date, status, has_collect, has_apply, has_comment, volume, over_can_enroll, users_count, price } = this.props.vm;
+    const { id, start_date, end_date, apply_date, status, has_collect, has_apply, has_comment, volume, over_can_enroll, users_count, price, is_fee } = this.props.vm;
     const dispatch = this.props.dispatch;
     if (!start_date) return <footer />;
 
@@ -66,12 +72,7 @@ class StatusBar extends Component {
         } else {
           return (<footer>
             <span>报名中</span>
-            <RaisedButton
-              label={`报名 ￥${price}`}
-              primary
-              style={{ float: 'right', right: '20px' }}
-              onClick={() => dispatch({ type: 'app/applyEvent', payload: { event_id: id } })}
-            />
+            <button className={classnames('btn', {free: !is_fee})} onClick={() => dispatch(routerRedux.push({pathname: '/detail/confirm?id='+id}))}>报名{is_fee?<span>(￥{price})</span>:''}</button>
           </footer>);
         }
       } else {

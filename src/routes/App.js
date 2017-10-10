@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'dva';
 import styles from './App.less';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
@@ -37,10 +37,17 @@ const muiTheme = getMuiTheme({
   },
 });
 
-function App(props) {
-  const { location, children, dispatch, title, collected, ticketId } = props;
-  return (
-    <MuiThemeProvider muiTheme={muiTheme} >
+class App extends Component{
+  constructor(props){
+    super(props);
+    this.state = {};
+  }
+  componentDidMount(){
+    if(auth.token) this.props.dispatch({ type: 'about/getMyInfo' });
+  }
+  render(){
+    const { location, children, dispatch, title, collected, ticketId } = this.props;
+    return <MuiThemeProvider muiTheme={muiTheme} >
       <div>
         <div className={styles.header}>
           <Navbar location={location} dispatch={dispatch} title={title} collected={collected} ticketId={ticketId} />
@@ -52,8 +59,8 @@ function App(props) {
           <Tabbar location={location} dispatch={dispatch} />
         </div>
       </div>
-    </MuiThemeProvider>
-  );
+    </MuiThemeProvider>;
+  }
 }
 
 export default connect(({ app, about }) => ({
