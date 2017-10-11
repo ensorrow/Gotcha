@@ -1,22 +1,36 @@
 @import '../../routes/Variable';
 
 :global{
+  .m-navbar{
+    .titleWra{
+      font-weight: bold;
+      a{
+        color: #9aa2aa;
+      }
+    }
+  }
   .user-small {
-    height: 60px;
     position: relative;
     padding: 16px 12px;
     background-color: white;
-    img {
+    .avatar {
       display: inline-block;
       margin-right: 12px;
     }
     .content {
       display: inline-block;
       vertical-align: top;
-      //padding-top: 4px;
-      .txt12 {
-        margin-top: 4px;
+      h1{
+        font-size: @fontSmall;
       }
+      h2{
+        font-size: @fontTip;
+        font-weight: normal;
+        color: gray;
+      }
+    }
+    .likeBtn{
+      float: right;
     }
   }
 }

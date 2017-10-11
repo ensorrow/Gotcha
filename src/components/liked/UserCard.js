@@ -5,13 +5,13 @@ import LikeButton from '../common/LikeButton';
 
 const UserCard = ({ vm, type }) => <div className="user-small">
   <Link to={type !== 'user' ? `/author?id=${vm.id}` : `/user?id=${vm.id}`}>
-    <Avatar src={vm.avatar} size={32} />
+    <Avatar className="avatar" src={vm.avatar} size={36} />
   </Link>
   <div className="content">
-    <div className="txt14b">{type !== 'user' ? vm.name : vm.nickname}</div>
-    <div className="txt12 txt-b">{type !== 'user' ? vm.summary : vm.subscribe}</div>
+    <h1>{type !== 'user' ? vm.name||'未命名' : vm.nickname||'未命名'}</h1>
+    <h2>{type !== 'user' ? vm.summary || '无相关信息' : vm.subscribe || '无相关信息'}</h2>
   </div>
-  <LikeButton id={vm.id} liked={vm.has_follow} type={type} />
+  <LikeButton className="likeBtn" id={vm.id} liked={vm.has_follow} type={type} />
 </div>;
 
 export default UserCard;

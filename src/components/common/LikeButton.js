@@ -11,13 +11,13 @@ class LikeButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      liked: props.liked,
+      liked: props.liked || false,
     };
   }
   componentWillReceiveProps(props) {
-    // this.setState({
-    //   liked: props.liked
-    // });
+    setTimeout(() => this.setState({
+      liked: props.liked
+    }), 0);
   }
   like(id) {
     if(this.state.liked) return;

@@ -1,9 +1,30 @@
 @import '../../routes/Variable';
 :global{
   .m-recommend {
+    background-color: #fff;
+    padding: 16px;
+    padding-bottom: 8px;
+    h1.title{
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      justify-content: space-between;
+			span{
+        width: 68px;
+        text-align: center;
+        height: 20px;
+        line-height: 20px;
+        background-color: @bgcolor;
+        color: gray;
+        font-size: @fontTip;
+        display: inline-block;
+        font-weight: normal;
+      }
+      a{
+        font-size: @fontTip;
+      }
+		}
     .tj-items {
-      background-color: #f2f2f2;
-      padding: 10px;
       overflow: auto;
       &::-webkit-scrollbar {
         display: none;
@@ -17,29 +38,40 @@
         margin-right: 10px;
         background: #fff;
         float: left;
+        position: relative;
+        z-index: 998;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
         .line1 {
           display: flex;
           align-items: center;
-          margin-bottom: 10px;
           .name {
             margin-left: 8px;
             flex-grow: 1;
+            color: #333;
+            font-size: @fontSmall;
           }
         }
-        .title {
-          height: 30px;
-          line-height: 20px;
+        h2{
+          font-size: @fontSmall;
+          font-weight: normal;
+          margin-top: 10px;
         }
-        .txt {
-          font-size: 12px;
-          color: #333;
+        h3{
+          font-size: @fontTip;
+          font-weight: normal;
+          color: gray;
+          position: absolute;
+          bottom: 16px;
         }
       }
       .tj-item-more {
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
         width: 174px;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        z-index: 998;
         .more-red {
           color: red;
           border-radius: 10px;

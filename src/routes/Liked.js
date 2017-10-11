@@ -7,13 +7,15 @@ import { routerRedux } from 'dva/router';
 
 const EmptyFav = () => <div className="empty-fav">什么都还没有呢</div>;
 
-function Liked({ toUser, toAuthor, toDetail, recOrg, recUser }) {
+function Liked({ recOrg = [], recUser = [], posts = [] }) {
   return (
-    <div className={styles.normal}>
-      <EmptyFav />
-      <Recommend title="推荐主办方" vm={recOrg} type="org" />
-      <Recommend title="推荐用户" vm={recUser} type="user" />
-      {/* <LikedCard type="user" vm={}/> */}
+    <div className="m-liked">
+      {!posts.length && <EmptyFav />}
+      {posts.map((vm, index) => <LikedCard key={index} vm={vm} />)}
+      {posts.length <= 6 && <div>
+        <Recommend title="推荐主办方" vm={recOrg} type="org" />
+        <Recommend title="推荐用户" vm={recUser} type="user" />
+      </div>}
     </div>
   );
 }
@@ -22,29 +24,8 @@ function mapStateToProps(state) {
   return {
     recOrg: state.liked.recOrg,
     recUser: state.liked.recUser,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    toUser: (params) => {
-      dispatch(routerRedux.push({
-        pathname: '/user',
-        query: { ...params },
-      }));
-    },
-    toAuthor: (params) => {
-      dispatch(routerRedux.push({
-        pathname: '/author',
-        query: { ...params },
-      }));
-    },
-    toDetail: (params) => {
-      dispatch(routerRedux.push({
-        pathname: '/detail',
-        query: { ...params },
-      }));
-    },
+    posts: state.liked.posts
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Liked);
+export default connect(mapStateToProps)(Liked);
