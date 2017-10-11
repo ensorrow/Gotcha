@@ -22,7 +22,7 @@ const titleOrg = <span className="titleWra"><span>推荐主办方</span><span st
 
 const titleUser = <span className="titleWra"><span><Link to="/liked/recommend/org">推荐主办方</Link></span><span style={{ marginLeft: '32px' }}>推荐用户</span></span>;
 
-const titleInput = <TextField onChange={(e, v) => { searchQuery = v; }} hintText="输入搜索内容" />;
+const titleInput = <TextField inputStyle={{color: '#fff'}} hintStyle={{color: '#fff'}} onChange={(e, v) => { searchQuery = v; }} hintText="输入搜索内容" />;
 
 function titleNode(pathname, title) {
   if (title && pathname === '/detail') return title;
