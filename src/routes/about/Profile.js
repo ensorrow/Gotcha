@@ -29,6 +29,7 @@ class Profile extends Component {
       dlgBirth: false,
       dlgPlace: false,
       dlgAvatar: false,
+      uploadDone: false
     };
   }
   componentDidMount() {
@@ -41,17 +42,16 @@ class Profile extends Component {
   }
   render() {
     const myInfo = this.state.myInfo;
+    const _this = this;
     const uploadProp = {
       headers: {
-        'Content-Type': 'application/json',
         Accept: 'application/vnd.Gotcha api.v1+json',
         Authorization: `Bearer ${auth.token}`,
       },
       action: 'http://112.74.190.30:8800/api/images',
       name: 'image',
       onSuccess(result) {
-        console.log(result);
-        this.setState({ myInfo2: { avatar: result } });
+        _this.setState({ myInfo2: { avatar: result.url }, uploadDone: true });
       },
     };
     return (<div className="m-profile">
@@ -92,7 +92,7 @@ class Profile extends Component {
           aboutService.putMyInfo({ data: { avatar: myInfo.avatar } }).then(({ res }) => this.setState({ myInfo: res.data, dlgAvatar: false }));
         }}
       >
-        <Upload {...uploadProp} >点击上传</Upload>
+        <Upload {...uploadProp} >{this.state.uploadDone ? '上传成功' : '点击上传'}</Upload>
       </Dlg>
       <Dlg
         title="个人介绍：" open={this.state.dlgSubscribe} close={() => this.setState({ dlgSubscribe: false })}
