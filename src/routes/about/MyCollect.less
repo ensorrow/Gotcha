@@ -1,7 +1,24 @@
+@import '../Variable';
+
 :global{
     .m-collect{
+        background-color: #fff;
+        margin-top: 12px;
         .m-miniCard{
-            margin: 12px;
+            padding: 12px;
+            border-bottom: @border;
+            h2{
+                top: 0;
+            }
+            h4{
+                color: gray;
+                font-size: 12px;
+                bottom: 0;
+                position: absolute;
+            }
+            h3{
+                bottom: 20px;
+            }
         }
     }
 }

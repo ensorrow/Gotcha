@@ -14,12 +14,11 @@ class Ticket extends Component{
   }
   componentWillReceiveProps(props){
     if(!props.lg) return;
-    const qrcode = new AraleQRCode({
-      render: 'canvas',
-      size: 128,
+    const qrcode = new QRCode(this.refs.qrWra, {
+      width: 128,
+      height: 128,
       text: props.vm.attend_code
     });
-    this.refs.qrWra.appendChild(qrcode);
   }
   render(){
     const { vm, lg, dispatch } = this.props;

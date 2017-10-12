@@ -10,6 +10,7 @@ const MiniTicket = ({ data, id }) => <div className="miniTicket">
 </div>;
 
 const TicketList = ({ vm }) => <div className="ticketList">
+  {!vm.length && '暂无入场券'}
   <div style={{ width: `${vm.length * 36.7}vw`, overflow: 'auto' }}>
     {vm.map((item, index) => <MiniTicket key={item.id} data={item.event} id={item.id} />)}
   </div>

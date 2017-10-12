@@ -34,4 +34,7 @@ export default {
   hideLoading(){
     toast.hideLoading()
   },
+  uniToZh(str){
+    return unescape(str.replace(/\\u/g, "%u"));
+  }
 };

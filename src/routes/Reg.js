@@ -21,6 +21,8 @@ class Reg extends Component {
       password: '',
       verify_pwd: '',
       open: false,
+      count: 60,
+      codeSent: false
     };
   }
   componentDidMount() {
@@ -30,6 +32,7 @@ class Reg extends Component {
     });
   }
   reg() {
+    if (!this.state.mobile || !this.state.verify_code) return utils.show('请检查手机号和验证码是否填写完整');    
     appService.reg({
       mobile: this.state.mobile,
       verify_code: this.state.verify_code,
@@ -38,32 +41,47 @@ class Reg extends Component {
         const tokenStr = cookie.serialize('token', res.token, { maxAge: 3600 * 72 });
         document.cookie = tokenStr;
         auth.initToken();
-        console.log('验证成功！');
+        utils.show('验证成功！');
         this.setState({ step: 2 });
       } else {
-        this.props.dispatch({ type: 'app/dialog', payload: { content: '验证码错误！' } });
+        utils.show('验证码不正确');
       }
     });
   }
   setPwd() {
     if (this.state.password !== this.state.verify_pwd) {
-      return console.log('两次密码不一致');
+      return utils.show('两次密码不一致');
     }
     appService.setPassword({ password: this.state.password })
             .then(({ res, err }) => {
               if (!err) {
-                console.log('密码设置成功');
+                utils.show('密码设置成功');
                 this.props.dispatch(routerRedux.replace('/about/profile?new=1'));
               }
             });
   }
+  countDown() {
+    const timer = setInterval(() => {
+      this.setState({
+        count: this.state.count-1
+      }, () => {
+        this.state.count === 0 ? clearInterval(timer) : this.setState({ codeSent: false, count: 60 })
+      });
+    }, 1000);
+  }
   sendCode() {
-    if (!this.state.mobile) return console.log('检查手机号');
+    if(this.state.codeSent) return;
+    if (!this.state.mobile) return utils.show('请检查手机号');
     appService.getVerifyReg({
       mobile: this.state.mobile,
     }).then(({ res, err }) => {
-      if (res) console.log('验证码已发送');
-      else if (err.response.status === 400) this.setState({ open: true });
+      if (res) {
+        utils.show('验证码已发送')
+        this.setState({
+          codeSent: true
+        }, () => this.countDown());
+      }
+      else if (err.status_code == 400) this.setState({ open: true });
     });
   }
   render() {

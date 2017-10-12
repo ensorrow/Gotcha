@@ -62,8 +62,10 @@ export default function request(url, options = {}) {
         window.location.hash = `#/login?pre=${pre}`;
       }
       if (err.message !== 'Unexpected end of JSON input') {
-        utils.show('意外错误');
-        return { err };
+        return err.response.json().then(json => {
+          utils.show(json.message);
+          return { err: json };
+        });
       }
       else return { err: undefined };// 接一下body为空的错误
     });
