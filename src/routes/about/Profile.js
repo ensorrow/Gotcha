@@ -55,7 +55,7 @@ class Profile extends Component {
       },
     };
     return (<div className="m-profile">
-      <List>
+      <List style={{backgroundColor: '#fff'}}>
         <ListItem primaryText="用户名" onClick={() => this.setState({ dlgName: true })} >
           <span className="listRight">{myInfo.nickname || '未填写'}</span>
         </ListItem>

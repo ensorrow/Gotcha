@@ -37,7 +37,7 @@ class User extends Component{
           <h2>{(new Date().getFullYear()-new Date(user.birthday).getFullYear())+'岁' || '未填写年龄信息'} {user.city}</h2>
           <h3>{user.university || '未填写大学信息'}</h3>
         </div>
-        <LikeButton id={user.id} liked={user.has_follow} type="user" />
+        <LikeButton iconClass="icon-plus" id={user.id} liked={user.has_follow} type="user" />
       </div>
       <dl>
         <div>

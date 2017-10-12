@@ -48,8 +48,8 @@ function titleNode(pathname, title) {
 
 function rightBtn(pathname, query, dispatch, collected, ticketId) {
   if (pathname === '/detail') return <IconButton onClick={() => dispatch({ type: 'app/collect' })} >{collected ? <Favorite /> : <Favorite_b />}</IconButton>;
-  if (pathname === '/' || pathname === '/liked') return <IconButton onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
-  if (pathname === '/search') return <IconButton ><SearchIcon onClick={() => dispatch({ type: 'app/search', payload: searchQuery })} /></IconButton>;
+  if (pathname === '/' || pathname === '/liked') return <IconButton style={{padding: 0, width: 'auto'}} onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
+  if (pathname === '/search') return <IconButton style={{padding: 0, width: 'auto'}}><SearchIcon onClick={() => dispatch({ type: 'app/search', payload: searchQuery })} /></IconButton>;
   if (pathname === '/login') return <Link to="/reg">注册</Link>;
   if (pathname === '/reg') return <Link to="/login">登录</Link>;
   if (pathname === '/about') return <Link to="/about/profile"><i className="icon-edit" /></Link>;
@@ -67,10 +67,10 @@ const Navbar = (props) => {
       showMenuIconButton={location.pathname !== '/about'}
       iconElementRight={rightBtn(location.pathname, location.query, dispatch, collected, ticketId)}
       iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
-      iconStyleRight={{ alignSelf: 'center', marginTop: 0 }}
+      iconStyleRight={{ alignSelf: 'center', marginTop: 0, marginRight: 0 }}
       title={titleNode(location.pathname, title)}
       titleStyle={{ fontSize: '16px', height: '16.66667vw', lineHeight: '16.66667vw' }}
-      style={transPages.indexOf(location.pathname) !== -1 ? { backgroundColor: 'rgba(0,0,0,0)', boxShadow: 'none' } : {backgroundColor: '#2e445c'}}
+      style={transPages.indexOf(location.pathname) !== -1 ? { backgroundColor: 'rgba(0,0,0,0)', boxShadow: 'none', paddingLeft: '12px', paddingRight: '12px' } : {backgroundColor: '#2e445c', paddingLeft: '12px', paddingRight: '12px'}}
       className="m-navbar"
     />
   );

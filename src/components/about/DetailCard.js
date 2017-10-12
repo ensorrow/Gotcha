@@ -2,11 +2,11 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import styles from './DetailCard.less';
 
 const DetailCard = ({ isDetail, dispatch, vm }) => <Card className="m-detailCard">
-  <CardHeader>
+  <div>
     <dl>
       <div>
         <dd>{vm.events_count}</dd>
-        <dt>参与的活动1</dt>
+        <dt>参与的活动</dt>
       </div>
       <div>
         <dd>{vm.collect_events_count}</dd>
@@ -21,12 +21,12 @@ const DetailCard = ({ isDetail, dispatch, vm }) => <Card className="m-detailCard
         <dt>我的粉丝</dt>
       </div>
     </dl>
-  </CardHeader>
+  </div>
   <CardText style={{ overflow: 'auto' }}>
     <p>
       {vm.subscribe || '未填写简介'}
     </p>
-    <a>查看全部</a>
+    {/* <a>查看全部</a> */}
   </CardText>
 </Card>;
 

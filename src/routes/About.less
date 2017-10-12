@@ -1,8 +1,33 @@
 @import "./Variable";
 :global{
-  .list-right{
-    padding-top: 16px;
-    margin-right: 10px;
-    font-size: @fontSmall;
+  .u-list{
+    background-color: #fff;
+    margin-bottom: 16px;
+    li{
+      padding: 16px;
+      border-bottom: 1px solid @bg-a;
+      display: flex;
+      align-items: center;
+      position: relative;
+      .icon{
+          margin-right: 18px;
+          width: 32px;
+          height: 32px;
+          margin-right: 20px;
+          background-size: 20px;
+          border: 1px solid #edf1f5;
+          border-radius: 50%;
+      }
+      >span{
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+      }
+    }
+  }
+  .m-about{
+    .item{
+      border-bottom: 1px solid #e5eef3;
+    }
   }
 }

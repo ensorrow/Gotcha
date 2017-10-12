@@ -4,12 +4,12 @@ import utils from './utils';
 
 export default {
   token: '',
-  secureRegStr: '/about.*|/liked.*|/detail/.*',
+  secureReg: /\/about.*|\/liked.*|\/detail\/.*/,
   initToken() {
     this.token = cookie.parse(document.cookie).token;
   },
   needAuth(pathname) {
-    if (new RegExp(this.secureRegStr).test(pathname)) {
+    if (this.secureReg.test(pathname.split('?')[0])) {
       return true;
     }
     return false;

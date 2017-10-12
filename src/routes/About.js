@@ -10,18 +10,15 @@ import { Link, routerRedux } from 'dva/router';
 
 function About({ dispatch, about }) {
   return (
-    <div>
+    <div className="m-about">
       <NameCard isDetail={about.isDetail} dispatch={dispatch} vm={about.myInfo} />
-      <List>
-        <ListItem primaryText="我的入场券" leftIcon={<AboutIcon />} rightIconButton={<Link className="list-right" to="/about/tickets">查看全部</Link>} />
-        <Divider inset />
-        <TicketList dataArr={about.tickets} />
-        <ListItem primaryText="我的收藏" onClick={() => dispatch(routerRedux.push({ pathname: '/about/collects' }))} leftIcon={<AboutIcon />} />
-        <Divider inset />
-        <ListItem primaryText="我的关注" onClick={() => dispatch(routerRedux.push({ pathname: '/about/follows' }))} leftIcon={<AboutIcon />} />
-        <Divider inset />
-        <ListItem primaryText="我的粉丝" onClick={() => dispatch(routerRedux.push({ pathname: '/about/fans' }))} leftIcon={<AboutIcon />} />
-      </List>
+      <ul className="u-list">
+          <li><i className="icon icon-ticket"></i><span>我的入场券 <Link className="list-right" to="/about/tickets">查看全部</Link></span></li>
+          <TicketList vm={about.tickets} />
+          <li onClick={() => dispatch(routerRedux.push({ pathname: '/about/collects' }))}><i className="icon icon-collect"></i>我的收藏</li>
+          <li onClick={() => dispatch(routerRedux.push({ pathname: '/about/follows' }))}><i className="icon icon-mylike"></i>我的关注</li>
+          <li onClick={() => dispatch(routerRedux.push({ pathname: '/about/fans' }))}><i className="icon icon-fan"></i>我的粉丝</li>
+      </ul>
     </div>
   );
 }

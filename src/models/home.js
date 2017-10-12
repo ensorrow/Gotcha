@@ -155,7 +155,7 @@ export default {
         auth.login(dispatch, pathname, () => {
           if (pathname === '/') {
             dispatch({ type: 'getTags' });
-            // dispatch({ type: 'getCarousels' });
+            dispatch({ type: 'getCarousels' });
             dispatch({ type: 'getFavi' });
           }
           if (pathname === '/author') {
