@@ -46,11 +46,11 @@ class App extends Component{
     if(auth.token) this.props.dispatch({ type: 'about/getMyInfo' });
   }
   render(){
-    const { location, children, dispatch, title, collected, ticketId } = this.props;
+    const { location, children, dispatch, title, collected, eventId } = this.props;
     return <MuiThemeProvider muiTheme={muiTheme} >
       <div>
         <div className={styles.header}>
-          <Navbar location={location} dispatch={dispatch} title={title} collected={collected} ticketId={ticketId} />
+          <Navbar location={location} dispatch={dispatch} title={title} collected={collected} eventId={eventId} />
         </div>
         <div className={styles.content}>
           {children}
@@ -66,5 +66,5 @@ class App extends Component{
 export default connect(({ app, about }) => ({
   title: app.title,
   collected: app.event.has_collect,
-  ticketId: about.activeTicket.id,
+  eventId: about.activeTicket.event.id,
 }))(App);

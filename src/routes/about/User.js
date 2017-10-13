@@ -25,7 +25,7 @@ class User extends Component{
   render(){
     const { user } = this.props;
     let needMore = false;
-    if(user.events.length > 3) {
+    if(user.events && user.events.length > 3) {
       needMore = true;
       user.events = user.events.slice(0, 3);
     }
@@ -64,7 +64,7 @@ class User extends Component{
       </div>
       <div className="activityRecommend u-card">
         <h1 className="u-title"><i className="icon icon-more"></i>他参加的活动</h1>
-        {user.events.map(event => <ActivityCard key={event.id} vm={event} />)}
+        {user.events && user.events.map(event => <ActivityCard key={event.id} vm={event} />)}
         <a className="u-more" >查看更多</a>
       </div>
     </div>);

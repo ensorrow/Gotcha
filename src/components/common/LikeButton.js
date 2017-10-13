@@ -7,6 +7,8 @@ import appService from '../../services/app';
 import utils from '../../utils/utils';
 import './LikeButton.less';
 
+let first = true;
+
 class LikeButton extends Component {
   constructor(props) {
     super(props);
@@ -15,9 +17,10 @@ class LikeButton extends Component {
     };
   }
   componentWillReceiveProps(props) {
-    setTimeout(() => this.setState({
+    if(!first) return;
+    this.setState({
       liked: props.liked
-    }), 0);
+    }, () => { first = false; });
   }
   like(id) {
     if(this.state.liked) return;
@@ -51,4 +54,4 @@ class LikeButton extends Component {
   }
 }
 
-export default connect(({}) => ({}))(LikeButton);
+export default LikeButton;

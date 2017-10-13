@@ -46,7 +46,7 @@ function titleNode(pathname, title) {
   return titles[pathname];
 }
 
-function rightBtn(pathname, query, dispatch, collected, ticketId) {
+function rightBtn(pathname, query, dispatch, collected, eventId) {
   if (pathname === '/detail') return <IconButton onClick={() => dispatch({ type: 'app/collect' })} >{collected ? <Favorite /> : <Favorite_b />}</IconButton>;
   if (pathname === '/' || pathname === '/liked') return <IconButton style={{padding: 0, width: 'auto'}} onClick={() => dispatch(routerRedux.push({ pathname: '/search' }))} ><SearchIcon /></IconButton>;
   if (pathname === '/search') return <IconButton style={{padding: 0, width: 'auto'}}><SearchIcon onClick={() => dispatch({ type: 'app/search', payload: searchQuery })} /></IconButton>;
@@ -54,18 +54,18 @@ function rightBtn(pathname, query, dispatch, collected, ticketId) {
   if (pathname === '/reg') return <Link to="/login">登录</Link>;
   if (pathname === '/about') return <Link to="/about/profile"><i className="icon-edit" /></Link>;
   if (pathname === '/about/tickets') return <Link to="/about/addticket"><IconAdd color="white" /></Link>;
-  if (pathname === '/about/ticketdetail') return <Link to={`/detail?id=${ticketId}`}>查看活动</Link>;
+  if (pathname === '/about/ticketdetail') return <Link to={`/detail?id=${eventId}`}>查看活动</Link>;
   if (pathname === '/about/profile' && query.new == 1) return <Link to="/about">跳过</Link>;
 }
 
 const Navbar = (props) => {
-  const { location, dispatch, title, collected, ticketId } = props;
+  const { location, dispatch, title, collected, eventId } = props;
   const transPages = ['/detail', '/author', '/user', '/about'];
   return (
     <AppBar
       iconElementLeft={leftBtn(location.pathname, dispatch)}
       showMenuIconButton={location.pathname !== '/about'}
-      iconElementRight={rightBtn(location.pathname, location.query, dispatch, collected, ticketId)}
+      iconElementRight={rightBtn(location.pathname, location.query, dispatch, collected, eventId)}
       iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
       iconStyleRight={{ alignSelf: 'center', marginTop: 0, marginRight: 0 }}
       title={titleNode(location.pathname, title)}

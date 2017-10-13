@@ -1,17 +1,19 @@
+@import "../Variable";
 :global{
     .m-comment{
         .baseInfo{
-			padding: 20px 10px;
-			border-bottom: 1px solid #eee;
+			padding: 16px 12px;
+			margin-bottom: 10px;
+			background-color: #fff;
 			h1{
-				font-size: 24px;
-				color: #333;
+				font-size: @fontBase;
+				margin-bottom: 10px;
 			}
 			h2{
-				font-size: 16px;
-				color: #666;
+				font-size: @fontSmall;
+				color: gray;
 				font-weight: normal;
-				margin: 10px 0;
+				margin: 4px 0;
 			}
 			span{
 				color: #ccc;
@@ -24,6 +26,19 @@
 				font-size: 14px;
 				font-weight: normal;
 				margin: 10px 0;
+			}
+		}
+		.textWra{
+			position: absolute;
+			top: 120px+@navHeight;
+			width: 100%;
+			bottom: 0;
+			padding: 12px;
+			background-color: #fff;
+			box-sizing: border-box;
+			.btn{
+				margin-top: 30px;
+				width: 100%;
 			}
 		}
     }

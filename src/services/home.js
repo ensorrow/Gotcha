@@ -34,4 +34,5 @@ export default {
   getUserEvents: ({ id }) => request(`/users/${id}/events`, {
     needAuth: true,
   }),
+  getComments: (id) => request(`/events/${id}/comments`)  
 };

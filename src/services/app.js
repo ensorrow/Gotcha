@@ -59,4 +59,8 @@ export default {
     method: 'POST',
     body: JSON.stringify({ keyword }),
   }),
+  commend: id => request(`/comments/${id}/like`, {
+    method: 'POST',
+    needAuth: true
+  })
 };

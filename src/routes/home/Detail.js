@@ -71,18 +71,20 @@ class IndexDetail extends Component{
       <h3><i className="icon icon-cal"></i>{moment(vm.start_date).format('M月D日,HH:mm')}-{moment(vm.end_date).format('M月D日,HH:mm')}</h3>
       <h3><i className="icon icon-add"></i> <p>{vm.place_name + vm.place_city + vm.place_district}</p></h3>
     </div>
-    <div className="progress">
-      <span>报名中({`${vm.users_count}/${vm.volume}`})</span>
-      <span>
-				<i className="icon icon-clock"></i> 剩余时间：{moment.unix(diffTime).hours()}小时{moment.unix(diffTime).minutes()}分钟{moment.unix(diffTime).seconds()}秒
-			</span>
-    </div>
+    {
+      utils.compareTime(vm.start_date, vm.end_date, vm.apply_date) === 2 && <div className="progress">
+        <span>报名中({`${vm.users_count}/${vm.volume}`})</span>
+        <span>
+          <i className="icon icon-clock"></i> 剩余时间：{moment.unix(diffTime).days()}天{moment.unix(diffTime).hours()}小时{moment.unix(diffTime).minutes()}分钟{moment.unix(diffTime).seconds()}秒
+        </span>
+      </div>
+    }
     <div className="activityInfo">
       <div style={{ width: '580px' }}>
         <AuthorCard author={vm.organizer} />
       </div>
     </div>
-    {vm.has_comment ? <CommentBox comments={tmpcomments} /> : null}
+    {vm.has_comment && <CommentBox comments={vm.comments} />}
     <div className="u-detail">
       <h1 className="u-title"><i className="icon icon-activity"></i>活动详情</h1>
       <div className="imgWra">

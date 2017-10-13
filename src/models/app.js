@@ -1,14 +1,18 @@
 import homeService from '../services/home';
 import appService from '../services/app';
 import auth from '../utils/auth';
+import utils from '../utils/utils';
 import { delay } from 'dva/saga';
+import { routerRedux } from 'dva/router';
 
 export default {
   namespace: 'app',
   state: {
     firstLoad: true,
     title: '',
-    event: {},
+    event: {
+      comments: []
+    },
     search: {
       events: [],
       users: [],
@@ -26,12 +30,20 @@ export default {
     },
     updateSearch(state, { payload: data }) {
       return { ...state, search: data };
-    },
+    }
   },
   effects: {
-    *getDetail({ payload: { event_id } }, { call, put }) {
+    *getDetail({ payload: { event_id } }, { call, put, select }) {
       const { res, err } = yield call(homeService.getDetail, event_id);
-      yield put({ type: 'updateDetail', payload: res });
+      if(res) {
+        if(res.data.has_comment) {
+          const result = yield call(homeService.getComments, event_id);
+          if(result.res){
+            res.data.comments = result.res.data;
+          }
+        }
+        yield put({ type: 'updateDetail', payload: res });      
+      }
     },
     *collect({ }, { call, put, select }) {
       const event_id = yield select(state => state.app.event.id);
@@ -47,12 +59,15 @@ export default {
     *comment({ payload: { content } }, { call, put, select }) {
       const event_id = yield select(state => state.app.event.id);
       const { res, err } = yield call(homeService.comment, { event_id, content });
-      
+      if(res) {
+        utils.show('评价成功');
+        yield put(routerRedux.goBack());
+      }
     },
     *search({ payload: keyword }, { call, put }) {
       const { res, err } = yield call(appService.search, keyword);
       if (res) yield put({ type: 'updateSearch', payload: res.data });
-    },
+    }
   },
   subscriptions: {
     setup({ dispatch, history }) {

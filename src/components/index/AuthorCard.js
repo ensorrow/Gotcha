@@ -1,12 +1,13 @@
 import styles from './AuthorCard.less';
 import Avatar from 'material-ui/Avatar';
 import LikeButton from '../common/LikeButton';
+import { Link } from 'dva/router';
 
 const AuthorCard = ({ author = {} }) => <div className="authorCard">
   <div className="title">主办方</div>
   <div className="card">
     <div className="header">
-      <Avatar size={40} src={author.avatar} style={{ float: 'left'}} />
+      <Link to={`/author?id=${author.id}`}><Avatar size={40} src={author.avatar} style={{ float: 'left'}} /></Link>
       <h1>{author.name || '主办方'}</h1>
       <h2>{author.description || '暂无简介'}</h2>
     </div>

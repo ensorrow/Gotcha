@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import './Comment.less';
 import { connect } from 'dva';
+import moment from 'moment';
 
 class Comment extends Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class Comment extends Component {
     return (<div className="m-comment">
       <div className="baseInfo">
         <h1>{vm.title}</h1>
-        <h3>{vm.start_date}-{vm.end_date}</h3>
-        <h3>{vm.place_name + vm.place_city + vm.place_district}</h3>
+        <h2><i className="icon icon-cal"></i>{moment(vm.start_date).format('M月d日 HH:mm')}-{moment(vm.end_date).format('M月d日 HH:mm')}</h2>
+        <h2><i className="icon icon-add"></i>{vm.place_name + vm.place_city + vm.place_district}</h2>
       </div>
       <div className="textWra">
         <TextField
@@ -26,14 +27,12 @@ class Comment extends Component {
           rows={4}
           rowsMax={8}
           onChange={(e, v) => this.setState({ content: v })}
-          style={{ backgroundColor: '#fff' }}
+          style={{ backgroundColor: '#f6fbfc',padding: '0 10px', boxSizing: 'border-box' }}
+          hintStyle={{ top: '12px' }}
+          fullWidth={true}
+          underlineShow={false}
         />
-        <RaisedButton
-          label="提交"
-          primary
-          style={{ display: 'block' }}
-          onClick={() => dispatch({ type: 'app/comment', payload: { content: this.state.content } })}
-        />
+        <button className="btn" onClick={() => dispatch({ type: 'app/comment', payload: { content: this.state.content } })} >提交</button>
       </div>
     </div>);
   }

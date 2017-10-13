@@ -93,7 +93,7 @@ class StatusBar extends Component {
           <span>活动已经结束啦，下次早点来哦</span>
           {has_collect ? <Favorite /> : <Favorite_b />}
         </footer>);
-      } else if (has_comment) {
+      } else if (!has_comment) {
         return (<footer>
           <span>活动已结束</span>
           <RaisedButton
