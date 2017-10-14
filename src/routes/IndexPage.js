@@ -6,28 +6,34 @@ import ScrollTab from '../components/index/ScrollTab';
 import IndexCard from '../components/index/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import utils from '../utils/utils';
+import Scroll from '../components/common/Scroll';
+import appService from '../services/app';
 
-function IndexPage({ home, getFavi, getNear, getWeek, getByTag }) {
+function IndexPage({ home, getFavi, getNear, getWeek, getByTag, moreActionFavi,  moreActionWeekend}) {
   return (
-    <div>
-      <div className={styles.top}>
+    <div className="m-home">
+      <div>
         <Slider imgs={home.carousel} />
         <ScrollTab tabs={home.tags} onTab={getByTag} active={home.activeTag} />
         <Tabs className="m-tabs">
           <Tab label="最受欢迎" onActive={getFavi}>
-            <div>
-              { home.favorite.dataList.length ? home.favorite.dataList.map(item => <IndexCard vm={item} key={item.id} />) : ''}
-            </div>
+            <Scroll pagination={home.favorite.meta.pagination} className="scrollView" moreAction={moreActionFavi}>
+              <div>
+                { home.favorite.data.length ? home.favorite.data.map(item => <IndexCard vm={item} key={item.id} />) : ''}
+              </div>
+            </Scroll>              
           </Tab>
           <Tab label="距离最近" onActive={getNear}>
             <div>
-              {home.nearest.dataList && home.nearest.dataList.map(item => <IndexCard vm={item} key={item.id} />)}
+              {home.nearest.data && home.nearest.data.map(item => <IndexCard vm={item} key={item.id} />)}
             </div>
           </Tab>
           <Tab label="只看周末" onActive={getWeek}>
-            <div>
-              {home.weekend.dataList && home.weekend.dataList.map(item => <IndexCard vm={item} key={item.id} />)}
-            </div>
+            <Scroll pagination={home.weekend.meta.pagination} className="scrollView" moreAction={moreActionWeekend}>
+              <div>
+                {home.weekend.data && home.weekend.data.map(item => <IndexCard vm={item} key={item.id} />)}
+              </div>
+            </Scroll> 
           </Tab>
         </Tabs>
       </div>
@@ -44,19 +50,46 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     getFavi: () => dispatch({ type: 'home/getFavi' }),
     getNear: () => {
-      if ("geolocation" in navigator) {
+      if(utils.is_wx()){ appService.initWechatSdk()
+        .then(( { res, err } ) => {
+          if(res) {
+            wx.config(res);
+            wx.ready(function() {
+              wx.getLocation({
+                type: 'wgs84', 
+                success: function (res) {
+                  const latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                  const longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                  utils.show('位置信息获取成功');
+                  dispatch({ type: 'home/getNear', payload: { position: { latitude, longitude } } });
+                },
+                cancel: function () {
+                  utils.show('用户取消');
+                }
+              });
+            })
+          }
+        });
+      }
+      else if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(pos){
           dispatch({ type: 'home/getNear', payload: { position: pos.coords } });
         }, function(err) {
-          console.log(err);
-          utils.show("地理位置暂不可用");
-        });
+          switch(err.code){
+            case 1: utils.show('没有位置信息权限');break;
+            case 2: utils.show('位置获取出错');break;
+            case 3: utils.show('获取位置信息超时');break;
+            default: utils.show('地理位置暂不可用');
+          };
+        }, { timeout: 5000 });
       } else {
-        utils.show("地理位置暂不可用");
+        utils.show("浏览器不支持地理位置");
       }
     },
     getWeek: () => dispatch({ type: 'home/getWeek' }),
     getByTag: tag => dispatch({ type: 'home/getByTag', payload: { tag } }),
+    moreActionFavi: (page) => dispatch({ type: 'home/getFavi', payload: {page} }),
+    moreActionWeekend: (page) => dispatch({ type: 'home/getWeek', payload: {page} })
   };
 }
 

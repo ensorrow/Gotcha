@@ -4,20 +4,32 @@ import auth from '../utils/auth';
 export default {
   namespace: 'liked',
   state: {
-    recUser: [],
-    recOrg: [],
+    recUser: {
+      data: [],
+      meta: {
+        pagination: {}
+      }
+    },
+    recOrg: {
+      data: [],
+      meta: {
+        pagination: {}
+      }
+    },
   },
   reducers: {
-    updateRecOrg(state, { payload: { data } }) {
+    updateRecOrg(state, { payload: recOrg }) {
+      recOrg.data = state.recOrg.data.concat(recOrg.data)
       return {
         ...state,
-        recOrg: data,
+        recOrg,
       };
     },
-    updateRecUser(state, { payload: { data } }) {
+    updateRecUser(state, { payload: recUser }) {
+      recUser.data = state.recUser.data.concat(recUser.data)
       return {
         ...state,
-        recUser: data,
+        recUser,
       };
     },
     updatePosts(state, { payload: {data} }) {
@@ -28,12 +40,20 @@ export default {
     }
   },
   effects: {
-  	*getRecUser({}, { call, put }) {
-      const { res, err } = yield call(likedService.getRecUser, {});
+  	*getRecUser({payload: pagination = {}}, { call, put, select }) {
+      const recUser = yield select(state => state.liked.recUser);
+      if(!pagination.page && recUser.data.length){
+        return;
+      }
+      const { res, err } = yield call(likedService.getRecUser, pagination);
       if (res) yield put({ type: 'updateRecUser', payload: res });
     },
-    *getRecOrg({}, { call, put }) {
-      const { res, err } = yield call(likedService.getRecOrg, {});
+    *getRecOrg({payload: pagination = {}}, { call, put, select }) {
+      const recOrg = yield select(state => state.liked.recOrg);
+      if(!pagination.page && recOrg.data.length){
+        return;
+      }
+      const { res, err } = yield call(likedService.getRecOrg, pagination);
       if (res) yield put({ type: 'updateRecOrg', payload: res });
     },
     *getPosts({}, { call, put }) {
@@ -53,6 +73,12 @@ export default {
       auth.login(dispatch, pathname, () => {
         if (pathname === '/liked') {
           dispatch({ type: 'getPosts' });
+        }
+        if (pathname === '/liked/recommend/user') {
+          dispatch({ type: 'getRecUser' });
+        }
+        if (pathname === '/liked/recommend/org') {
+          dispatch({ type: 'getRecOrg' });
         }
       });
     });

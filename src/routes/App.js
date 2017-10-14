@@ -47,12 +47,13 @@ class App extends Component{
   }
   render(){
     const { location, children, dispatch, title, collected, eventId } = this.props;
+    const rootPages = ['/', '/liked', '/about'];    
     return <MuiThemeProvider muiTheme={muiTheme} >
       <div>
         <div className={styles.header}>
           <Navbar location={location} dispatch={dispatch} title={title} collected={collected} eventId={eventId} />
         </div>
-        <div className={styles.content}>
+        <div className={styles.content} style={{paddingBottom: rootPages.indexOf(location.pathname) !== -1 ? '56px' : '0'}}>
           {children}
         </div>
         <div className={styles.footer}>

@@ -62,5 +62,6 @@ export default {
   commend: id => request(`/comments/${id}/like`, {
     method: 'POST',
     needAuth: true
-  })
+  }),
+  initWechatSdk: () => request('/wechat/jssdk')
 };

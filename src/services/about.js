@@ -16,7 +16,7 @@ export default {
     }),
     method: 'POST',
   }),
-  getCollects: () => request('/collect_events', { needAuth: true }),
-  getFollows: () => request('/follows', { needAuth: true }),
-  getFans: () => request('/followers', { needAuth: true }),
+  getCollects: ({ page=1, size=10 }) => request(`/collect_events?page=${page}&size=${size}`, { needAuth: true }),
+  getFollows: ({ page=1, size=10 }) => request(`/follows?page=${page}&size=${size}`, { needAuth: true }),
+  getFans: ({ page=1, size=10 }) => request(`/followers?page=${page}&size=${size}`, { needAuth: true }),
 };

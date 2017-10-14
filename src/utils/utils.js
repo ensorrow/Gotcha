@@ -36,5 +36,13 @@ export default {
   },
   uniToZh(str){
     return unescape(str.replace(/\\u/g, "%u"));
+  },
+  is_wx(){
+    const ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+      return true;
+    } else {
+      return false;
+    }
   }
 };

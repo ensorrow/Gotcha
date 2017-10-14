@@ -13,8 +13,8 @@ function Liked({ recOrg = [], recUser = [], posts = [] }) {
       {!posts.length && <EmptyFav />}
       {posts.map((vm, index) => <LikedCard key={index} vm={vm} />)}
       {posts.length <= 6 && <div>
-        <Recommend title="推荐主办方" vm={recOrg} type="org" />
-        <Recommend title="推荐用户" vm={recUser} type="user" />
+        <Recommend title="推荐主办方" vm={recOrg.data} type="org" />
+        <Recommend title="推荐用户" vm={recUser.data} type="user" />
       </div>}
     </div>
   );
