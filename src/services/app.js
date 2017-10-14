@@ -63,5 +63,11 @@ export default {
     method: 'POST',
     needAuth: true
   }),
-  initWechatSdk: () => request('/wechat/jssdk')
+  initWechatSdk: (url) => request('/wechat_config', {
+    method: 'POST',
+    body: JSON.stringify({
+      content: url
+    })
+  }),
+  getWechatSdk: () => request('/wechat/jssdk')
 };

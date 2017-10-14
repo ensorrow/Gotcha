@@ -4,8 +4,15 @@ import moment from 'moment';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import './Confirm.less';
 import classnames from 'classnames';
+import appService from '../../services/app';
 
 const Confirm = ({ vm, user, dispatch }) => {
+    function applyFree(){
+        dispatch({ type: 'app/applyEvent', payload: { event_id: vm.id } })
+    }
+    function applyPay(){
+        
+    }
     let content;
     if(!vm.has_apply) {
         content = <div>
@@ -28,7 +35,7 @@ const Confirm = ({ vm, user, dispatch }) => {
                         style={{}}
                     />
                 </RadioButtonGroup>
-                <button className={classnames("btn", {free: !vm.is_fee})} onClick={() => dispatch({ type: 'app/applyEvent', payload: { event_id: vm.id } })}>{vm.is_fee ? '确认支付': '免费报名'}</button>
+                <button className={classnames("btn", {free: !vm.is_fee})} onClick={ vm.is_fee ? applyPay : applyFree }>{vm.is_fee ? '确认支付': '免费报名'}</button>
             </div>
             <div className="plh"></div>
         </div>;

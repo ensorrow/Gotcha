@@ -50,24 +50,33 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     getFavi: () => dispatch({ type: 'home/getFavi' }),
     getNear: () => {
-      if(utils.is_wx()){ appService.initWechatSdk()
+      if(utils.is_wx()){ appService.initWechatSdk('http://lvzheyang.top')
         .then(( { res, err } ) => {
           if(res) {
-            wx.config(res);
-            wx.ready(function() {
-              wx.getLocation({
-                type: 'wgs84', 
-                success: function (res) {
-                  const latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                  const longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                  utils.show('位置信息获取成功');
-                  dispatch({ type: 'home/getNear', payload: { position: { latitude, longitude } } });
-                },
-                cancel: function () {
-                  utils.show('用户取消');
+            appService.getWechatSdk()
+              .then(result => {
+                if(result.res) {
+                  wx.config(result.res);
+                  wx.ready(function() {
+                    wx.getLocation({
+                      type: 'wgs84', 
+                      success: function (pos) {
+                        const latitude = pos.latitude; // 纬度，浮点数，范围为90 ~ -90
+                        const longitude = pos.longitude; // 经度，浮点数，范围为180 ~ -180。
+                        utils.show('位置信息获取成功');
+                        dispatch({ type: 'home/getNear', payload: { position: { latitude, longitude } } });
+                      },
+                      cancel: function () {
+                        utils.show('用户取消');
+                      }
+                    });
+                  });
+                  wx.error(function(err){
+                    utils.show('微信权限信息获取错误')
+                    console.log(err);
+                  });
                 }
-              });
-            })
+              })
           }
         });
       }
