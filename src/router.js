@@ -21,6 +21,9 @@ import MyCollect from './routes/about/MyCollect';
 import MyFans from './routes/about/MyFans';
 import MyFollows from './routes/about/MyFollows';
 
+import Verify from './routes/admin/Verify';
+import AdminLogin from './routes/admin/Login';
+
 import Login from './routes/Login.js';
 import Reg from './routes/Reg.js';
 import ResetPwd from './routes/ResetPwd.js';
@@ -52,6 +55,8 @@ function RouterConfig({ history }) {
         <Route path="/reg" component={Reg} />
         <Route path="/reset" component={ResetPwd} />
         <Route path="/liked/recommend/:type" component={RecommendList} />
+        <Route path="/admin" component={Verify} />
+        <Route path="/admin/login" component={AdminLogin} />
       </Route>
     </Router>
   );

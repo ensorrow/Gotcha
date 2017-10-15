@@ -4,9 +4,13 @@ import utils from './utils';
 
 export default {
   token: '',
+  adminToken: '',
   secureReg: /\/about.*|\/liked.*|\/detail\/.*/,
   initToken() {
     this.token = cookie.parse(document.cookie).token;
+  },
+  initAdminToken() {
+    this.adminToken = cookie.parse(document.cookie).adminToken;
   },
   needAuth(pathname) {
     if (this.secureReg.test(pathname.split('?')[0])) {

@@ -1,0 +1,48 @@
+@import '../Variable';
+
+:global{
+    .m-verify{
+        h1{
+            font-size: @fontTitle;
+            color: @color-b;
+            display: flex;
+            align-items: center;
+            height: 110px;
+            background-color: #fff;
+            justify-content: center;
+            .icon{
+                width: 40px;
+                height: 40px;
+                margin-right: 6px;
+            }
+        }
+        .main{
+            position: absolute;
+            width: 100%;
+            box-sizing: border-box;
+            top: 120px+@navHeight;;
+            bottom: 0;
+            background-color: #fff;
+            padding: 0 12px;
+            text-align: center;
+            font-size: @fontTip;
+            .icon{
+                display: block;
+                width: 98px;
+                height: 98px;
+                margin: 36px auto 32px auto;
+            }
+            .not{
+               text-align: center;
+               margin: 98px 0 120px;
+            }
+            .btn{
+                width: 100%;
+                height: 48px;
+            }
+            .verified{
+                margin-bottom: 48px;
+            }
+        }
+    }
+}

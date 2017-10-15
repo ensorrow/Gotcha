@@ -69,5 +69,20 @@ export default {
       content: url
     })
   }),
-  getWechatSdk: () => request('/wechat/jssdk')
+  getWechatSdk: () => request('/wechat/jssdk'),
+  checkTicket: ({ token, event_id, attend_code }) => request('/check_ticket', {
+    method: 'POST',
+    body: JSON.stringify({
+      token,
+      event_id,
+      attend_code
+    })
+  }),
+  adminLogin: ({ email, second_password }) => request('/check_login', {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      second_password
+    })
+  })
 };

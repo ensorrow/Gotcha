@@ -42,6 +42,7 @@ function titleNode(pathname, title) {
     '/detail/confirm': '确认报名',
     '/login': '登录',
     '/reg': '注册',
+    '/admin': '入场审核',
   };
   return titles[pathname];
 }

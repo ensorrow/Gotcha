@@ -50,7 +50,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     getFavi: () => dispatch({ type: 'home/getFavi' }),
     getNear: () => {
-      if(utils.is_wx()){ appService.initWechatSdk('http://lvzheyang.top')
+      if(utils.is_wx()){ appService.initWechatSdk('http://www.gotcha.net.cn')
         .then(( { res, err } ) => {
           if(res) {
             appService.getWechatSdk()

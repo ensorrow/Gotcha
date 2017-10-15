@@ -16,6 +16,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 auth.initToken();
+auth.initAdminToken();
 moment.locale('zh-cn');
 
 const muiTheme = getMuiTheme({
