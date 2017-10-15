@@ -6,6 +6,7 @@ import utils from '../../utils/utils';
 let currentPage = 1;
 let lock = false;
 const iswx = utils.is_wx();
+const isqq = utils.is_qq();
 
 class Scroll extends Component{
     constructor(props){
@@ -22,7 +23,7 @@ class Scroll extends Component{
     }
     loadMore(){
         const _this = this.refs.scroll;
-        if(iswx){
+        if(iswx || isqq){
             if(_this.scrollHeight - (_this.scrollTop+_this.clientHeight)<=5) {
                 this.getMore();
             }

@@ -1,6 +1,7 @@
 import Toast from '../components/common/Toast';
 const toast = Toast.init({});
 let timer = null;
+const ua = navigator.userAgent.toLowerCase();
 
 export default {
   getPathQuery() {
@@ -39,12 +40,12 @@ export default {
     return unescape(str.replace(/\\u/g, "%u"));
   },
   is_wx(){
-    const ua = navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i)=="micromessenger") {
-      return true;
-    } else {
-      return false;
-    }
+    if(ua.match(/MicroMessenger/i)=="micromessenger") return true
+    return false;
+  },
+  is_qq(){
+    if(ua.match(/MQQBrowser/i)=='mqqbrowser') return true;
+    return false;
   },
   throttle(func, delay) {
     clearTimeout(timer);

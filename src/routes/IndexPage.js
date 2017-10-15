@@ -10,6 +10,8 @@ import Scroll from '../components/common/Scroll';
 import appService from '../services/app';
 
 function IndexPage({ home, getFavi, getNear, getWeek, getByTag, moreActionFavi,  moreActionWeekend}) {
+  const faviPagi = home.favorite.meta.pagination;
+  const weekPagi = home.weekend.meta.pagination;
   return (
     <div className="m-home">
       <div>
@@ -17,11 +19,10 @@ function IndexPage({ home, getFavi, getNear, getWeek, getByTag, moreActionFavi, 
         <ScrollTab tabs={home.tags} onTab={getByTag} active={home.activeTag} />
         <Tabs className="m-tabs">
           <Tab label="最受欢迎" onActive={getFavi}>
-            <Scroll pagination={home.favorite.meta.pagination} className="scrollView" moreAction={moreActionFavi}>
-              <div>
-                { home.favorite.data.length ? home.favorite.data.map(item => <IndexCard vm={item} key={item.id} />) : ''}
-              </div>
-            </Scroll>              
+            <div>
+              { home.favorite.data.length ? home.favorite.data.map(item => <IndexCard vm={item} key={item.id} />) : ''}
+              { faviPagi.current_page<faviPagi.total_pages ? <button className="loadMore" onClick={moreActionFavi.bind(null, faviPagi.current_page+1)}>加载更多</button> : null }
+            </div>
           </Tab>
           <Tab label="距离最近" onActive={getNear}>
             <div>
@@ -29,11 +30,10 @@ function IndexPage({ home, getFavi, getNear, getWeek, getByTag, moreActionFavi, 
             </div>
           </Tab>
           <Tab label="只看周末" onActive={getWeek}>
-            <Scroll pagination={home.weekend.meta.pagination} className="scrollView" moreAction={moreActionWeekend}>
-              <div>
-                {home.weekend.data && home.weekend.data.map(item => <IndexCard vm={item} key={item.id} />)}
-              </div>
-            </Scroll> 
+            <div>
+              {home.weekend.data && home.weekend.data.map(item => <IndexCard vm={item} key={item.id} />)}
+            </div>
+            { weekPagi.current_page<weekPagi.total_pages ? <button className="loadMore" onClick={moreActionWeekend.bind(null, weekPagi.current_page+1)}>加载更多</button> : null }
           </Tab>
         </Tabs>
       </div>
