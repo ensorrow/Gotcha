@@ -1,5 +1,6 @@
 import Toast from '../components/common/Toast';
 const toast = Toast.init({});
+let timer = null;
 
 export default {
   getPathQuery() {
@@ -44,5 +45,9 @@ export default {
     } else {
       return false;
     }
+  },
+  throttle(func, delay) {
+    clearTimeout(timer);
+    timer = setTimeout(func, delay || 100);
   }
 };

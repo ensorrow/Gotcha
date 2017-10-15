@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import AppBar from 'material-ui/AppBar';
 import { routerRedux } from 'dva/router';
 import IconButton from 'material-ui/IconButton';
@@ -10,6 +10,7 @@ import IconAdd from 'material-ui/svg-icons/content/add-circle-outline';
 import './Navbar.less';
 import { Link } from 'dva/router';
 import TextField from 'material-ui/TextField';
+import utils from '../utils/utils';
 
 let searchQuery = '';
 
@@ -59,22 +60,54 @@ function rightBtn(pathname, query, dispatch, collected, eventId) {
   if (pathname === '/about/profile' && query.new == 1) return <Link to="/about">跳过</Link>;
 }
 
-const Navbar = (props) => {
-  const { location, dispatch, title, collected, eventId } = props;
-  const transPages = ['/detail', '/author', '/user', '/about'];
-  return (
-    <AppBar
-      iconElementLeft={leftBtn(location.pathname, dispatch)}
-      showMenuIconButton={location.pathname !== '/about'}
-      iconElementRight={rightBtn(location.pathname, location.query, dispatch, collected, eventId)}
-      iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
-      iconStyleRight={{ alignSelf: 'center', marginTop: 0, marginRight: 0 }}
-      title={titleNode(location.pathname, title)}
-      titleStyle={{ fontSize: '16px', height: '16.66667vw', lineHeight: '16.66667vw' }}
-      style={transPages.indexOf(location.pathname) !== -1 ? { backgroundColor: 'rgba(0,0,0,0)', boxShadow: 'none', paddingLeft: '12px', paddingRight: '12px' } : {backgroundColor: '#2e445c', paddingLeft: '12px', paddingRight: '12px'}}
-      className="m-navbar"
-    />
-  );
-};
+const transH = 172;
+const transPages = ['/detail', '/author', '/user', '/about'];
+
+class Navbar extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      opacity: 0
+    }
+  }
+  componentDidMount(){
+    this.initScroll(this.props);
+  }
+  componentWillReceiveProps(nextProps){
+    this.initScroll(nextProps);
+  }
+  initScroll(props){
+    if(transPages.indexOf(props.location.pathname) !== -1) {
+      const initST = document.body.scrollTop || document.documentElement.scrollTop;
+      this.setState({
+        opacity: initST/transH > 1 ? 1 : initST/transH
+      });
+      document.onscroll = () => {
+        const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        utils.throttle(() => this.setState({
+          opacity: scrollTop/transH > 1 ? 1 : scrollTop/transH
+        }), 16);
+      }
+    } else {
+      document.onscroll = null;
+    }
+  }
+  render(){
+    const { location, dispatch, title, collected, eventId } = this.props;
+    return (
+      <AppBar
+        iconElementLeft={leftBtn(location.pathname, dispatch)}
+        showMenuIconButton={location.pathname !== '/about'}
+        iconElementRight={rightBtn(location.pathname, location.query, dispatch, collected, eventId)}
+        iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
+        iconStyleRight={{ alignSelf: 'center', marginTop: 0, marginRight: 0 }}
+        title={titleNode(location.pathname, title)}
+        titleStyle={{ fontSize: '16px', height: '16.66667vw', lineHeight: '16.66667vw' }}
+        style={transPages.indexOf(location.pathname) !== -1 ? { backgroundColor: `rgba(46,68,92,${this.state.opacity})`, boxShadow: 'none', paddingLeft: '12px', paddingRight: '12px', transition: 'all 0 ease 0' } : {backgroundColor: '#2e445c', paddingLeft: '12px', paddingRight: '12px'}}
+        className="m-navbar"
+      />
+    )
+  }
+}
 
 export default Navbar;
