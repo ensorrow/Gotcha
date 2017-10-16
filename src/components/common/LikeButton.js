@@ -16,6 +16,9 @@ class LikeButton extends Component {
       liked: props.liked || false,
     };
   }
+  componentDidMount(){
+    first = true;
+  }
   componentWillReceiveProps(props) {
     if(!first) return;
     this.setState({
