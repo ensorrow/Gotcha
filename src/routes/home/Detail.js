@@ -69,7 +69,7 @@ class IndexDetail extends Component{
         </span>
         浏览：{vm.view_count} · 收藏：{vm.collectors_count}</h2>
       <h3><i className="icon icon-cal"></i>{moment(vm.start_date).format('M月D日,HH:mm')}-{moment(vm.end_date).format('M月D日,HH:mm')}</h3>
-      <h3><i className="icon icon-add"></i> <p>{vm.place_name + vm.place_city + vm.place_district}</p></h3>
+      <h3><i className="icon icon-add"></i> <p>{vm.place_name}</p></h3>
     </div>
     {
       utils.compareTime(vm.start_date, vm.end_date, vm.apply_date) === 2 && <div className="progress">
@@ -91,7 +91,7 @@ class IndexDetail extends Component{
         <img src={vm.image_path} />
       </div>
       <p className={classnames({'all': this.state.detailAll})}>{vm.description}</p>
-      <a className="u-more" onClick={ () => this.toggle('detailAll') }>{this.state.detailAll?'收起':'查看更多'}</a>
+      { vm.description.length > 69 ? <a className="u-more" onClick={ () => this.toggle('detailAll') }>{this.state.detailAll?'收起':'查看更多'}</a> : null }
     </div>
     <div className="activityRecommend">
       <h1 className="u-title"><i className="icon icon-more"></i>更多活动</h1>
