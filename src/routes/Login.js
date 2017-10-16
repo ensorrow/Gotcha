@@ -9,6 +9,7 @@ import cookie from 'cookie';
 import { routerRedux } from 'dva/router';
 import utils from '../utils/utils';
 import auth from '../utils/auth';
+import CountBtn from '../components/common/CountBtn';
 
 class Login extends Component {
   constructor(props) {
@@ -54,12 +55,15 @@ class Login extends Component {
       console.log(err);
     });
   }
-  sendCode() {
-    if (!this.state.mobile) return console.log('检查手机号');
+  sendCode(cb) {
+    if (!this.state.mobile) return utils.show('检查手机号');
     appService.getVerify({
       mobile: this.state.mobile,
     }).then(({ res, err }) => {
-      if (!err) console.log('验证码已发送');
+      if (!err) {
+        utils.show('验证码已发送');
+        cb();
+      }
     });
   }
   handleChange(value) {
@@ -92,7 +96,7 @@ class Login extends Component {
               <div className="input">
                 <div className="icon user_bu" />
                 <input value={this.state.mobile} onChange={e => this.setState({ mobile: e.target.value })} placeholder="请输入手机号" />
-                <div className="btn-code" onClick={() => this.sendCode()}>发送验证码</div>
+                <CountBtn onClick={(cb) => this.sendCode(cb)} />
               </div>
               <div className="input">
                 <div className="icon key_bu" />

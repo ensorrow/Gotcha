@@ -91,7 +91,7 @@ class IndexDetail extends Component{
         <img src={vm.image_path} />
       </div>
       <p className={classnames({'all': this.state.detailAll})}>{vm.description}</p>
-      { vm.description.length > 69 ? <a className="u-more" onClick={ () => this.toggle('detailAll') }>{this.state.detailAll?'收起':'查看更多'}</a> : null }
+      { vm.description && vm.description.length > 69 ? <a className="u-more" onClick={ () => this.toggle('detailAll') }>{this.state.detailAll?'收起':'查看更多'}</a> : null }
     </div>
     <div className="activityRecommend">
       <h1 className="u-title"><i className="icon icon-more"></i>更多活动</h1>

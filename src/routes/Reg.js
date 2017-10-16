@@ -9,6 +9,7 @@ import { routerRedux, Link } from 'dva/router';
 import Dialog from 'material-ui/Dialog';
 import utils from '../utils/utils';
 import auth from '../utils/auth';
+import CountBtn from '../components/common/CountBtn';
 
 class Reg extends Component {
   constructor(props) {
@@ -21,8 +22,6 @@ class Reg extends Component {
       password: '',
       verify_pwd: '',
       open: false,
-      count: 60,
-      codeSent: false
     };
   }
   componentDidMount() {
@@ -69,17 +68,14 @@ class Reg extends Component {
       });
     }, 1000);
   }
-  sendCode() {
-    if(this.state.codeSent) return;
+  sendCode(cb) {
     if (!this.state.mobile) return utils.show('请检查手机号');
     appService.getVerifyReg({
       mobile: this.state.mobile,
     }).then(({ res, err }) => {
       if (res) {
-        utils.show('验证码已发送')
-        this.setState({
-          codeSent: true
-        }, () => this.countDown());
+        utils.show('验证码已发送');
+        cb();
       }
       else if (err.status_code == 400) this.setState({ open: true });
     });
@@ -90,7 +86,7 @@ class Reg extends Component {
         <div className="input">
           <div className="icon user_bu" />
           <input value={this.state.mobile} onChange={e => this.setState({ mobile: e.target.value })} placeholder="请输入手机号" />
-          <div className="btn-code" onClick={() => this.sendCode()}>发送验证码</div>
+          <CountBtn onClick={() => this.sendCode()} />
         </div>
         <div className="input">
           <div className="icon key_bu" />
