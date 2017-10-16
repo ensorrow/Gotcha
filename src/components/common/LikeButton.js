@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { connect } from 'dva';
 import FlatButton from 'material-ui/FlatButton';
 import ArrowRight from 'material-ui/svg-icons/navigation/arrow-forward';
 import classnames from 'classnames';

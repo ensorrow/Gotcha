@@ -9,6 +9,8 @@ import ActivityCard from '../../components/index/ActivityCard';
 import { routerRedux } from 'dva/router';
 import LikeButton from '../../components/common/LikeButton';
 import classnames from 'classnames';
+import DetailCard from '../../components/common/DetailCard';
+import MoreEvent from '../../components/common/MoreEvent';
 
 class User extends Component{
   constructor(props){
@@ -57,16 +59,8 @@ class User extends Component{
           <dt>他的粉丝</dt>
         </div>
       </dl>
-      <div className="intro u-detail">
-        <h1 className="u-title"><i className="icon icon-user"></i>个人介绍</h1>
-        <p className={classnames({'all': this.state.introAll})} >{user.subscribe}</p>
-        <a className="u-more" onClick={() => this.toggle('introAll')}>{this.state.introAll?'收起':'查看更多'}</a>
-      </div>
-      <div className="activityRecommend u-card">
-        <h1 className="u-title"><i className="icon icon-more"></i>他参加的活动</h1>
-        {user.events && user.events.map(event => <ActivityCard key={event.id} vm={event} />)}
-        <a className="u-more" >查看更多</a>
-      </div>
+      <DetailCard iconClass="icon-user" content={user.subscribe} title="个人介绍" />
+      <MoreEvent iconClass="icon-more" title="他参加的活动" events={user.events} />
     </div>);
   }
 }

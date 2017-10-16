@@ -8,26 +8,18 @@ import CommentBox from '../../components/index/CommentBox';
 import ActivityCard from '../../components/index/ActivityCard';
 import { routerRedux } from 'dva/router';
 import classnames from 'classnames';
+import DetailCard from '../../components/common/DetailCard';
+import MoreEvent from '../../components/common/MoreEvent';
 
 class Author extends Component{
   constructor(props){
     super(props);
     this.state = {
-      introAll: false
+
     }
-  }
-  toggle(property){
-    const newState = this.state;
-    newState[property] = !newState[property];
-    this.setState(newState);
   }
   render(){
     const { vm, dispatch } = this.props;
-    let needMore = false;
-    if(vm.events && vm.events.length > 3) {
-      needMore = true;
-      vm.events = vm.events.slice(0, 3);
-    }
     return (<div className="m-author">
       <div className="profile">
         <Avatar src={vm.avatar} size={64} style={{border: '2px solid #fff'}} />
@@ -53,19 +45,8 @@ class Author extends Component{
         <p>{vm.summary}</p>
         <img src={require('../../assets/images/quote.png')} />
       </div>
-      <div className="intro u-detail">
-        <h1 className="u-title"><i className="icon icon-user"></i>个人介绍</h1>
-        <p className={classnames({'all': this.state.introAll})} >{vm.content}</p>
-        <div className="imgWra">
-          <img src={require('../../assets/test.png')} />
-        </div>
-        <a className="u-more" onClick={() => this.toggle('introAll')}>{this.state.introAll?'收起':'查看更多'}</a>
-      </div>
-      <div className="activityRecommend u-card">
-        <h1 className="u-title"><i className="icon icon-more"></i> 他的活动</h1>
-        {vm.events && vm.events.length ? vm.events.map(event => <ActivityCard key={event.id} vm={event} />) : '主办方暂无活动'}
-        {needMore ? <a className="u-more">查看更多</a> : null}
-      </div>
+      <DetailCard iconClass="icon-user" content={vm.content} title="个人介绍" />
+      <MoreEvent iconClass="icon-more" title="他的活动" events={vm.events} />
       {/* <CommentBox comments={tmpcomments} /> */}
     </div>);
   }

@@ -11,6 +11,8 @@ import CommentBox from '../../components/index/CommentBox';
 import ActivityCard from '../../components/index/ActivityCard';
 import { Link } from 'dva/router';
 import StatusBar from '../../components/index/StatusBar';
+import DetailCard from '../../components/common/DetailCard';
+import MoreEvent from '../../components/common/MoreEvent';
 import moment from 'moment';
 import classnames from 'classnames';
 import utils from '../../utils/utils';
@@ -21,7 +23,6 @@ class IndexDetail extends Component{
   constructor(props){
     super(props);
     this.state = {
-      detailAll: false,
       diffTime: 0
     }
   }
@@ -47,11 +48,6 @@ class IndexDetail extends Component{
   }
   componentWillUnmount() {
     clearInterval(timer);
-  }
-  toggle(property){
-    const newState = this.state;
-    newState[property] = !newState[property];
-    this.setState(newState);
   }
   render(){
     const { vm, dispatch } = this.props;
@@ -85,18 +81,8 @@ class IndexDetail extends Component{
       </div>
     </div>
     {vm.has_comment && <CommentBox comments={vm.comments} />}
-    <div className="u-detail">
-      <h1 className="u-title"><i className="icon icon-activity"></i>活动详情</h1>
-      <div className="imgWra">
-        <img src={vm.image_path} />
-      </div>
-      <p className={classnames({'all': this.state.detailAll})}>{vm.description}</p>
-      { vm.description && vm.description.length > 69 ? <a className="u-more" onClick={ () => this.toggle('detailAll') }>{this.state.detailAll?'收起':'查看更多'}</a> : null }
-    </div>
-    <div className="activityRecommend">
-      <h1 className="u-title"><i className="icon icon-more"></i>更多活动</h1>
-      {vm.other_events ? vm.other_events.map(event => <ActivityCard vm={event} key={event.id} />) : '主办方暂无其他活动'}
-    </div>
+    <DetailCard iconClass="icon-activity" image_path={vm.image_path} content={vm.description} title="活动详情" />
+    <MoreEvent iconClass="icon-more" title="更多活动" events={vm.other_events} />
     <div className="btBanner">
       <img src={require('../../assets/images/logo1.png')} />
     </div>
