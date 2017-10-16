@@ -1,14 +1,64 @@
 @import '../../routes/Variable';
 :global{
     .m-comment{
+        
+    }
+    .u-comment{
+        display: flex;
+        margin-bottom: 22px;
+        .commend{
+            top: 14px;
+        }
+        &:first-of-type{
+            .content{
+                border-top: none;            
+            }
+        }
+        .avatar{
+            width: 32px;
+            height: 32px;
+            margin-right: 8px;
+            margin-top: 14px;
+            border-radius: 50%;
+            overflow: auto;
+            display: inline-block;
+            img{
+                max-width: 100%;
+                min-width: 100%;
+            }
+        }
         h1{
             font-size: @fontSmall;
             font-weight: normal;
+            line-height: 1;
         }
         h2{
             font-size: @fontTip;
             font-weight: normal;
             color: #666;
+            line-height: 1;
+            margin-top: 3px;
+        }
+        .content{
+            position: relative;
+            flex: 1;
+            padding-top: 14px;
+            border-top: @border;
+            .inner{
+                background-color: #f2f5fa;
+                padding: 14px;
+                margin-top: 18px;
+                p{
+                    font-size: @fontTip;
+                }
+            }
+            h3{
+                color: #7c838d;
+                font-size: @fontTip;
+            }
+        }
+        p{
+            margin-top: 14px;
         }
     }
 }

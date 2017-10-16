@@ -35,7 +35,7 @@ class Commend extends Component {
       _liked: this.state.liked,
     });
     const { id } = this.props;
-    return <a style={{top: '16px'}} className={btnClass} onClick={ () => this.like(id)} >
+    return <a className={btnClass} onClick={ () => this.like(id)} >
       {this.state.count}
       {this.state.liked ? <i className="icon icon-liked"></i> : <i className="icon icon-like"></i>}
     </a>;
