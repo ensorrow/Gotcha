@@ -62,6 +62,7 @@ function rightBtn(pathname, query, dispatch, collected, eventId) {
 
 const transH = 172;
 const transPages = ['/detail', '/author', '/user', '/about'];
+const changePages = ['/detail', '/author', '/user'];
 
 class Navbar extends Component{
   constructor(props){
@@ -77,7 +78,7 @@ class Navbar extends Component{
     this.initScroll(nextProps);
   }
   initScroll(props){
-    if(transPages.indexOf(props.location.pathname) !== -1) {
+    if(changePages.indexOf(props.location.pathname) !== -1) {
       const initST = document.body.scrollTop || document.documentElement.scrollTop;
       this.setState({
         opacity: initST/transH > 1 ? 1 : initST/transH
