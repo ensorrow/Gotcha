@@ -68,7 +68,7 @@ class StatusBar extends Component {
               disabled
               style={{ float: 'right', right: '20px' }}
             />
-            {has_collect ? <Favorite /> : <Favorite_b />}
+            {has_collect ? <Favorite /> : <Favorite_b onClick={() => dispatch({ type: 'app/collect' })} />}
           </footer>);
         } else {
           return (<footer>
@@ -91,7 +91,7 @@ class StatusBar extends Component {
       if (!has_apply) {
         return (<footer>
           <span>活动已经结束啦，下次早点来哦</span>
-          {has_collect ? <Favorite /> : <Favorite_b />}
+          {has_collect ? <Favorite /> : <Favorite_b onClick={() => dispatch({ type: 'app/collect' })} />}
         </footer>);
       } else if (!has_comment) {
         return (<footer>
