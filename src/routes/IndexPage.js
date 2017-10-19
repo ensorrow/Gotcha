@@ -56,6 +56,7 @@ function mapDispatchToProps(dispatch, ownProps) {
             appService.getWechatSdk()
               .then(result => {
                 if(result.res) {
+                  delete result.res.url;
                   wx.config(result.res);
                   wx.ready(function() {
                     wx.getLocation({

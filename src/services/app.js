@@ -66,10 +66,10 @@ export default {
   initWechatSdk: (url) => request('/wechat_config', {
     method: 'POST',
     body: JSON.stringify({
-      content: url
+      url
     })
   }),
-  getWechatSdk: () => request('/wechat/jssdk'),
+  getWechatSdk: () => request('/wechat/jssdk?url=http://www.gotcha.net.cn'),
   checkTicket: ({ token, event_id, attend_code }) => request('/check_ticket', {
     method: 'POST',
     body: JSON.stringify({
