@@ -4,6 +4,14 @@ import classnames from 'classnames';
 
 let timer = null;
 
+function createMarkup(rawHtml) {
+    return {__html: rawHtml};
+}
+
+function richDetail(rawHtml) {
+    return <div className="rich" dangerouslySetInnerHTML={createMarkup(rawHtml)} />;
+}
+
 class DetailCard extends Component{
     constructor(props){
         super(props);
@@ -23,8 +31,8 @@ class DetailCard extends Component{
             { this.props.image_path && <div className="imgWra">
                 <img src={this.props.image_path} />
             </div> }
-            <p className={classnames({'all': this.state.open})} >{content}</p>
-            {content && content.length > 69 ? <a className="u-more" onClick={() => this.toggle()}>{this.state.open?'收起':'查看更多'}</a> : null}
+            <div className={classnames('richWra', {'all': this.state.open})} >{ richDetail(content) }</div>
+            <a className="u-more" onClick={() => this.toggle()}>{this.state.open?'收起':'查看更多'}</a>
         </div>
     }
 }
