@@ -4,14 +4,57 @@ import moment from 'moment';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import './Confirm.less';
 import classnames from 'classnames';
+import homeService from '../../services/home';
 import appService from '../../services/app';
+import utils from '../../utils/utils';
 
 const Confirm = ({ vm, user, dispatch }) => {
     function applyFree(){
         dispatch({ type: 'app/applyEvent', payload: { event_id: vm.id } })
     }
     function applyPay(){
-        
+        if(!utils.is_wx()) return utils.show('请在微信浏览器中打开');
+        homeService.applyPay(vm.id)
+            .then(({ res, err }) => {
+                if(res) {
+                    appService.initWechatPay(res.data.id)
+                        .then(( payInfo ) => {
+                            if(payInfo.res) {
+                                appService.getWechatSdk()
+                                    .then((wxConfig) => {
+                                        wxConfig.res.jsApiList.push('chooseWXPay');
+                                        wx.config(wxConfig.res);
+                                        wx.ready(() => {
+                                            wx.checkJsApi({
+                                                jsApiList: ['chooseWXPay'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                                                success: function(res) {
+                                                    // 以键值对的形式返回，可用的api值true，不可用为false
+                                                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                                                    console.log(res);
+                                                }
+                                            });
+                                            wx.chooseWXPay({
+                                                success(res) {
+                                                     if(res.err_msg == "get_brand_wcpay_request：ok" ) {
+                                                         utils.show('支付成功');
+                                                         dispatch({ type: 'app/applyEvent', payload: { event_id: vm.id } });
+                                                     }else{
+                                                        utils.show('支付未成功！');
+                                                        console.log(res);
+                                                        return false;
+                                                     }
+                                                },
+                                                fail(){
+
+                                                },
+                                                ...payInfo.res
+                                            })
+                                        })
+                                    })
+                            }
+                        })
+                }
+            });
     }
     let content;
     if(!vm.has_apply) {

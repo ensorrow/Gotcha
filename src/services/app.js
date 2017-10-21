@@ -69,7 +69,11 @@ export default {
       url
     })
   }),
-  getWechatSdk: () => request('/wechat/jssdk?url=http://www.gotcha.net.cn/'),
+  getWechatSdk: () => request(`/wechat/jssdk?url=${window.location.href.split('#')[0]}`),
+  initWechatPay: (order_id) => request(`/orders/${order_id}/wechat`, {
+    method: 'POST',
+    needAuth: true
+  }),
   checkTicket: ({ token, event_id, attend_code }) => request('/check_ticket', {
     method: 'POST',
     body: JSON.stringify({

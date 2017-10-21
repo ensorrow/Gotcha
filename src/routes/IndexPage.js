@@ -56,7 +56,6 @@ function mapDispatchToProps(dispatch, ownProps) {
           success: function (pos) {
             const latitude = pos.latitude; // 纬度，浮点数，范围为90 ~ -90
             const longitude = pos.longitude; // 经度，浮点数，范围为180 ~ -180。
-            utils.show('位置信息获取成功');
             dispatch({ type: 'home/getNear', payload: { latitude, longitude } });
           },
           cancel: function () {

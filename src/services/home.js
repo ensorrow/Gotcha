@@ -15,6 +15,10 @@ export default {
     method: 'POST',
     needAuth: true,
   }),
+  applyPay: event_id => request(`/events/${event_id}/orders`, {
+    method: 'POST',
+    needAuth: true
+  }),
   comment: ({ event_id, content }) => request(`/events/${event_id}/comments`, {
     method: 'POST',
     needAuth: true,
