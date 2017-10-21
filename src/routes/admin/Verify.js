@@ -15,24 +15,31 @@ class Verify extends Component{
     componentWillMount(){
         if(!auth.adminToken) {
             utils.show('需要登录');
-            window.location.hash = '#/admin/login';
+            window.location.replace(window.location.origin+'/#/admin/login');
         }
     }
     verify(){
-        appService.checkTicket({ token: auth.adminToken, event_id: 4, attend_code: '000000400000030618' })
-            .then(({ res, err }) => {
-                if(res) this.setState({
-                    verified: true,
-                    success: true
-                });
-                else {
-                    if(err.message == '入场审核token错误') return window.location.hash = '#/admin/login';
-                    this.setState({
-                        verified: true,
-                        success: false
+        wx.scanQRCode({
+            needResult: 1, 
+            scanType: ["qrCode"], 
+            success: function (res) {
+                var result = res.resultStr;
+                appService.checkTicket({ token: auth.adminToken, event_id: 4, attend_code: result })
+                    .then(({ res, err }) => {
+                        if(res) this.setState({
+                            verified: true,
+                            success: true
+                        });
+                        else {
+                            if(err.message == '入场审核token错误') return window.location.replace(window.location.origin+'/#/admin/login');
+                            this.setState({
+                                verified: true,
+                                success: false
+                            });
+                        }
                     });
-                }
-            });
+            }
+        });
     }
     render(){
         return <div className="m-verify">

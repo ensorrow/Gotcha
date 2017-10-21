@@ -8,15 +8,23 @@ import Navbar from '../components/Navbar';
 import Toast from '../components/common/Toast';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import auth from '../utils/auth';
+import utils from '../utils/utils';
 import moment from 'moment';
 import Dialog from 'material-ui/Dialog';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import appService from '../services/app';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 auth.initToken();
 auth.initAdminToken();
+if(utils.is_wx) {
+  appService.getWechatSdk()
+    .then(({ res, err }) => {
+      if(res) auth.initWechatSdk(res);
+    });
+}
 moment.locale('zh-cn');
 
 const muiTheme = getMuiTheme({

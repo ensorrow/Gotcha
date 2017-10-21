@@ -91,9 +91,9 @@ export default {
       const { res, err } = yield call(homeService.getEvents, meta);
       if (res) yield put({ type: 'updateFavi', payload: res });
     },
-    *getNear({ payload = {position} }, { call, put, select }) {
+    *getNear({ payload: position={} }, { call, put, select }) {
       const activeTag = yield select(state => state.home.activeTag);
-      if (activeTag !== '全部') Object.assign(meta, { tag_name: activeTag });
+      if (activeTag !== '全部') Object.assign(position, { tag_name: activeTag });
       yield put({ type: 'updateActiveTab', payload: { tab: 1 } });
       const { res, err } = yield call(homeService.getNearbyEvents, position);
       if (res) yield put({ type: 'updateNear', payload: res });

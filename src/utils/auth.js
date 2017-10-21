@@ -5,12 +5,21 @@ import utils from './utils';
 export default {
   token: '',
   adminToken: '',
+  wechatConfig: null,
   secureReg: /\/about.*|\/liked.*|\/detail\/.*/,
   initToken() {
     this.token = cookie.parse(document.cookie).token;
   },
   initAdminToken() {
     this.adminToken = cookie.parse(document.cookie).adminToken;
+  },
+  initWechatSdk(config) {
+    this.wechatConfig = config;
+    wx.config(config);
+    wx.error(function(err){
+      utils.show('微信权限信息获取错误')
+      console.log(err);
+    });
   },
   needAuth(pathname) {
     if (this.secureReg.test(pathname.split('?')[0])) {
