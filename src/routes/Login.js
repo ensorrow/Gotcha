@@ -73,7 +73,7 @@ class Login extends Component {
   }
   render() {
     return (<div className="m-login">
-      <Tabs value={this.state.type} onChange={() => this.handleChange()} >
+      <Tabs inkBarStyle={{marginBottom: '32px'}} value={this.state.type} onChange={() => this.handleChange()} >
         <Tab value="normal" label="账号密码登录">
           <div className="formArea" >
             <div className="inputs">
@@ -104,7 +104,14 @@ class Login extends Component {
               </div>
             </div>
             <div className="btn btn-ok" onClick={() => this.fastLogin()}>登录</div>
-            <div className="tip">未注册Gotcha帐号的手机号，登录时将自动注册Gotcha帐号，且代表您已同样<span className="tip2" onClick={this.show}>《Gotcha用户协议》</span></div>
+            <div className="tip">未注册Gotcha帐号的手机号，登录时将自动注册Gotcha帐号，且代表您已同样<span className="tip2" onClick={null && this.show}>《Gotcha用户协议》</span></div>
+          </div>
+          <div className="protocol" style={{display: 'none'}}>
+            <h1>用户协议@TODO</h1>
+            <h2>一、用户协议接受</h2>
+            <p>本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯蒂芬的</p>
+            <h2>二、用户</h2>
+            <p>本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯本用户协议中，阿斯蒂芬的</p>
           </div>
         </Tab>
       </Tabs>
