@@ -96,16 +96,17 @@ class Navbar extends Component{
   }
   render(){
     const { location, dispatch, title, collected, eventId } = this.props;
+    const pathname = location.pathname;
     return (
       <AppBar
-        iconElementLeft={leftBtn(location.pathname, dispatch)}
-        showMenuIconButton={location.pathname !== '/about'}
-        iconElementRight={rightBtn(location.pathname, location.query, dispatch, collected, eventId)}
+        iconElementLeft={leftBtn(pathname, dispatch)}
+        showMenuIconButton={pathname !== '/about'}
+        iconElementRight={rightBtn(pathname, location.query, dispatch, collected, eventId)}
         iconStyleLeft={{ alignSelf: 'center', marginTop: 0 }}
         iconStyleRight={{ alignSelf: 'center', marginTop: 0, marginRight: 0 }}
-        title={titleNode(location.pathname, title)}
+        title={titleNode(pathname, title)}
         titleStyle={{ fontSize: '16px', height: '16.66667vw', lineHeight: '16.66667vw' }}
-        style={transPages.indexOf(location.pathname) !== -1 ? { backgroundColor: `rgba(46,68,92,${this.state.opacity})`, boxShadow: 'none', paddingLeft: '12px', paddingRight: '12px', transition: 'all 0 ease 0' } : {backgroundColor: '#2e445c', paddingLeft: '12px', paddingRight: '12px'}}
+        style={transPages.indexOf(pathname) !== -1 ? { backgroundColor: `rgba(46,68,92,${pathname === '/about' ? 0 : this.state.opacity})`, boxShadow: 'none', paddingLeft: '12px', paddingRight: '12px', transition: 'all 0 ease 0' } : {backgroundColor: '#2e445c', paddingLeft: '12px', paddingRight: '12px'}}
         className="m-navbar"
       />
     )

@@ -22,7 +22,7 @@ class Login extends Component {
     };
   }
   componentDidMount() {
-    const pre = utils.getQuery('pre');
+    const pre = window.location.hash.match(new RegExp(`pre=.+(?=&)`))[0].slice(4);
     const mob = utils.getQuery('mobile');
     this.setState({
       prePath: pre || '/',
