@@ -15,7 +15,7 @@ class Verify extends Component{
     componentWillMount(){
         if(!auth.adminToken) {
             utils.show('需要登录');
-            window.location.replace(window.location.origin+'/#/admin/login');
+            window.location.replace(window.location.origin+window.location.pathname+'#/admin/login');
         }
     }
     verify(){
@@ -31,7 +31,7 @@ class Verify extends Component{
                             success: true
                         });
                         else {
-                            if(err.message == '入场审核token错误') return window.location.replace(window.location.origin+'/#/admin/login');
+                            if(err.message == '入场审核token错误') return window.location.replace(window.location.origin+window.location.pathname+'#/admin/login');
                             this.setState({
                                 verified: true,
                                 success: false

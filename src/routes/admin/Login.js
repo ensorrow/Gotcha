@@ -22,7 +22,7 @@ class AdminLogin extends Component {
                     const tokenStr = cookie.serialize('adminToken', res.token, { maxAge: 3600 * 72 });
                     document.cookie = tokenStr;
                     auth.initAdminToken();
-                    window.location.hash = '#/admin';
+                    window.location.replace(window.location.origin+window.location.pathname+'#/admin');
                 }
             });
     }
