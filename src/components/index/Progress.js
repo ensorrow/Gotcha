@@ -35,7 +35,7 @@ class Progress extends Component{
     render(){
         const diffTime = this.state.diffTime;
         return <div className="progress">
-            <span>报名中({`${this.props.users_count}/${this.props.volume}`})</span>
+            <span>报名中({`${this.props.users_count || 0}/${this.props.volume || 0}`})</span>
             <span>
             <i className="icon icon-clock"></i> 剩余时间：{moment.unix(diffTime).days()}天{moment.unix(diffTime).hours()}小时{moment.unix(diffTime).minutes()}分钟{moment.unix(diffTime).seconds()}秒
             </span>

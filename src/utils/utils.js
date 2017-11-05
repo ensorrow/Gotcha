@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Toast from '../components/common/Toast';
 const toast = Toast.init({});
 let timer = null;
@@ -16,10 +17,10 @@ export default {
     return matchRes ? matchRes.split('=')[1] : undefined;
   },
   compareTime(startDate, endDate, applyDate) {
-    const startTime = parseInt(new Date(startDate).getTime() / 1000);
-    const endTime = parseInt(new Date(endDate).getTime() / 1000);
-    const nowTime = parseInt(new Date().getTime() / 1000);
-    const applyTime = parseInt(new Date(applyDate).getTime() / 1000);
+    const startTime = moment(startDate).unix();
+    const endTime = moment(endDate).unix();
+    const nowTime = moment().unix();
+    const applyTime = moment(applyDate).unix();
     if (nowTime < (applyTime - 3600)) return 0;// 活动还未开始报名
     if (nowTime < applyTime) return 1;// 显示报名倒计时
     if (nowTime >= applyTime && nowTime <= startTime) return 2;// 开始报名

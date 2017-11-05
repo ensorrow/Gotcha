@@ -20,18 +20,18 @@ function IndexPage({ home, getFavi, getNear, getWeek, getByTag, moreActionFavi, 
         <Tabs className="m-tabs">
           <Tab label="最受欢迎" onActive={getFavi}>
             <div>
-              { home.favorite.data.length ? home.favorite.data.map(item => <IndexCard vm={item} key={item.id} />) : ''}
+              { home.favorite.data.length ? home.favorite.data.map(item => <IndexCard vm={item} key={item.id} />) : <span className="plh">暂无活动</span>}
               { faviPagi.current_page<faviPagi.total_pages ? <button className="loadMore" onClick={moreActionFavi.bind(null, faviPagi.current_page+1)}>加载更多</button> : null }
             </div>
           </Tab>
           <Tab label="距离最近" onActive={getNear}>
             <div>
-              {home.nearest.data && home.nearest.data.map(item => <IndexCard vm={item} key={item.id} />)}
+              {home.nearest.data.length ? home.nearest.data.map(item => <IndexCard vm={item} key={item.id} />) : <span className="plh">暂无活动</span>}
             </div>
           </Tab>
           <Tab label="只看周末" onActive={getWeek}>
             <div>
-              {home.weekend.data && home.weekend.data.map(item => <IndexCard vm={item} key={item.id} />)}
+              {home.weekend.data.length ? home.weekend.data.map(item => <IndexCard vm={item} key={item.id} />) : <span className="plh">暂无活动</span>}
             </div>
             { weekPagi.current_page<weekPagi.total_pages ? <button className="loadMore" onClick={moreActionWeekend.bind(null, weekPagi.current_page+1)}>加载更多</button> : null }
           </Tab>

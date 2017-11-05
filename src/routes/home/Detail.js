@@ -46,7 +46,7 @@ class IndexDetail extends Component{
       <h3><i className="icon icon-add"></i> <p>{vm.place_name}</p></h3>
     </div>
     {
-      utils.compareTime(vm.start_date, vm.end_date, vm.apply_date) === 2 && <Progress users_count={vm.users_count} volume={vm.volume} apply_date={vm.apply_date} />
+      vm.apply_date && utils.compareTime(vm.start_date, vm.end_date, vm.apply_date) === 2 && <Progress users_count={vm.users_count} volume={vm.volume} apply_date={vm.apply_date} />
     }
     <div className="activityInfo">
       <div style={{ width: '580px' }}>

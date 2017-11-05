@@ -19,6 +19,7 @@ class Verify extends Component{
         }
     }
     verify(){
+        if(!utils.is_wx()) return utils.show('请在微信浏览器中打开');
         wx.scanQRCode({
             needResult: 1, 
             scanType: ["qrCode"], 

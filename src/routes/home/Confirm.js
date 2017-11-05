@@ -22,17 +22,8 @@ const Confirm = ({ vm, user, dispatch }) => {
                             if(payInfo.res) {
                                 appService.getWechatSdk()
                                     .then((wxConfig) => {
-                                        wxConfig.res.jsApiList.push('chooseWXPay');
                                         wx.config(wxConfig.res);
                                         wx.ready(() => {
-                                            wx.checkJsApi({
-                                                jsApiList: ['chooseWXPay'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                                                success: function(res) {
-                                                    // 以键值对的形式返回，可用的api值true，不可用为false
-                                                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                                                    console.log(res);
-                                                }
-                                            });
                                             wx.chooseWXPay({
                                                 success(res) {
                                                      if(res.err_msg == "get_brand_wcpay_request：ok" ) {
@@ -44,8 +35,9 @@ const Confirm = ({ vm, user, dispatch }) => {
                                                         return false;
                                                      }
                                                 },
-                                                fail(){
-
+                                                fail(err){
+                                                    console.log('err'+err)
+                                                    utils.show('意外错误：'+err)
                                                 },
                                                 ...payInfo.res
                                             })
