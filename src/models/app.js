@@ -75,6 +75,7 @@ export default {
         window.scrollTo(0, 0);
         auth.login(dispatch, pathname, () => {
           if (pathname === '/detail' || pathname === '/detail/comment' || pathname === '/detail/confirm') {
+            if(pathname === '/detail/confirm') window.location.reload();
             dispatch({ type: 'getDetail', payload: { event_id: query.id } });
           }
         });

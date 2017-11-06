@@ -37,7 +37,7 @@ const Confirm = ({ vm, user, dispatch }) => {
                                                 },
                                                 fail(err){
                                                     console.log('err'+err)
-                                                    utils.show('意外错误：'+err)
+                                                    utils.show('意外错误：'+err.err_msg)
                                                 },
                                                 ...payInfo.res
                                             })
