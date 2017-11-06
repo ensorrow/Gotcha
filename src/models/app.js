@@ -5,6 +5,8 @@ import utils from '../utils/utils';
 import { delay } from 'dva/saga';
 import { routerRedux } from 'dva/router';
 
+let prePath = '/';
+
 export default {
   namespace: 'app',
   state: {
@@ -75,10 +77,11 @@ export default {
         window.scrollTo(0, 0);
         auth.login(dispatch, pathname, () => {
           if (pathname === '/detail' || pathname === '/detail/comment' || pathname === '/detail/confirm') {
-            if(pathname === '/detail/confirm') window.location.reload();
+            if(pathname === '/detail/confirm' && prePath !== '/') location.reload();
             dispatch({ type: 'getDetail', payload: { event_id: query.id } });
           }
         });
+        prePath = pathname;
       });
     },
   },
