@@ -73,7 +73,7 @@ class StatusBar extends Component {
         } else {
           return (<footer>
             <span>报名中</span>
-            <button className={classnames('btn', {free: !is_fee})} onClick={() => dispatch(routerRedux.push({pathname: '/detail/confirm?id='+id}))}>报名{is_fee?<span>(￥{price})</span>:''}</button>
+            <button className={classnames('btn', {free: !is_fee})} onClick={() => dispatch(routerRedux.push({pathname: '/detail/confirm/?id='+id}))}>报名{is_fee?<span>(￥{price})</span>:''}</button>
           </footer>);
         }
       } else {

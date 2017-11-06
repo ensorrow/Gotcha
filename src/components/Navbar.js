@@ -40,7 +40,7 @@ function titleNode(pathname, title) {
     '/about/ticketdetail': '入场券',
     '/about/profile': '个人资料',
     '/detail/comment': '评价',
-    '/detail/confirm': '确认报名',
+    '/detail/confirm/': '确认报名',
     '/login': '登录',
     '/reg': '注册',
     '/reset': '忘记密码',

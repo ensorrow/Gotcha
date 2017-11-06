@@ -76,8 +76,11 @@ export default {
       return history.listen(({ pathname, query }) => {
         window.scrollTo(0, 0);
         auth.login(dispatch, pathname, () => {
-          if (pathname === '/detail' || pathname === '/detail/comment' || pathname === '/detail/confirm') {
-            if(pathname === '/detail/confirm' && prePath !== '/') location.reload();
+          if (pathname === '/detail' || pathname === '/detail/comment' || pathname === '/detail/confirm/') {
+            if(pathname === '/detail/confirm/') {
+              // location.replace(location.origin+location.pathname+"#/detail/confirm//?"+location.hash.split('?')[1]);// 微信支付需要末尾加斜杠
+              if(prePath !== '/') location.reload();
+            }
             dispatch({ type: 'getDetail', payload: { event_id: query.id } });
           }
         });
