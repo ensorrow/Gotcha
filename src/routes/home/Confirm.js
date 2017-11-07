@@ -13,36 +13,45 @@ const Confirm = ({ vm, user, dispatch }) => {
         dispatch({ type: 'app/applyEvent', payload: { event_id: vm.id } })
     }
     function applyPay(){
-        if(!utils.is_wx()) return utils.show('请在微信浏览器中打开');
+        // if(!utils.is_wx()) return utils.show('请在微信浏览器中打开');
         homeService.applyPay(vm.id)
             .then(({ res, err }) => {
                 if(res) {
                     appService.initWechatPay(res.data.id)
                         .then(( payInfo ) => {
                             if(payInfo.res) {
-                                appService.getWechatSdk()
-                                    .then((wxConfig) => {
-                                        wx.config(wxConfig.res);
-                                        wx.ready(() => {
-                                            wx.chooseWXPay({
-                                                success(res) {
-                                                     if(res.err_msg == "get_brand_wcpay_request：ok" ) {
-                                                         utils.show('支付成功');
-                                                         dispatch({ type: 'app/applyEvent', payload: { event_id: vm.id } });
-                                                     }else{
-                                                        utils.show('支付未成功！');
-                                                        console.log(res);
-                                                        return false;
-                                                     }
-                                                },
-                                                fail(err){
-                                                    console.log('err'+err)
-                                                    utils.show('意外错误：'+err.err_msg)
-                                                },
-                                                ...payInfo.res
-                                            })
-                                        })
-                                    })
+                                // appService.getWechatSdk()
+                                //     .then((wxConfig) => {
+                                //         wx.config(wxConfig.res);
+                                //         wx.ready(() => {
+                                            
+                                //         });
+                                //         wx.error(function(err){
+                                //             alert(JSON.stringify(err));
+                                //             utils.show('意外错误：'+JSON.stringify(err));
+                                //         });
+                                //     })
+                                wx.chooseWXPay({
+                                    success(res) {
+                                         if(res.err_msg == "get_brand_wcpay_request：ok" ) {
+                                             utils.show('支付成功');
+                                             dispatch({ type: 'app/applyEvent', payload: { event_id: vm.id } });
+                                         }else{
+                                            utils.show('支付未成功！');
+                                            console.log(res);
+                                            return false;
+                                         }
+                                    },
+                                    cancel: function(res) {  
+                                        utils.show('支付取消');
+                                    },
+                                    fail: function(err) {
+                                        alert(JSON.stringify(err));
+                                        utils.show(JSON.stringify(err));
+                                    },
+                                    timestamp: payInfo.res.timeStamp,
+                                    ...payInfo.res
+                                })
                             }
                         })
                 }
