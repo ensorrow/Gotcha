@@ -44,6 +44,10 @@ const muiTheme = getMuiTheme({
     unselectedFontSize: 12,
     selectedFontSize: 12,
   },
+  dialog: {
+    titleFontSize: 14,
+    bodyFontSize: 14
+  }
 });
 
 class App extends Component{

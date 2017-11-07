@@ -15,6 +15,7 @@ import { gender } from '../../utils/filters';
 import moment from 'moment';
 import Upload from 'rc-upload';
 import auth from '../../utils/auth';
+import utils from '../../utils/utils';
 
 class Profile extends Component {
   constructor(props) {
@@ -53,25 +54,41 @@ class Profile extends Component {
       onSuccess(result) {
         _this.setState({ myInfo2: { avatar: result.url }, uploadDone: true });
       },
+      beforeUpload(file) {
+        if(file.size>512000) {
+          utils.show('图片大小不能超过512KB！');
+          return false;          
+        }
+        if(file.type !== 'image/png' && file.type !== 'image/jpeg'){
+          utils.show('仅支持jpg或png格式的图片');
+          return false;          
+        }
+      }
     };
     return (<div className="m-profile">
       <List style={{backgroundColor: '#fff'}}>
         <ListItem primaryText="用户名" onClick={() => this.setState({ dlgName: true })} >
           <span className="listRight">{myInfo.nickname || '未填写'}</span>
         </ListItem>
+        <Divider />
         <ListItem primaryText="头像" onClick={() => this.setState({ dlgAvatar: true })} rightAvatar={<Avatar style={{ top: '10px', backgroundColor: 'none' }} size={30} src={myInfo.avatar || require('../../assets/images/smile.png')} />} />
+        <Divider />        
         <ListItem primaryText="个人介绍" onClick={() => this.setState({ dlgSubscribe: true })}>
           <span className="listRight">{myInfo.subscribe || '未填写'}</span>
         </ListItem>
+        <Divider />
         <ListItem primaryText="性别" onClick={() => this.setState({ dlgSex: true })}>
           <span className="listRight">{gender(+myInfo.sex) || '未填写'}</span>
         </ListItem>
+        <Divider />
         <ListItem primaryText="生日" onClick={() => this.setState({ dlgBirth: true })}>
           <span className="listRight">{myInfo.birthday || '未填写'}</span>
         </ListItem>
+        <Divider />
         <ListItem primaryText="所在地" onClick={() => this.setState({ dlgPlace: true })} >
           <span className="listRight">{myInfo.city || '未填写'}</span>
         </ListItem>
+        <Divider />
         <ListItem primaryText="学校" onClick={() => this.setState({ dlgUniversity: true })} secondaryText="在校生可以填写学校资料">
           <span className="listRight">{myInfo.university || '未填写'}</span>
         </ListItem>
@@ -83,7 +100,7 @@ class Profile extends Component {
           aboutService.putMyInfo({ data: { nickname: myInfo.nickname } }).then(({ res }) => this.setState({ myInfo: res.data, dlgName: false }));
         }}
       >
-        <TextField id="nickname" defaultValue={myInfo.nickname} onChange={(e, v) => this.setState({ myInfo2: { nickname: v } })} />
+        <TextField fullWidth id="nickname" defaultValue={myInfo.nickname} onChange={(e, v) => this.setState({ myInfo2: { nickname: v } })} />
       </Dlg>
       <Dlg
         title="头像：" open={this.state.dlgAvatar} close={() => this.setState({ dlgAvatar: false })}
@@ -92,7 +109,7 @@ class Profile extends Component {
           aboutService.putMyInfo({ data: { avatar: myInfo.avatar } }).then(({ res }) => this.setState({ myInfo: res.data, dlgAvatar: false }));
         }}
       >
-        <Upload {...uploadProp} >{this.state.uploadDone ? '上传成功' : '点击上传'}</Upload>
+        <Upload {...uploadProp} >{this.state.uploadDone ? <img style={{maxWidth: '36%'}} src={this.state.myInfo2.avatar} alt="上传成功"/> : '点击上传'}</Upload>
       </Dlg>
       <Dlg
         title="个人介绍：" open={this.state.dlgSubscribe} close={() => this.setState({ dlgSubscribe: false })}
@@ -101,7 +118,7 @@ class Profile extends Component {
           aboutService.putMyInfo({ data: { subscribe: myInfo.subscribe } }).then(({ res }) => this.setState({ myInfo: res.data, dlgSubscribe: false }));
         }}
       >
-        <TextField id="subscribe" multiLine defaultValue={myInfo.subscribe} onChange={(e, v) => this.setState({ myInfo2: { subscribe: v } })} />
+        <TextField fullWidth id="subscribe" rows={4} multiLine defaultValue={myInfo.subscribe} onChange={(e, v) => this.setState({ myInfo2: { subscribe: v } })} />
       </Dlg>
       <Dlg
         title="性别：" open={this.state.dlgSex} close={() => this.setState({ dlgSex: false })}
@@ -137,7 +154,7 @@ class Profile extends Component {
           aboutService.putMyInfo({ data: { city: myInfo.city } }).then(({ res }) => this.setState({ myInfo: res.data, dlgPlace: false }));
         }}
       >
-        <TextField id="city" defaultValue={myInfo.city} onChange={(e, v) => this.setState({ myInfo2: { city: v } })} />
+        <TextField fullWidth id="city" defaultValue={myInfo.city} onChange={(e, v) => this.setState({ myInfo2: { city: v } })} />
       </Dlg>
       <Dlg
         title="学校：" open={this.state.dlgUniversity} close={() => this.setState({ dlgUniversity: false })}
@@ -146,7 +163,7 @@ class Profile extends Component {
           aboutService.putMyInfo({ data: { university: myInfo.university } }).then(({ res }) => this.setState({ myInfo: res.data, dlgUniversity: false }));
         }}
       >
-        <TextField id="university" defaultValue={myInfo.university} onChange={(e, v) => this.setState({ myInfo2: { university: v } })} />
+        <TextField fullWidth id="university" defaultValue={myInfo.university} onChange={(e, v) => this.setState({ myInfo2: { university: v } })} />
       </Dlg>
     </div>);
   }

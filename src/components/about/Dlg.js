@@ -10,12 +10,15 @@ export class Dlg extends React.Component {
   }
   render() {
     const { title, open, close, done, children } = this.props;
+    // const actions = [
+    //   <FlatButton label="Cancel" primary onTouchTap={() => close()} />,
+    //   <FlatButton label="Submit" primary keyboardFocused onTouchTap={() => done()} />,
+    // ];
     const actions = [
-      <FlatButton label="Cancel" primary onTouchTap={() => close()} />,
-      <FlatButton label="Submit" primary keyboardFocused onTouchTap={() => done()} />,
+      <FlatButton style={{minWidth: 0}} icon={<i className="icon icon-cancel"></i>} onTouchTap={() => close()} />,
+      <FlatButton style={{minWidth: 0,marginLeft: '33px'}} icon={<i className="icon icon-confirm"></i>} onTouchTap={() => done()} />,
     ];
-
-    return (<Dialog title={title} actions={actions} modal open={open} onRequestClose={() => close()}>
+    return (<Dialog titleStyle={{padding: '20px 16px 20px', lineHeight: 1}} bodyStyle={{padding: '0 16px 20px'}} title={title} actions={actions} modal open={open} onRequestClose={() => close()}>
       {children}
     </Dialog>);
   }
